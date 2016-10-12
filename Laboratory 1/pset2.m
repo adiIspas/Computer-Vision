@@ -1,5 +1,5 @@
 dirPath = 'E:\Computer-Vision\Laboratory 1';
-set = '\set1\';
+set = '\set2\';
 
 [ imgColor, imgGray, X ] = colectieImagini(dirPath, set);
 
