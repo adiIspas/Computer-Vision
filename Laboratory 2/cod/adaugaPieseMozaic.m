@@ -57,8 +57,7 @@ switch(params.criteriu)
                 % calculam distanta euclidiana
                 results = zeros(1,N);
                 for k=1:N
-                     results(k) = sum(sum(sqrt(sum(params.imgReferintaRedimensionata((i-1)*H+1:i*H,(j-1)*W+1:j*W,:) - params.pieseMozaic(:,:,:,k)).^2)));
-                    %results(k)
+                     results(k) = sum(sum(sqrt(sum(int32(params.imgReferintaRedimensionata((i-1)*H+1:i*H,(j-1)*W+1:j*W,:)) - int32(params.pieseMozaic(:,:,:,k))).^2)));
                 end
                 [~, position] = min(results(:));
                 imgMozaic((i-1)*H+1:i*H,(j-1)*W+1:j*W,:) = params.pieseMozaic(:,:,:,position);
