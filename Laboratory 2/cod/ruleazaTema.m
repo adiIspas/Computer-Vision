@@ -15,7 +15,7 @@ params.tipImagine = 'png';
 
 %seteaza numarul de piese ale mozaicului pe orizontala
 %puteti inlocui aceasta valoare
-params.numarPieseMozaicOrizontala = 200;
+params.numarPieseMozaicOrizontala = 25;
 %numarul de piese ale mozaciului pe verticala va fi dedus automat
 
 %seteaza optiunea de afisare a pieselor mozaicului dupa citirea lor din
@@ -25,8 +25,8 @@ params.afiseazaPieseMozaic = 1;
 %seteaza criteriul dupa care realizeze mozaicul
 %optiuni: 'aleator','distantaCuloareMedie','distantaCulori'
 %params.criteriu = 'aleator';
-params.criteriu = 'distantaCuloareMedie';
-%params.criteriu = 'distantaCulori';
+%params.criteriu = 'distantaCuloareMedie';
+params.criteriu = 'distantaCulori';
 
 %%
 %apeleaza functia principala

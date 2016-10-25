@@ -35,22 +35,37 @@ switch(params.criteriu)
             for j=1:params.numarPieseMozaicOrizontala
                 % calcualm culoarea medie pe un bloc
                 culoare_medie_portiune = mean(mean(params.imgReferintaRedimensionata((i-1)*H+1:i*H,(j-1)*W+1:j*W,:)));
-
+                
+                % calculam distanta euclidiana
                 results = zeros(1,N);
                 for k=1:N
                      results(k) = sum((culoare_medie_imagini(:,k) - culoare_medie_portiune(:)).^2);
                 end
-                [value, position] = min(results(:));
+                [~, position] = min(results(:));
                 imgMozaic((i-1)*H+1:i*H,(j-1)*W+1:j*W,:) = params.pieseMozaic(:,:,:,position);
                 nrPieseAdaugate = nrPieseAdaugate+1;
                 fprintf('Construim mozaic ... %2.2f%% \n',100*nrPieseAdaugate/nrTotalPiese);
             end
         end
         
-        
     case 'distantaCulori'
-        
-        %completati codul Matlab
+        %pune o piese in mozaic pe baza culoarii medie cea mai apropiatã
+        nrTotalPiese = params.numarPieseMozaicOrizontala * params.numarPieseMozaicVerticala;
+        nrPieseAdaugate = 0;
+        for i=1:params.numarPieseMozaicVerticala
+            for j=1:params.numarPieseMozaicOrizontala
+                % calculam distanta euclidiana
+                results = zeros(1,N);
+                for k=1:N
+                     results(k) = sum(sum(sqrt(sum(params.imgReferintaRedimensionata((i-1)*H+1:i*H,(j-1)*W+1:j*W,:) - params.pieseMozaic(:,:,:,k)).^2)));
+                    %results(k)
+                end
+                [~, position] = min(results(:));
+                imgMozaic((i-1)*H+1:i*H,(j-1)*W+1:j*W,:) = params.pieseMozaic(:,:,:,position);
+                nrPieseAdaugate = nrPieseAdaugate+1;
+                fprintf('Construim mozaic ... %2.2f%% \n',100*nrPieseAdaugate/nrTotalPiese);
+            end
+        end
     
     otherwise
         printf('EROARE, optiune necunoscut \n');
