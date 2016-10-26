@@ -6,7 +6,8 @@
 
 %citeste imaginea care va fi transformata in mozaic
 %puteti inlocui numele imaginii
-params.imgReferinta = imread('../data/imaginiTest/ferrari.jpeg');
+params.imgReferinta = imread('../data/imaginiTest/girl.jpg');
+params.type = size(params.imgReferinta,3);
 
 %seteaza directorul cu imaginile folosite la realizarea mozaicului
 %puteti inlocui numele directorului

@@ -28,6 +28,10 @@ switch(params.criteriu)
         %calculam culoare medie in setul de imagini
         culoare_medie_imagini(:,:) = mean(mean(params.pieseMozaic));
         
+        if params.type == 1
+            culoare_medie_imagini = culoare_medie_imagini';
+        end
+        
         %pune o piese in mozaic pe baza culoarii medie cea mai apropiatã
         nrTotalPiese = params.numarPieseMozaicOrizontala * params.numarPieseMozaicVerticala;
         nrPieseAdaugate = 0;
@@ -40,6 +44,7 @@ switch(params.criteriu)
                 results = zeros(1,N);
                 for k=1:N
                      results(k) = sum((culoare_medie_imagini(:,k) - culoare_medie_portiune(:)).^2);
+                     %results(k) = sum((culoare_medie_imagini - culoare_medie_portiune(:)).^2);
                 end
                 [~, position] = min(results(:));
                 imgMozaic((i-1)*H+1:i*H,(j-1)*W+1:j*W,:) = params.pieseMozaic(:,:,:,position);

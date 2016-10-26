@@ -14,7 +14,12 @@ filelist = dir(strcat(path,type));
 for idxImg = 1:length(filelist)
         imgName = filelist(idxImg).name;
         image = imread(strcat(path,imgName));
-        pieseMozaic(:,:,:,idxImg) = image(:,:,:);
+        
+        if params.type == 3
+            pieseMozaic(:,:,:,idxImg) = image(:,:,:);
+        else
+            pieseMozaic(:,:,:,idxImg) = rgb2gray(image(:,:,:));
+        end   
 end
 
 
