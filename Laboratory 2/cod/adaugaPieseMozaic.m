@@ -14,12 +14,16 @@ switch(params.criteriu)
         %pune o piese aleatoare in mozaic, nu tine cont de nimic
         nrTotalPiese = params.numarPieseMozaicOrizontala * params.numarPieseMozaicVerticala;
         nrPieseAdaugate = 0;
+        
         for i =1:params.numarPieseMozaicVerticala
             for j=1:params.numarPieseMozaicOrizontala
+                
                 %alege un indice aleator din cele N
                 indice = randi(N);    
                 imgMozaic((i-1)*H+1:i*H,(j-1)*W+1:j*W,:) = params.pieseMozaic(:,:,:,indice);
                 nrPieseAdaugate = nrPieseAdaugate+1;
+                
+                clc
                 fprintf('Construim mozaic ... %2.2f%% \n',100*nrPieseAdaugate/nrTotalPiese);
             end
         end
@@ -28,6 +32,8 @@ switch(params.criteriu)
         %calculam culoare medie in setul de imagini
         culoare_medie_imagini(:,:) = mean(mean(params.pieseMozaic));
         
+        %verificam daca imagina de input este gray, iar in caz arfimativ
+        %facem transpusa matricei de culori medii
         if params.type == 1
             culoare_medie_imagini = culoare_medie_imagini';
         end
@@ -35,20 +41,25 @@ switch(params.criteriu)
         %pune o piese in mozaic pe baza culoarii medie cea mai apropiatã
         nrTotalPiese = params.numarPieseMozaicOrizontala * params.numarPieseMozaicVerticala;
         nrPieseAdaugate = 0;
+        
         for i=1:params.numarPieseMozaicVerticala
             for j=1:params.numarPieseMozaicOrizontala
                 % calcualm culoarea medie pe un bloc
                 culoare_medie_portiune = mean(mean(params.imgReferintaRedimensionata((i-1)*H+1:i*H,(j-1)*W+1:j*W,:)));
                 
-                % calculam distanta euclidiana
+                % calculam distanta euclidiana dintre fiecare imagine
+                % si portiunea curenta din imaginea de referinta
                 results = zeros(1,N);
                 for k=1:N
                      results(k) = sum((culoare_medie_imagini(:,k) - culoare_medie_portiune(:)).^2);
-                     %results(k) = sum((culoare_medie_imagini - culoare_medie_portiune(:)).^2);
                 end
+                
+                % identificam minimul si adaugam piesa corespunzatoare
                 [~, position] = min(results(:));
                 imgMozaic((i-1)*H+1:i*H,(j-1)*W+1:j*W,:) = params.pieseMozaic(:,:,:,position);
                 nrPieseAdaugate = nrPieseAdaugate+1;
+                
+                clc
                 fprintf('Construim mozaic ... %2.2f%% \n',100*nrPieseAdaugate/nrTotalPiese);
             end
         end
@@ -57,16 +68,23 @@ switch(params.criteriu)
         %pune o piese in mozaic pe baza culoarii medie cea mai apropiatã
         nrTotalPiese = params.numarPieseMozaicOrizontala * params.numarPieseMozaicVerticala;
         nrPieseAdaugate = 0;
+        
         for i=1:params.numarPieseMozaicVerticala
             for j=1:params.numarPieseMozaicOrizontala
-                % calculam distanta euclidiana
+                % calculam distanta euclidiana dintre pixeli corespondenti
+                % din blocul curent al imaginii de referinta
+                % si fiecare imagine
                 results = zeros(1,N);
                 for k=1:N
                      results(k) = sum(sum(sqrt(sum(int32(params.imgReferintaRedimensionata((i-1)*H+1:i*H,(j-1)*W+1:j*W,:)) - int32(params.pieseMozaic(:,:,:,k))).^2)));
                 end
+                
+                % identificam minimul si adaugam piesa corespunzatoare
                 [~, position] = min(results(:));
                 imgMozaic((i-1)*H+1:i*H,(j-1)*W+1:j*W,:) = params.pieseMozaic(:,:,:,position);
                 nrPieseAdaugate = nrPieseAdaugate+1;
+                
+                clc
                 fprintf('Construim mozaic ... %2.2f%% \n',100*nrPieseAdaugate/nrTotalPiese);
             end
         end

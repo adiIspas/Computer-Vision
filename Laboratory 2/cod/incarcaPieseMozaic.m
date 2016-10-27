@@ -6,14 +6,11 @@ function pieseMozaic = incarcaPieseMozaic(params)
 %pieseMoziac(:,:,:,i) reprezinta piese numarul i 
 
 fprintf('Incarcam piesele pentru mozaic din director \n');
-%completati codul Matlab
-path = 'E:/Computer-Vision/Laboratory 2/data/colectie/';
-type = '*.png';
-filelist = dir(strcat(path,type));
+filelist = dir([params.numeDirector '*.' params.tipImagine]);
 
 for idxImg = 1:length(filelist)
         imgName = filelist(idxImg).name;
-        image = imread(strcat(path,imgName));
+        image = imread([params.numeDirector imgName]);
         
         if params.type == 3
             pieseMozaic(:,:,:,idxImg) = image(:,:,:);
@@ -21,7 +18,6 @@ for idxImg = 1:length(filelist)
             pieseMozaic(:,:,:,idxImg) = rgb2gray(image(:,:,:));
         end   
 end
-
 
 if params.afiseazaPieseMozaic
     %afiseaza primele 100 de piese ale mozaicului
