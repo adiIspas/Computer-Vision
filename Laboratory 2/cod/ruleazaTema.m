@@ -6,7 +6,7 @@
 
 %citeste imaginea care va fi transformata in mozaic
 %puteti inlocui numele imaginii
-params.imgReferinta = imread('../data/imaginiTest/cat.jpeg');
+params.imgReferinta = imread('../data/imaginiTest/bird.jpg');
 % verifica daca imaginea este color sau gray
 params.type = size(params.imgReferinta,3); 
 
