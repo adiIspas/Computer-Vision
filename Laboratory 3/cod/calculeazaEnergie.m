@@ -22,7 +22,7 @@ sobel_y = [1 2 1; 0 0 0; -1 -2 -1];
 gradient_x = imfilter(double(img_gray), sobel_x);
 gradient_y = imfilter(double(img_gray), sobel_y);
 
-magnitudine_gradient = gradient_x + gradient_y;
+magnitudine_gradient = abs(gradient_x) + abs(gradient_y);
 %imshow(magnitudine_gradient);
 
 E = magnitudine_gradient;
