@@ -73,44 +73,45 @@ switch metodaSelectareDrum
         m = zeros(size(E));
         m(:,1) = E(:,1);
 
-        for i=2:size(E,2)
-            for j=1:size(E,1)
-               if j == 1 % se afla pe prima coloana
-                   m(i,j) = E(i,j) + min(m(i-1,j), m(i-1,j+1));
-               elseif j == size(E,2) % se afla pe ultima coloana
-                   m(i,j) = E(i,j) + min(m(i-1,j-1), m(i-1,j));
+        for j=2:size(E,2)
+            for i=1:size(E,1)
+               if i == 1 % se afla pe prima linie
+                   m(i,j) = E(i,j) + min(m(i,j-1), m(i+1,j-1));
+               elseif i == size(E,1) % se afla pe ultima linie
+                   m(i,j) = E(i,j) + min(m(i,j-1), m(i-1,j-1));
                else
-                   m(i,j) = E(i,j) + min(min(m(i-1,j-1), m(i-1,j)), m(i-1,j+1));
+                   m(i,j) = E(i,j) + min(min(m(i-1,j-1), m(i,j-1)), m(i+1,j-1));
                end
             end
         end
+
         
-        %reconstruim drumul de la dreapta la stanga;
+        %reconstruim drumul de dreapta la stanga;
         coloana = size(m,2);
-        [~, pozitie] = min(m(coloana,:));
+        [~, pozitie] = min(m(:,coloana));
         linia = pozitie;
         %punem in d linia si coloana coresponzatoare pixelului
         d(coloana,:) = [linia coloana];
-        
+
         for i = size(d,1)-1:-1:1
             %alege urmatorul pixel pe baza vecinilor
-            %linia este i
+            %coloana este i
             coloana = i;
-            %coloana depinde de coloana pixelului anterior
-            if d(i+1,1) == 1 %pixelul este localizat la marginea din stanga
+            %linia depinde de linia pixelului anterior
+            if d(i+1,1) == 1 %pixelul este localizat la marginea de sus
                 %doua optiuni
-                [~, pozitie] = min(m(i,d(i+1,1):d(i+1,1)+1));
+                [~, pozitie] = min(m(d(i+1,1):d(i+1,1)+1,i));
                 optiune = pozitie-1; %genereaza 0 sau 1 cu probabilitati egale 
-            elseif d(i+1,1) == size(m,1)%pixelul este la marginea din dreapta
+            elseif d(i+1,1) == size(m,1)%pixelul este la marginea de jos
                 %doua optiuni
-                [~, pozitie] = min(m(i,d(i+1,1)-1:d(i+1,1)));
+                [~, pozitie] = min(m(d(i+1,1)-1:d(i+1,1),i));
                 optiune = pozitie - 2; %genereaza -1 sau 0
             else
-                [~, pozitie] = min(m(i,d(i+1,1)-1:d(i+1,1)+1));
+                [~, pozitie] = min(m(d(i+1,1)-1:d(i+1,1)+1,i));
                 optiune = pozitie-2; % genereaza -1, 0 sau 1
             end
             linia = d(i+1,1) + optiune;%adun -1 sau 0 sau 1: 
-                                         % merg la stanga, dreapta sau stau pe loc
+                                 % merg la stanga, dreapta sau stau pe loc
             d(i,:) = [linia coloana];
         end
 

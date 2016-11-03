@@ -1,4 +1,4 @@
-M = [1 3 0; 2 8 9; 5 2 6];
+M = [10 3 4 3; 25 8 9 2; 11 7 6 1; 5 6 1 3];
 m = zeros(size(M));
 m(:,1) = M(:,1);
 
@@ -14,33 +14,33 @@ for j=2:size(M,2)
     end
 end
 
-d = zeros(size(m,1),2);
+d = zeros(size(m,2),2);
 
-%reconstruim drumul de jos in sus;
-linia = size(m,1);
-[~, pozitie] = min(m(linia,:));
-coloana = pozitie;
+%reconstruim drumul de dreapta la stanga;
+coloana = size(m,2);
+[~, pozitie] = min(m(:,coloana));
+linia = pozitie;
 %punem in d linia si coloana coresponzatoare pixelului
-d(linia,:) = [linia coloana];
+d(coloana,:) = [linia coloana];
 
 for i = size(d,1)-1:-1:1
     %alege urmatorul pixel pe baza vecinilor
-    %linia este i
-    linia = i;
-    %coloana depinde de coloana pixelului anterior
-    if d(i+1,2) == 1 %pixelul este localizat la marginea din stanga
+    %coloana este i
+    coloana = i;
+    %linia depinde de linia pixelului anterior
+    if d(i+1,1) == 1 %pixelul este localizat la marginea de sus
         %doua optiuni
-        [~, pozitie] = min(m(i,d(i+1,2):d(i+1,2)+1));
+        [~, pozitie] = min(m(d(i+1,1):d(i+1,1)+1,i));
         optiune = pozitie-1; %genereaza 0 sau 1 cu probabilitati egale 
-    elseif d(i+1,2) == size(m,2)%pixelul este la marginea din dreapta
+    elseif d(i+1,1) == size(m,1)%pixelul este la marginea de jos
         %doua optiuni
-        [~, pozitie] = min(m(i,d(i+1,2)-1:d(i+1,2)));
+        [~, pozitie] = min(m(d(i+1,1)-1:d(i+1,1),i));
         optiune = pozitie - 2; %genereaza -1 sau 0
     else
-        [~, pozitie] = min(m(i,d(i+1,2)-1:d(i+1,2)+1));
+        [~, pozitie] = min(m(d(i+1,1)-1:d(i+1,1)+1,i));
         optiune = pozitie-2; % genereaza -1, 0 sau 1
     end
-    coloana = d(i+1,2) + optiune;%adun -1 sau 0 sau 1: 
+    linia = d(i+1,1) + optiune;%adun -1 sau 0 sau 1: 
                                  % merg la stanga, dreapta sau stau pe loc
     d(i,:) = [linia coloana];
 end

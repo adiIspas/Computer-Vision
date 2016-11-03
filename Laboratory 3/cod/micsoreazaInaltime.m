@@ -29,13 +29,13 @@ for i = 1:numarPixeliInaltime
     
     %afiseaza drum
     if ploteazaDrum
-        ploteazaDrumVertical(img,E,drum,culoareDrum);
+        ploteazaDrumOrizontal(img,E,drum,culoareDrum);
         pause(1);
         close(gcf);
     end
     
     %elimina drumul din imagine
-    img = eliminaDrumVertical(img,drum);
+    img = eliminaDrumOrizontal(img,drum);
 
 end
 

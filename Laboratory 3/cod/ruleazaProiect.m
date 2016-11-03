@@ -6,12 +6,12 @@
 %setati parametri si imaginile de redimensionat aici
 
 %citeste o imagine
-img = imread('../data/castel.jpg');
+img = imread('../data/praga.jpg');
 
-parametri.optiuneRedimensionare = 'micsoreazaLatime';
+parametri.optiuneRedimensionare = 'micsoreazaInaltime';
 %reducem imaginea in latime
 %seteaza parametri
-parametri.numarPixeliLatime = 50;
+parametri.numarPixeliLatime = 100;
 parametri.ploteazaDrum = 1;
 parametri.culoareDrum = [255 0 0]';%culoarea rosie
 parametri.metodaSelectareDrum = 'programareDinamica';%optiuni posibile: 'aleator','greedy','programareDinamica'
