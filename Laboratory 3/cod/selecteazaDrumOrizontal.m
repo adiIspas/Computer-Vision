@@ -40,30 +40,30 @@ switch metodaSelectareDrum
         end
         
     case 'greedy'
-        %pentru linia 1 alegem primul pixel ca fiind cel cu valoarea minima;
-        linia = 1;
-        [~, pozitie] = min(E(1,:));
-        coloana = pozitie;
+        %pentru coloana 1 alegem primul pixel ca fiind cel cu valoarea minima;
+        coloana = 1;
+        [~, pozitie] = min(E(:,1));
+        linia = pozitie;
         %punem in d linia si coloana coresponzatoare pixelului
         d(1,:) = [linia coloana];
         for i = 2:size(d,1)
             %alege urmatorul pixel pe baza vecinilor
-            %linia este i
-            linia = i;
+            %coloana este i
+            coloana = i;
             %coloana depinde de coloana pixelului anterior
-            if d(i-1,2) == 1 %pixelul este localizat la marginea din stanga
+            if d(i-1,1) == 1 %pixelul este localizat la marginea din stanga
                 %doua optiuni
-                [~, pozitie] = min(E(i,d(i-1,2):d(i-1,2)+1));
+                [~, pozitie] = min(E(d(i-1,1):d(i-1,1)+1,i));
                 optiune = pozitie-1; %genereaza 0 sau 1 cu probabilitati egale 
-            elseif d(i-1,2) == size(E,2)%pixelul este la marginea din dreapta
+            elseif d(i-1,1) == size(E,1)%pixelul este la marginea din dreapta
                 %doua optiuni
-                [~, pozitie] = min(E(i,d(i-1,2)-1:d(i-1,2)));
+                [~, pozitie] = min(E(d(i-1,1)-1:d(i-1,1),i));
                 optiune = pozitie - 2; %genereaza -1 sau 0
             else
-                [~, pozitie] = min(E(i,d(i-1,2)-1:d(i-1,2)+1));
+                [~, pozitie] = min(E(d(i-1,1)-1:d(i-1,1)+1,i));
                 optiune = pozitie-2; % genereaza -1, 0 sau 1
             end
-            coloana = d(i-1,2) + optiune;%adun -1 sau 0 sau 1: 
+            linia = d(i-1,1) + optiune;%adun -1 sau 0 sau 1: 
                                          % merg la stanga, dreapta sau stau pe loc
             d(i,:) = [linia coloana];
         end

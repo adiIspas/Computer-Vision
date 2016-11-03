@@ -6,22 +6,20 @@
 %setati parametri si imaginile de redimensionat aici
 
 %citeste o imagine
-img = imread('../data/praga.jpg');
+img = imread('../data/castel.jpg');
 
 parametri.optiuneRedimensionare = 'micsoreazaInaltime';
-%reducem imaginea in latime
-%seteaza parametri
-parametri.numarPixeliLatime = 100;
 parametri.ploteazaDrum = 1;
 parametri.culoareDrum = [255 0 0]';%culoarea rosie
 parametri.metodaSelectareDrum = 'programareDinamica';%optiuni posibile: 'aleator','greedy','programareDinamica'
+
+%reducem imaginea in latime
+%seteaza parametri
+parametri.numarPixeliLatime = 100;
 
 %reducem imaginea in inaltime
 %seteaza parametri
 parametri.numarPixeliInaltime = 100;
-parametri.ploteazaDrum = 1;
-parametri.culoareDrum = [255 0 0]';%culoarea rosie
-parametri.metodaSelectareDrum = 'programareDinamica';%optiuni posibile: 'aleator','greedy','programareDinamica'
 
 imgRedimensionata_proiect = redimensioneazaImagine(img,parametri); 
 
