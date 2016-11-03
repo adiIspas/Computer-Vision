@@ -19,8 +19,10 @@ switch optiuneRedimensionare
         imgRedimensionata = micsoreazaLatime(img,numarPixeliLatime,metodaSelectareDrum,...
                             ploteazaDrum,culoareDrum);
         
-    case 'miscoreazaInaltime'
-        %completati aici codul vostru
+    case 'micsoreazaInaltime'
+        numarPixeliInaltime = parametri.numarPixeliInaltime;
+        imgRedimensionata = micsoreazaInaltime(img,numarPixeliInaltime,metodaSelectareDrum,...
+                            ploteazaDrum,culoareDrum);
         
     case 'maresteLatime'
         %completati aici codul vostru
@@ -31,4 +33,5 @@ switch optiuneRedimensionare
     case 'eliminaObiect'
         %completati aici codul vostru 
     
+end
 end

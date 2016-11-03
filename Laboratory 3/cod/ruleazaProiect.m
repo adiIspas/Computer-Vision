@@ -8,14 +8,20 @@
 %citeste o imagine
 img = imread('../data/castel.jpg');
 
-%reducem imaginea in latime cu 20 de pixeli
-%seteaza parametri
 parametri.optiuneRedimensionare = 'micsoreazaLatime';
+%reducem imaginea in latime
+%seteaza parametri
 parametri.numarPixeliLatime = 50;
 parametri.ploteazaDrum = 1;
 parametri.culoareDrum = [255 0 0]';%culoarea rosie
 parametri.metodaSelectareDrum = 'programareDinamica';%optiuni posibile: 'aleator','greedy','programareDinamica'
 
+%reducem imaginea in inaltime
+%seteaza parametri
+parametri.numarPixeliInaltime = 100;
+parametri.ploteazaDrum = 1;
+parametri.culoareDrum = [255 0 0]';%culoarea rosie
+parametri.metodaSelectareDrum = 'programareDinamica';%optiuni posibile: 'aleator','greedy','programareDinamica'
 
 imgRedimensionata_proiect = redimensioneazaImagine(img,parametri); 
 

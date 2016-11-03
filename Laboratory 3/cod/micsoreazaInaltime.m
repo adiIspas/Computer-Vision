@@ -1,8 +1,8 @@
-function img = micsoreazaLatime(img,numarPixeliLatime,metodaSelectareDrum,ploteazaDrum,culoareDrum)
-%micsoreaza imaginea cu un numar de pixeli 'numarPixeliLatime' pe latime (elimina drumuri de sus in jos) 
+function img = micsoreazaInaltime(img,numarPixeliInaltime,metodaSelectareDrum,ploteazaDrum,culoareDrum)
+%micsoreaza imaginea cu un numar de pixeli 'numarPixeliInaltime' pe inaltime (elimina drumuri de sus in jos) 
 %
 %input: img - imaginea initiala
-%       numarPixeliLatime - specifica numarul de drumuri de sus in jos eliminate
+%       numarPixeliInaltime - specifica numarul de drumuri de la stanga la dreapta eliminate
 %       metodaSelectareDrum - specifica metoda aleasa pentru selectarea drumului. Valori posibile:
 %                           'aleator' - alege un drum aleator
 %                           'greedy' - alege un drum utilizand metoda Greedy
@@ -15,17 +15,17 @@ function img = micsoreazaLatime(img,numarPixeliLatime,metodaSelectareDrum,plotea
 %                           
 % output: img - imaginea redimensionata obtinuta prin eliminarea drumurilor
 
-for i = 1:numarPixeliLatime
+for i = 1:numarPixeliInaltime
     
     clc
-    disp(['Eliminam drumul vertical numarul ' num2str(i) ...
-        ' dintr-un total de ' num2str(numarPixeliLatime)]);
+    disp(['Eliminam drumul orizontal numarul ' num2str(i) ...
+        ' dintr-un total de ' num2str(numarPixeliInaltime)]);
     
     %calculeaza energia dupa ecuatia (1) din articol
     E = calculeazaEnergie(img);
     
-    %alege drumul vertical care conecteaza sus de jos
-    drum = selecteazaDrumVertical(E,metodaSelectareDrum);
+    %alege drumul orizontal care conecteaza sus de jos
+    drum = selecteazaDrumOrizontal(E,metodaSelectareDrum);
     
     %afiseaza drum
     if ploteazaDrum
@@ -38,4 +38,6 @@ for i = 1:numarPixeliLatime
     img = eliminaDrumVertical(img,drum);
 
 end
+
 end
+

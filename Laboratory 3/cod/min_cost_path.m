@@ -1,15 +1,15 @@
 M = [1 3 0; 2 8 9; 5 2 6];
 m = zeros(size(M));
-m(1,:) = M(1,:);
+m(:,1) = M(:,1);
 
-for i=2:size(M,1)
-    for j=1:size(M,2)
-       if j == 1 % se afla pe prima coloana
-           m(i,j) = M(i,j) + min(m(i-1,j), m(i-1,j+1));
-       elseif j == size(M,2) % se afla pe ultima coloana
-           m(i,j) = M(i,j) + min(m(i-1,j-1), m(i-1,j));
+for j=2:size(M,2)
+    for i=1:size(M,1)
+       if i == 1 % se afla pe prima linie
+           m(i,j) = M(i,j) + min(m(i,j-1), m(i+1,j-1));
+       elseif i == size(M,1) % se afla pe ultima linie
+           m(i,j) = M(i,j) + min(m(i,j-1), m(i-1,j-1));
        else
-           m(i,j) = M(i,j) + min(min(m(i-1,j-1), m(i-1,j)), m(i-1,j+1));
+           m(i,j) = M(i,j) + min(min(m(i-1,j-1), m(i,j-1)), m(i+1,j-1));
        end
     end
 end
