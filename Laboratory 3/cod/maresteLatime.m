@@ -16,47 +16,51 @@ function img = maresteLatime(img,numarPixeliLatime,metodaSelectareDrum,ploteazaD
     %                           
     % output: img - imaginea redimensionata obtinuta prin adaugarea drumurilor
     
-    %calculeaza energia dupa ecuatia (1) din articol
-    E = calculeazaEnergie(img);
-
-    % creem matricea costurilor
-    m = zeros(size(E));
-    m(1,:) = E(1,:);
-
-    for i=2:size(E,1)
-        for j=1:size(E,2)
-           if j == 1 % se afla pe prima coloana
-               m(i,j) = E(i,j) + min(m(i-1,j), m(i-1,j+1));
-           elseif j == size(E,2) % se afla pe ultima coloana
-               m(i,j) = E(i,j) + min(m(i-1,j-1), m(i-1,j));
-           else
-               m(i,j) = E(i,j) + min(min(m(i-1,j-1), m(i-1,j)), m(i-1,j+1));
-           end
-        end
-    end
-
-    [~, index] = sort(m(end,:));
-
-%     index(1:50)
-
-%     pause(100);
-
+    % cautam cele k drumuri minime din imagine
+    
+    drumuri = [];
+    img_copy = img;
     for i = 1:numarPixeliLatime
 
-        clc
-        disp(['Inseram drumul vertical numarul ' num2str(i) ...
-            ' dintr-un total de ' num2str(numarPixeliLatime)]);        
+%         clc
+%         disp(['Eliminam drumul vertical numarul ' num2str(i) ...
+%             ' dintr-un total de ' num2str(numarPixeliLatime)]);
+
+        %calculeaza energia dupa ecuatia (1) din articol
+        E = calculeazaEnergie(img_copy);
 
         %alege drumul vertical care conecteaza sus de jos
-        drum = selecteazaDrumVerticalInsertie(E,metodaSelectareDrum,index,i,m);
-
+        drum = selecteazaDrumVertical(E,metodaSelectareDrum);
+        drumuri = [drumuri drum];
         %afiseaza drum
+%         if ploteazaDrum
+%             ploteazaDrumVertical(img,E,drum,culoareDrum);
+%             pause(1);
+%             close(gcf);
+%         end
+
+        %elimina drumul din imagine
+        img_copy = eliminaDrumVertical(img_copy,drum);
+
+    end
+    %drumuri(:,1:2)
+    
+    last_index = 1;
+    for i = 1:numarPixeliLatime
+
+         drum = drumuri(:,last_index:last_index+1);
+         last_index = last_index + 2;
+         
+         size(drum)
+        % pause(100);
+         
+%         afiseaza drum
         if ploteazaDrum
             ploteazaDrumVertical(img,E,drum,culoareDrum);
             pause(1);
             close(gcf);
         end
-
+        
         %elimina drumul din imagine
         img = insereazaDrumVertical(img,drum);
 

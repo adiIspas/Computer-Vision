@@ -8,7 +8,7 @@
 %citeste o imagine
 img = imread('../data/delfin.jpeg');
 
-parametri.optiuneRedimensionare = 'micsoreazaLatime';
+parametri.optiuneRedimensionare = 'maresteLatime';
 parametri.ploteazaDrum = 1;
 parametri.culoareDrum = [255 0 0]';%culoarea rosie
 parametri.metodaSelectareDrum = 'programareDinamica';%optiuni posibile: 'aleator','greedy','programareDinamica'
