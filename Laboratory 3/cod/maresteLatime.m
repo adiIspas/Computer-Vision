@@ -29,7 +29,6 @@ function img = maresteLatime(img,numarPixeliLatime,metodaSelectareDrum,ploteazaD
         drum = selecteazaDrumVertical(E,metodaSelectareDrum);
         drumuri = [drumuri drum];
 
-
         %elimina drumul din imagine
         img_copy = eliminaDrumVertical(img_copy,drum);
 

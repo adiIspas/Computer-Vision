@@ -30,7 +30,9 @@ switch optiuneRedimensionare
                             ploteazaDrum,culoareDrum);
         
     case 'maresteInaltime'
-        %completati aici codul vostru
+        numarPixeliInaltime = parametri.numarPixeliInaltime;
+        imgRedimensionata = maresteInaltime(img,numarPixeliInaltime,metodaSelectareDrum,...
+                            ploteazaDrum,culoareDrum);
     
     case 'eliminaObiect'
         %completati aici codul vostru 

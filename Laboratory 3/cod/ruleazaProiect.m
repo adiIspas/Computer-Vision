@@ -8,7 +8,7 @@
 %citeste o imagine
 img = imread('../data/delfin.jpeg');
 
-parametri.optiuneRedimensionare = 'maresteLatime';
+parametri.optiuneRedimensionare = 'maresteInaltime';
 parametri.ploteazaDrum = 1;
 parametri.culoareDrum = [255 0 0]';%culoarea rosie
 parametri.metodaSelectareDrum = 'programareDinamica';%optiuni posibile: 'aleator','greedy','programareDinamica'
@@ -19,7 +19,7 @@ parametri.numarPixeliLatime = 50;
 
 %reducem imaginea in inaltime
 %seteaza parametri
-parametri.numarPixeliInaltime = 100;
+parametri.numarPixeliInaltime = 50;
 
 imgRedimensionata_proiect = redimensioneazaImagine(img,parametri); 
 
