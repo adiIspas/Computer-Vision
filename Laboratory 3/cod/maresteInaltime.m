@@ -28,7 +28,7 @@ function img = maresteInaltime(img,numarPixeliInaltime,metodaSelectareDrum,plote
         drumuri = [drumuri drum];
         
         %elimina drumul din imagine
-        img = eliminaDrumOrizontal(img,drum);
+        img_copy = eliminaDrumOrizontal(img_copy,drum);
 
     end
     
