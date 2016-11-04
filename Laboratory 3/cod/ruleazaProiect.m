@@ -6,9 +6,9 @@
 %setati parametri si imaginile de redimensionat aici
 
 %citeste o imagine
-img = imread('../data/praga.jpg');
+img = imread('../data/delfin.jpeg');
 
-parametri.optiuneRedimensionare = 'micsoreazaInaltime';
+parametri.optiuneRedimensionare = 'micsoreazaLatime';
 parametri.ploteazaDrum = 1;
 parametri.culoareDrum = [255 0 0]';%culoarea rosie
 parametri.metodaSelectareDrum = 'programareDinamica';%optiuni posibile: 'aleator','greedy','programareDinamica'
@@ -24,7 +24,7 @@ parametri.numarPixeliInaltime = 100;
 imgRedimensionata_proiect = redimensioneazaImagine(img,parametri); 
 
 %foloseste functia imresize pentru redimensionare traditionala
-imgRedimensionata_traditional = imresize(img,[ size(imgRedimensionata_proiect,1) size(imgRedimensionata_proiect,2)]);
+imgRedimensionata_traditional = imresize(img,[size(imgRedimensionata_proiect,1) size(imgRedimensionata_proiect,2)]);
 
 %ploteaza imaginile obtinute
 figure, hold on;
