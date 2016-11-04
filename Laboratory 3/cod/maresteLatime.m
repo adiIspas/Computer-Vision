@@ -21,47 +21,38 @@ function img = maresteLatime(img,numarPixeliLatime,metodaSelectareDrum,ploteazaD
     drumuri = [];
     img_copy = img;
     for i = 1:numarPixeliLatime
-
-%         clc
-%         disp(['Eliminam drumul vertical numarul ' num2str(i) ...
-%             ' dintr-un total de ' num2str(numarPixeliLatime)]);
-
+        
         %calculeaza energia dupa ecuatia (1) din articol
         E = calculeazaEnergie(img_copy);
 
         %alege drumul vertical care conecteaza sus de jos
         drum = selecteazaDrumVertical(E,metodaSelectareDrum);
         drumuri = [drumuri drum];
-        %afiseaza drum
-%         if ploteazaDrum
-%             ploteazaDrumVertical(img,E,drum,culoareDrum);
-%             pause(1);
-%             close(gcf);
-%         end
+
 
         %elimina drumul din imagine
         img_copy = eliminaDrumVertical(img_copy,drum);
 
     end
-    %drumuri(:,1:2)
     
     last_index = 1;
     for i = 1:numarPixeliLatime
 
+        clc
+        disp(['Insereaza drumul vertical numarul ' num2str(i) ...
+            ' dintr-un total de ' num2str(numarPixeliLatime)]);
+        
          drum = drumuri(:,last_index:last_index+1);
          last_index = last_index + 2;
-         
-         size(drum)
-        % pause(100);
-         
-%         afiseaza drum
+
+        %afiseaza drum
         if ploteazaDrum
             ploteazaDrumVertical(img,E,drum,culoareDrum);
             pause(1);
             close(gcf);
         end
         
-        %elimina drumul din imagine
+        %insereaza drumul in imagine
         img = insereazaDrumVertical(img,drum);
 
     end
