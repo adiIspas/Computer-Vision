@@ -17,7 +17,6 @@ function img = maresteLatime(img,numarPixeliLatime,metodaSelectareDrum,ploteazaD
     % output: img - imaginea redimensionata obtinuta prin adaugarea drumurilor
     
     % cautam cele k drumuri minime din imagine
-    
     drumuri = [];
     img_copy = img;
     for i = 1:numarPixeliLatime
@@ -25,7 +24,7 @@ function img = maresteLatime(img,numarPixeliLatime,metodaSelectareDrum,ploteazaD
         %calculeaza energia dupa ecuatia (1) din articol
         E = calculeazaEnergie(img_copy);
 
-        %alege drumul vertical care conecteaza sus de jos
+        %alege drumul vertical care conecteaza de sus in jos
         drum = selecteazaDrumVertical(E,metodaSelectareDrum);
         drumuri = [drumuri drum];
 
@@ -34,16 +33,46 @@ function img = maresteLatime(img,numarPixeliLatime,metodaSelectareDrum,ploteazaD
 
     end
     
+%     actualizam drumurile in imaginea de referinta
+    for i = 1:size(drumuri,1)
+        for j = 2:2:size(drumuri,2)-2
+            for k = j+2:2:size(drumuri,2)
+                if drumuri(i,j) < drumuri(i,k)
+                    drumuri(i,k) = drumuri(i,k) + 1;
+                end
+            end
+        end
+    end
+       
+%     ploteza toate drumurile
+    imgDrum = img;
+    figure;
     last_index = 1;
-    for i = 1:numarPixeliLatime
-
-        clc
-        disp(['Insereaza drumul vertical numarul ' num2str(i) ...
+    for j = 1:numarPixeliLatime
+        drum = drumuri(:,last_index:last_index+1);
+        last_index = last_index + 2;
+        
+        for i = 1:size(drum,1)
+            imgDrum(drum(i,1),drum(i,2),:) = uint8(culoareDrum);
+        end
+        
+        imshow(imgDrum);
+    end
+    %pause(10);
+    
+    last_index = 1;
+    imgOriginala = img;
+    for l = 1:numarPixeliLatime  
+        %clc
+        disp(['Insereaza drumul vertical numarul ' num2str(l) ...
             ' dintr-un total de ' num2str(numarPixeliLatime)]);
         
          drum = drumuri(:,last_index:last_index+1);
          last_index = last_index + 2;
-
+        
+       
+%         drum = sortrows(drum,2);
+ 
         %afiseaza drum
         if ploteazaDrum
             ploteazaDrumVertical(img,E,drum,culoareDrum);
@@ -52,8 +81,7 @@ function img = maresteLatime(img,numarPixeliLatime,metodaSelectareDrum,ploteazaD
         end
         
         %insereaza drumul in imagine
-        img = insereazaDrumVertical(img,drum);
-
+        img = insereazaDrumVertical(img,imgOriginala,drum,l-1);
     end
 end
 

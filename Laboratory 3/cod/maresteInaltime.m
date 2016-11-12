@@ -32,11 +32,38 @@ function img = maresteInaltime(img,numarPixeliInaltime,metodaSelectareDrum,plote
 
     end
     
+    % actualizam drumurile in imaginea de referinta
+    for i = 1:size(drumuri,1)
+        for j = 2:2:size(drumuri,2)-2
+            for k = j+2:2:size(drumuri,2)
+                if drumuri(i,j) < drumuri(i,k)
+                    drumuri(i,k) = drumuri(i,k) + 1;
+                end
+            end
+        end
+    end
+    
+    %ploteza toate drumurile
+    imgDrum = img;
+    figure;
     last_index = 1;
-    for i = 1:numarPixeliInaltime
+    for j = 1:numarPixeliInaltime
+        drum = drumuri(:,last_index:last_index+1);
+        last_index = last_index + 2;
+        
+        for i = 1:size(drum,1)
+            imgDrum(drum(i,1),drum(i,2),:) = uint8(culoareDrum);
+        end
+        
+        imshow(imgDrum);
+    end
+    
+    last_index = 1;
+    imgOriginala = img;
+    for l = 1:numarPixeliInaltime
 
         clc
-        disp(['Insereaza drumul orizontal numarul ' num2str(i) ...
+        disp(['Insereaza drumul orizontal numarul ' num2str(l) ...
             ' dintr-un total de ' num2str(numarPixeliInaltime)]);
         
         drum = drumuri(:,last_index:last_index+1);
@@ -50,7 +77,7 @@ function img = maresteInaltime(img,numarPixeliInaltime,metodaSelectareDrum,plote
         end
 
         %elimina drumul din imagine
-        img = insereazaDrumOrizontal(img,drum);
+        img = insereazaDrumOrizontal(img,imgOriginala,drum,l-1);
 
     end
 

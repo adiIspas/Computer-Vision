@@ -1,4 +1,4 @@
-function img = micsoreazaInaltime(img,numarPixeliInaltime,metodaSelectareDrum,ploteazaDrum,culoareDrum)
+function img = micsoreazaInaltime(img,numarPixeliInaltime,metodaSelectareDrum,ploteazaDrum,culoareDrum,rect)
 %micsoreaza imaginea cu un numar de pixeli 'numarPixeliInaltime' pe inaltime (elimina drumuri de sus in jos) 
 %
 %input: img - imaginea initiala
@@ -22,7 +22,7 @@ for i = 1:numarPixeliInaltime
         ' dintr-un total de ' num2str(numarPixeliInaltime)]);
     
     %calculeaza energia dupa ecuatia (1) din articol
-    E = calculeazaEnergie(img);
+    E = calculeazaEnergie(img,rect,i-1);
     
     %alege drumul orizontal care conecteaza sus de jos
     drum = selecteazaDrumOrizontal(E,metodaSelectareDrum);

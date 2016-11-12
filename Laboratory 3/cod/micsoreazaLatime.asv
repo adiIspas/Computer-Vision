@@ -36,7 +36,7 @@ function img = micsoreazaLatime(img,numarPixeliLatime,metodaSelectareDrum,plotea
             cost_drum_orizontal = min(E(:,end));
             
             % Pentru a calcula in functie de cel mai mic drum, oriziontal
-            % sau vertical, trebuie comentata linia de mai jos.
+            % sau vertical trebuie comentata linia de mai jos.
             cost_drum_vertical = intmin('int16');
             
             if cost_drum_vertical < cost_drum_orizontal

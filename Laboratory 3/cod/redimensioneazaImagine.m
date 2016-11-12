@@ -17,12 +17,12 @@ switch optiuneRedimensionare
     case 'micsoreazaLatime'
         numarPixeliLatime = parametri.numarPixeliLatime;
         imgRedimensionata = micsoreazaLatime(img,numarPixeliLatime,metodaSelectareDrum,...
-                            ploteazaDrum,culoareDrum);
+                            ploteazaDrum,culoareDrum,0,'nu');
         
     case 'micsoreazaInaltime'
         numarPixeliInaltime = parametri.numarPixeliInaltime;
         imgRedimensionata = micsoreazaInaltime(img,numarPixeliInaltime,metodaSelectareDrum,...
-                            ploteazaDrum,culoareDrum);
+                            ploteazaDrum,culoareDrum,0);
         
     case 'maresteLatime'
         numarPixeliLatime = parametri.numarPixeliLatime;
@@ -35,7 +35,7 @@ switch optiuneRedimensionare
                             ploteazaDrum,culoareDrum);
     
     case 'eliminaObiect'
-        %completati aici codul vostru 
+        imgRedimensionata = eliminaObiect(img, parametri);
     
 end
 end
