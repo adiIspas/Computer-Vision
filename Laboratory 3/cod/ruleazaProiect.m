@@ -7,17 +7,21 @@
 % Aceasta functie ruleaza intregul proiect 
 % Setati parametri si imaginile de redimensionat aici
 
-% Citeste o imagine
-img = imread('../data/lac.jpg');
+% Curatam spatiul de lucru
+clear;
+clc
 
-parametri.optiuneRedimensionare = 'eliminaObiect';
+% Citeste o imagine
+img = imread('../data/castel.jpg');
+
+parametri.optiuneRedimensionare = 'maresteLatime';
 parametri.ploteazaDrum = 0;
 parametri.culoareDrum = [255 0 0]'; %culoarea rosie
 parametri.metodaSelectareDrum = 'programareDinamica'; %optiuni posibile: 'aleator','greedy','programareDinamica'
 
 % Reducem imaginea in latime
 % Seteaza parametri
-parametri.numarPixeliLatime = 100;
+parametri.numarPixeliLatime = 50;
 
 % Reducem imaginea in inaltime
 % Seteaza parametri

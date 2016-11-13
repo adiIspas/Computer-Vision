@@ -26,12 +26,12 @@ switch optiuneRedimensionare
         
     case 'maresteLatime'
         numarPixeliLatime = parametri.numarPixeliLatime;
-        imgRedimensionata = maresteLatime(img,numarPixeliLatime,metodaSelectareDrum,...
+        imgRedimensionata = maresteLatimeAuxiliar(img,numarPixeliLatime,metodaSelectareDrum,...
                             ploteazaDrum,culoareDrum);
         
     case 'maresteInaltime'
         numarPixeliInaltime = parametri.numarPixeliInaltime;
-        imgRedimensionata = maresteInaltime(img,numarPixeliInaltime,metodaSelectareDrum,...
+        imgRedimensionata = maresteInaltimeAuxiliar(img,numarPixeliInaltime,metodaSelectareDrum,...
                             ploteazaDrum,culoareDrum);
     
     case 'eliminaObiect'

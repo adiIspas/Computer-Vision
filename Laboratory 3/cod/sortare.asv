@@ -1,0 +1,15 @@
+function drumuri_sortate = sortare( drumuri_initiale )
+    drumuri_sortate = zeros(size(drumuri_initiale));
+    
+    [~, index] = sort(drumuri_initiale(1,2,:));
+    
+    index = index(:)';
+    
+    for i = 1:size(index,2)
+        drumuri_
+        drumuri_sortate(:,:,i) = drumuri_initiale(:,:,index(i));
+        %pause(0.5)
+    end
+    
+end
+

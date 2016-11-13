@@ -1,19 +1,19 @@
 function img = maresteInaltime(img,numarPixeliInaltime,metodaSelectareDrum,ploteazaDrum,culoareDrum)
-%mareste imaginea cu un numar de pixeli 'numarPixeliInaltime' pe inaltime (inserand drumuri de stanga la dreapta) 
-%
-%input: img - imaginea initiala
-%       numarPixeliInaltime - specifica numarul de drumuri de la stanga la dreapta eliminate
-%       metodaSelectareDrum - specifica metoda aleasa pentru selectarea drumului. Valori posibile:
-%                           'aleator' - alege un drum aleator
-%                           'greedy' - alege un drum utilizand metoda Greedy
-%                           'programareDinamica' - alege un drum folosind metoda Programarii Dinamice
-%       ploteazaDrum - specifica daca se ploteaza drumul gasit la fiecare pas. Valori posibile:
-%                    0 - nu se ploteaza
-%                    1 - se ploteaza
-%       culoareDrum  - specifica culoarea cu care se vor plota pixelii din drum. Valori posibile:
-%                    [r g b]' - triplete RGB (e.g [255 0 0]' - rosu)          
-%                           
-% output: img - imaginea redimensionata obtinuta prin eliminarea drumurilor
+    %mareste imaginea cu un numar de pixeli 'numarPixeliInaltime' pe inaltime (inserand drumuri de stanga la dreapta) 
+    %
+    %input: img - imaginea initiala
+    %       numarPixeliInaltime - specifica numarul de drumuri de la stanga la dreapta eliminate
+    %       metodaSelectareDrum - specifica metoda aleasa pentru selectarea drumului. Valori posibile:
+    %                           'aleator' - alege un drum aleator
+    %                           'greedy' - alege un drum utilizand metoda Greedy
+    %                           'programareDinamica' - alege un drum folosind metoda Programarii Dinamice
+    %       ploteazaDrum - specifica daca se ploteaza drumul gasit la fiecare pas. Valori posibile:
+    %                    0 - nu se ploteaza
+    %                    1 - se ploteaza
+    %       culoareDrum  - specifica culoarea cu care se vor plota pixelii din drum. Valori posibile:
+    %                    [r g b]' - triplete RGB (e.g [255 0 0]' - rosu)          
+    %                           
+    % output: img - imaginea redimensionata obtinuta prin eliminarea drumurilor
 
     drumuri = [];
     img_copy = img;
@@ -21,7 +21,7 @@ function img = maresteInaltime(img,numarPixeliInaltime,metodaSelectareDrum,plote
     for i = 1:numarPixeliInaltime
 
         %calculeaza energia dupa ecuatia (1) din articol
-        E = calculeazaEnergie(img_copy);
+        E = calculeazaEnergie(img_copy,0,0,0);
 
         %alege drumul orizontal care conecteaza sus de jos
         drum = selecteazaDrumOrizontal(E,metodaSelectareDrum);
@@ -80,6 +80,5 @@ function img = maresteInaltime(img,numarPixeliInaltime,metodaSelectareDrum,plote
         img = insereazaDrumOrizontal(img,imgOriginala,drum,l-1);
 
     end
-
 end
 
