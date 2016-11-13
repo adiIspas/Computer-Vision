@@ -7,7 +7,7 @@ function img1 = insereazaDrumOrizontal(img,imgOriginala,drum,idx)
 
     for i=1:size(img1,2)
         %linia = drum(i,1);
-        idx = 0;
+        %idx = 0;
         
         linia_img_originala = drum(i,1);
         linia_actualizata = linia_img_originala + idx;

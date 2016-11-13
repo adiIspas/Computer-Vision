@@ -12,7 +12,7 @@ clear;
 clc
 
 % Citeste o imagine
-img = imread('../data/castel.jpg');
+img = imread('../data/delfin.jpeg');
 
 parametri.optiuneRedimensionare = 'maresteLatime';
 parametri.ploteazaDrum = 0;
@@ -25,7 +25,7 @@ parametri.numarPixeliLatime = 50;
 
 % Reducem imaginea in inaltime
 % Seteaza parametri
-parametri.numarPixeliInaltime = 100;
+parametri.numarPixeliInaltime = 50;
 
 if strcmp(parametri.optiuneRedimensionare,'eliminaObiect')
     imshow(img)

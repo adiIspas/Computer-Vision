@@ -17,7 +17,6 @@ function img = maresteLatime(img,numarPixeliLatime,metodaSelectareDrum,ploteazaD
     % output: img - imaginea redimensionata obtinuta prin adaugarea drumurilor
     
     % cautam cele k drumuri minime din imagine
-    % drumuri = [];
     img_copy = img;
     
     drumuri = zeros(size(img,1),2,numarPixeliLatime);
@@ -47,7 +46,7 @@ function img = maresteLatime(img,numarPixeliLatime,metodaSelectareDrum,ploteazaD
     end
     
     % Sortam drumurile
-    drumuri = sortare(drumuri);
+    drumuri = sortare(drumuri,2);
     
 %     ploteza toate drumurile
     imgDrum = img;

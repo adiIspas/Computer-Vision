@@ -14,10 +14,11 @@ function img = maresteInaltime(img,numarPixeliInaltime,metodaSelectareDrum,plote
     %                    [r g b]' - triplete RGB (e.g [255 0 0]' - rosu)          
     %                           
     % output: img - imaginea redimensionata obtinuta prin eliminarea drumurilor
-
-    drumuri = [];
+    
+    % cautam cele k drumuri minime din imagine
     img_copy = img;
     
+    drumuri = zeros(size(img,2),2,numarPixeliInaltime);
     for i = 1:numarPixeliInaltime
 
         %calculeaza energia dupa ecuatia (1) din articol
@@ -25,7 +26,7 @@ function img = maresteInaltime(img,numarPixeliInaltime,metodaSelectareDrum,plote
 
         %alege drumul orizontal care conecteaza sus de jos
         drum = selecteazaDrumOrizontal(E,metodaSelectareDrum);
-        drumuri = [drumuri drum];
+        drumuri(:,:,i) = drum;
         
         %elimina drumul din imagine
         img_copy = eliminaDrumOrizontal(img_copy,drum);
@@ -33,32 +34,32 @@ function img = maresteInaltime(img,numarPixeliInaltime,metodaSelectareDrum,plote
     end
     
     % actualizam drumurile in imaginea de referinta
-    for i = 1:size(drumuri,1)
-        for j = 2:2:size(drumuri,2)-2
-            for k = j+2:2:size(drumuri,2)
-                if drumuri(i,j) < drumuri(i,k)
-                    drumuri(i,k) = drumuri(i,k) + 1;
+    for i = 1:size(drumuri,3)
+        for j = i+1:size(drumuri,3)
+            for k = 1:size(drumuri,1)
+                if drumuri(k,1,i) < drumuri(k,1,j)
+                    drumuri(k,1,j) = drumuri(k,1,j) + 1;
                 end
             end
         end
     end
     
-    %ploteza toate drumurile
+     % Sortam drumurile
+    drumuri = sortare(drumuri,1);
+    
+    % Ploteza toate drumurile
     imgDrum = img;
     figure;
-    last_index = 1;
-    for j = 1:numarPixeliInaltime
-        drum = drumuri(:,last_index:last_index+1);
-        last_index = last_index + 2;
-        
-        for i = 1:size(drum,1)
-            imgDrum(drum(i,1),drum(i,2),:) = uint8(culoareDrum);
+    for i = 1:numarPixeliInaltime
+
+        drum = drumuri(:,:,i);
+        for j = 1:size(drum,1)
+            imgDrum(drum(j,1),drum(j,2),:) = uint8(culoareDrum);
         end
         
         imshow(imgDrum);
     end
     
-    last_index = 1;
     imgOriginala = img;
     for l = 1:numarPixeliInaltime
 
@@ -66,9 +67,8 @@ function img = maresteInaltime(img,numarPixeliInaltime,metodaSelectareDrum,plote
         disp(['Insereaza drumul orizontal numarul ' num2str(l) ...
             ' dintr-un total de ' num2str(numarPixeliInaltime)]);
         
-        drum = drumuri(:,last_index:last_index+1);
-        last_index = last_index + 2;
-        
+        drum = drumuri(:,:,i);
+
         %afiseaza drum
         if ploteazaDrum
             ploteazaDrumOrizontal(img,E,drum,culoareDrum);
@@ -78,7 +78,6 @@ function img = maresteInaltime(img,numarPixeliInaltime,metodaSelectareDrum,plote
 
         %elimina drumul din imagine
         img = insereazaDrumOrizontal(img,imgOriginala,drum,l-1);
-
     end
 end
 
