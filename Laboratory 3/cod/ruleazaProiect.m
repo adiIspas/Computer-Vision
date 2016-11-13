@@ -12,20 +12,21 @@ clear;
 clc
 
 % Citeste o imagine
-img = imread('../data/castel.jpg');
+nume_imagine = 'nature_1';
+img = imread(['../data/' nume_imagine '.jpg']);
 
-parametri.optiuneRedimensionare = 'maresteInaltime';
+parametri.optiuneRedimensionare = 'micsoreazaInaltime';
 parametri.ploteazaDrum = 0;
 parametri.culoareDrum = [255 0 0]'; %culoarea rosie
 parametri.metodaSelectareDrum = 'programareDinamica'; %optiuni posibile: 'aleator','greedy','programareDinamica'
 
 % Reducem imaginea in latime
 % Seteaza parametri
-parametri.numarPixeliLatime = 100;
+parametri.numarPixeliLatime = 50;
 
 % Reducem imaginea in inaltime
 % Seteaza parametri
-parametri.numarPixeliInaltime = 100;
+parametri.numarPixeliInaltime = 50;
 
 if strcmp(parametri.optiuneRedimensionare,'eliminaObiect')
     imshow(img)
@@ -56,5 +57,7 @@ h3 = subplot(1,3,3);imshow(imgRedimensionata_traditional);
 set(h3, 'XLim', xsize, 'YLim', ysize);
 xlabel('rezultatul imresize');
 
-imwrite(imgRedimensionata_proiect,['rezultat-' parametri.metodaSelectareDrum '.jpg']);
-imwrite(imgRedimensionata_traditional,'rezultat-imresize.jpg');
+imwrite(imgRedimensionata_proiect,[nume_imagine '-' ...
+    parametri.optiuneRedimensionare '-' parametri.metodaSelectareDrum '.jpg']);
+imwrite(imgRedimensionata_traditional,[nume_imagine '-' ...
+    parametri.optiuneRedimensionare '-imresize.jpg']);
