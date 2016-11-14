@@ -60,8 +60,6 @@ function img = maresteLatime(img,numarPixeliLatime,metodaSelectareDrum,ploteazaD
         imshow(imgDrum);
     end
 
-    
-    imgOriginala = img;
     for i = 1:numarPixeliLatime  
         clc
         disp(['Insereaza drumul vertical numarul ' num2str(i) ...
@@ -77,6 +75,6 @@ function img = maresteLatime(img,numarPixeliLatime,metodaSelectareDrum,ploteazaD
         end
         
         % Insereaza drumul in imagine
-        img = insereazaDrumVertical(img,imgOriginala,drum,i-1);
+        img = insereazaDrumVertical(img,drum,i-1);
     end
 end

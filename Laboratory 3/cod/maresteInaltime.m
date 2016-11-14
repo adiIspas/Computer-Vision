@@ -60,7 +60,6 @@ function img = maresteInaltime(img,numarPixeliInaltime,metodaSelectareDrum,plote
         imshow(imgDrum);
     end
     
-    imgOriginala = img;
     for i = 1:numarPixeliInaltime
 
         clc
@@ -77,6 +76,6 @@ function img = maresteInaltime(img,numarPixeliInaltime,metodaSelectareDrum,plote
         end
 
         % Elimina drumul din imagine
-        img = insereazaDrumOrizontal(img,imgOriginala,drum,i-1);
+        img = insereazaDrumOrizontal(img,drum,i-1);
     end
 end
