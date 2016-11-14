@@ -12,21 +12,21 @@ clear;
 clc
 
 % Citeste o imagine
-nume_imagine = 'nature_1';
+nume_imagine = 'mila_kunis2';
 img = imread(['../data/' nume_imagine '.jpg']);
 
-parametri.optiuneRedimensionare = 'micsoreazaInaltime';
+parametri.optiuneRedimensionare = 'maresteInaltime';
 parametri.ploteazaDrum = 0;
 parametri.culoareDrum = [255 0 0]'; %culoarea rosie
-parametri.metodaSelectareDrum = 'programareDinamica'; %optiuni posibile: 'aleator','greedy','programareDinamica'
+parametri.metodaSelectareDrum = 'greedy'; %optiuni posibile: 'aleator','greedy','programareDinamica'
 
 % Reducem imaginea in latime
 % Seteaza parametri
-parametri.numarPixeliLatime = 50;
+parametri.numarPixeliLatime = 100;
 
 % Reducem imaginea in inaltime
 % Seteaza parametri
-parametri.numarPixeliInaltime = 50;
+parametri.numarPixeliInaltime = 100;
 
 if strcmp(parametri.optiuneRedimensionare,'eliminaObiect')
     imshow(img)

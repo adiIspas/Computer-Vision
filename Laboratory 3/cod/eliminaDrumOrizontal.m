@@ -9,6 +9,7 @@ function img1 = eliminaDrumOrizontal(img,drum)
     for i=1:size(img1,2)
         linia = drum(i,1);
         
+        % Copiem partea de sus
         if linia - 1 > 0
             img1(1:linia-1,i,:) = img(1:linia-1,i,:);
             
@@ -23,6 +24,7 @@ function img1 = eliminaDrumOrizontal(img,drum)
             img1(1:linia,i,:) = img(1:linia,i,:);
         end
         
+        % Copiem partea de jos
         img1(linia:end,i,:) = img(linia+1:end,i,:);
     end
 end

@@ -21,8 +21,6 @@ function img = micsoreazaLatime(img,numarPixeliLatime,metodaSelectareDrum,plotea
     
     for i = 1:numarPixeliLatime
         clc
-        disp(['Eliminam drumul vertical numarul ' num2str(i) ...
-            ' dintr-un total de ' num2str(numarPixeliLatime)]);
 
         % Calculeaza energia dupa ecuatia (1) din articol
         E = calculeazaEnergie(img,rect,i-1,ultimul_drum);
@@ -37,9 +35,13 @@ function img = micsoreazaLatime(img,numarPixeliLatime,metodaSelectareDrum,plotea
             
             % Pentru a calcula in functie de cel mai mic drum, oriziontal
             % sau vertical, trebuie comentata linia de mai jos.
-            cost_drum_vertical = intmin('int16');
+            %cost_drum_vertical = intmin('int16');
             
             if cost_drum_vertical < cost_drum_orizontal
+                
+                disp(['Eliminam drumul vertical numarul ' num2str(i) ...
+                        ' dintr-un total de ' num2str(numarPixeliLatime)]);
+                
                 drum = selecteazaDrumVertical(E,metodaSelectareDrum);
                 img = eliminaDrumVertical(img,drum);
                 ultimul_drum = 1;
@@ -47,10 +49,13 @@ function img = micsoreazaLatime(img,numarPixeliLatime,metodaSelectareDrum,plotea
                 % Afiseaza drum
                 if ploteazaDrum
                     ploteazaDrumVertical(img,E,drum,culoareDrum);
-                    pause(1);
+                    pause(0.3);
                     close(gcf);
                 end
             else
+                disp(['Eliminam drumul orizontal numarul ' num2str(i) ...
+                        ' dintr-un total de ' num2str(numarPixeliLatime)]);
+                
                 drum = selecteazaDrumOrizontal(E,metodaSelectareDrum);
                 img = eliminaDrumOrizontal(img,drum);
                 
@@ -58,13 +63,15 @@ function img = micsoreazaLatime(img,numarPixeliLatime,metodaSelectareDrum,plotea
                 % Afiseaza drum
                 if ploteazaDrum
                     ploteazaDrumOrizontal(img,E,drum,culoareDrum);
-                    pause(1);
+                    pause(0.3);
                     close(gcf);
                 end
             end
         else
             % Cazul standard de eliminare drum
-            
+            disp(['Eliminam drumul vertical numarul ' num2str(i) ...
+                    ' dintr-un total de ' num2str(numarPixeliLatime)]);
+        
             % Alege drumul vertical care conecteaza sus de jos
             drum = selecteazaDrumVertical(E,metodaSelectareDrum);
 

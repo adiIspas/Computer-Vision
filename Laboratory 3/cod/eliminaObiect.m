@@ -12,7 +12,7 @@ function imgRedimensionata = eliminaObiect(img, parametri)
     height = size(img(rect(2):rect(2)+rect(4),rect(1):rect(1)+rect(3),:),1);
     width = size(img(rect(2):rect(2)+rect(4),rect(1):rect(1)+rect(3),:),2);
     
-    numarPixeli = max([height width]);
+    numarPixeli = round(mean([height width]));
 
     imgRedimensionata = micsoreazaLatime(img,numarPixeli,metodaSelectareDrum,...
                             ploteazaDrum,culoareDrum,rect,elimina_obiect);   
