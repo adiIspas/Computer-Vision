@@ -29,10 +29,9 @@ function img = micsoreazaLatime(img,numarPixeliLatime,metodaSelectareDrum,plotea
         % mic, orizontal sau vertical
         if strcmp(elimina_obiect,'da')
             % Cazul in care dorim sa eliminam un obiect
-            
-            % BUG HERE!!!!
-            cost_drum_vertical = min(E(end,:));
-            cost_drum_orizontal = min(E(:,end));
+
+            [drum_vertical, cost_drum_vertical] = selecteazaDrumVertical(E,metodaSelectareDrum);
+            [drum_orizontal, cost_drum_orizontal] = selecteazaDrumOrizontal(E,metodaSelectareDrum);
             
             % Pentru a calcula in functie de cel mai mic drum, oriziontal
             % sau vertical, trebuie comentata linia de mai jos.
@@ -43,8 +42,8 @@ function img = micsoreazaLatime(img,numarPixeliLatime,metodaSelectareDrum,plotea
                 disp(['Eliminam drumul vertical numarul ' num2str(i) ...
                         ' dintr-un total de ' num2str(numarPixeliLatime)]);
                 
-                drum = selecteazaDrumVertical(E,metodaSelectareDrum);
-                img = eliminaDrumVertical(img,drum);
+                %drum = selecteazaDrumVertical(E,metodaSelectareDrum);
+                img = eliminaDrumVertical(img,drum_vertical);
                 ultimul_drum = 1;
                 
                 % Afiseaza drum
@@ -57,8 +56,8 @@ function img = micsoreazaLatime(img,numarPixeliLatime,metodaSelectareDrum,plotea
                 disp(['Eliminam drumul orizontal numarul ' num2str(i) ...
                         ' dintr-un total de ' num2str(numarPixeliLatime)]);
                 
-                drum = selecteazaDrumOrizontal(E,metodaSelectareDrum);
-                img = eliminaDrumOrizontal(img,drum);
+                %drum = selecteazaDrumOrizontal(E,metodaSelectareDrum);
+                img = eliminaDrumOrizontal(img,drum_orizontal);
                 
                 ultimul_drum = 2;
                 % Afiseaza drum

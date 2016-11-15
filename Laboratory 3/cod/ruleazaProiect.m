@@ -12,7 +12,7 @@ clear;
 clc
 
 % Citeste o imagine
-nume_imagine = 'lac';
+nume_imagine = 'bicicleta';
 img = imread(['../data/' nume_imagine '.jpg']);
 
 parametri.optiuneRedimensionare = 'eliminaObiect';

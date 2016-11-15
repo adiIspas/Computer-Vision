@@ -1,4 +1,4 @@
-function d = selecteazaDrumVertical(E,metodaSelectareDrum)
+function [d, cost] = selecteazaDrumVertical(E,metodaSelectareDrum)
 %selecteaza drumul vertical ce minimizeaza functia cost calculate pe baza lui E
 %
 %input: E - energia la fiecare pixel calculata pe baza gradientului
@@ -117,4 +117,5 @@ switch metodaSelectareDrum
         error('Optiune pentru metodaSelectareDrum invalida');
 end
 
+cost = min(m(end,:));
 end

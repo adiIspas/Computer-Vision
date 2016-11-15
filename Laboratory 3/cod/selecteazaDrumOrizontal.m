@@ -1,4 +1,4 @@
-function d = selecteazaDrumOrizontal(E,metodaSelectareDrum)
+function [d, cost] = selecteazaDrumOrizontal(E,metodaSelectareDrum)
 
 %selecteaza drumul orizontal ce minimizeaza functia cost calculate pe baza lui E
 %
@@ -118,6 +118,6 @@ switch metodaSelectareDrum
     otherwise
         error('Optiune pentru metodaSelectareDrum invalida');
 end
-
+cost = min(m(:,end));
 end
 
