@@ -12,10 +12,10 @@ clear;
 clc
 
 % Citeste o imagine
-nume_imagine = 'delfin_2';
+nume_imagine = 'praga';
 img = imread(['../data/' nume_imagine '.jpg']);
 
-parametri.optiuneRedimensionare = 'maresteInaltime';
+parametri.optiuneRedimensionare = 'micsoreazaInaltime';
 parametri.ploteazaDrum = 0;
 parametri.culoareDrum = [255 0 0]'; %culoarea rosie
 parametri.metodaSelectareDrum = 'programareDinamica'; %optiuni posibile: 'aleator','greedy','programareDinamica'
@@ -26,7 +26,7 @@ parametri.numarPixeliLatime = 100;
 
 % Reducem imaginea in inaltime
 % Seteaza parametri
-parametri.numarPixeliInaltime = 50;
+parametri.numarPixeliInaltime = 100;
 
 if strcmp(parametri.optiuneRedimensionare,'eliminaObiect')
     imshow(img)
