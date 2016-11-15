@@ -12,13 +12,13 @@ clear;
 clc
 
 % Citeste o imagine
-nume_imagine = 'mila_kunis2';
+nume_imagine = 'delfin_2';
 img = imread(['../data/' nume_imagine '.jpg']);
 
 parametri.optiuneRedimensionare = 'maresteInaltime';
 parametri.ploteazaDrum = 0;
 parametri.culoareDrum = [255 0 0]'; %culoarea rosie
-parametri.metodaSelectareDrum = 'greedy'; %optiuni posibile: 'aleator','greedy','programareDinamica'
+parametri.metodaSelectareDrum = 'programareDinamica'; %optiuni posibile: 'aleator','greedy','programareDinamica'
 
 % Reducem imaginea in latime
 % Seteaza parametri
@@ -26,7 +26,7 @@ parametri.numarPixeliLatime = 100;
 
 % Reducem imaginea in inaltime
 % Seteaza parametri
-parametri.numarPixeliInaltime = 100;
+parametri.numarPixeliInaltime = 50;
 
 if strcmp(parametri.optiuneRedimensionare,'eliminaObiect')
     imshow(img)
