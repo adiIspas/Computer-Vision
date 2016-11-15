@@ -12,10 +12,10 @@ clear;
 clc
 
 % Citeste o imagine
-nume_imagine = 'praga';
+nume_imagine = 'mustang';
 img = imread(['../data/' nume_imagine '.jpg']);
 
-parametri.optiuneRedimensionare = 'micsoreazaInaltime';
+parametri.optiuneRedimensionare = 'maresteLatime';
 parametri.ploteazaDrum = 0;
 parametri.culoareDrum = [255 0 0]'; %culoarea rosie
 parametri.metodaSelectareDrum = 'programareDinamica'; %optiuni posibile: 'aleator','greedy','programareDinamica'
