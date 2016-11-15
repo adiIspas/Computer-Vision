@@ -9,7 +9,7 @@
 
 % Curatam spatiul de lucru
 clear;
-clc
+clc;
 
 % Citeste o imagine
 nume_imagine = 'bicicleta';
