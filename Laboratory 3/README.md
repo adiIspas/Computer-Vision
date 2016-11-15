@@ -2,8 +2,8 @@
 
 My implementation of algorithm "Seam Carving for Content-Aware Image Resizing".
 
----
-##Make image small of vertical or horizontal
+
+### Make image small of vertical or horizontal
 
 Original image
 
@@ -29,8 +29,8 @@ Resize with my implementation
 
 ![screenshot](https://github.com/adiIspas/Computer-Vision/blob/master/Laboratory%203/images/img2_dynamic_programming.jpg)
 
----
-Enlarge your image of vertical or horizontal
+
+### Enlarge your image of vertical or horizontal
 
 Original image
 
@@ -57,6 +57,4 @@ Resize with my implementation
 
 ![screenshot](https://github.com/adiIspas/Computer-Vision/blob/master/Laboratory%203/images/img4_dynamic_programming.jpg)
 
----
-
-Or remove objects from image
+### Or remove objects from image
