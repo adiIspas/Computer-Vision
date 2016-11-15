@@ -12,10 +12,10 @@ clear;
 clc
 
 % Citeste o imagine
-nume_imagine = 'bicicleta';
+nume_imagine = 'lac';
 img = imread(['../data/' nume_imagine '.jpg']);
 
-parametri.optiuneRedimensionare = 'maresteInaltime';
+parametri.optiuneRedimensionare = 'eliminaObiect';
 parametri.ploteazaDrum = 0;
 parametri.culoareDrum = [255 0 0]'; %culoarea rosie
 parametri.metodaSelectareDrum = 'programareDinamica'; %optiuni posibile: 'aleator','greedy','programareDinamica'

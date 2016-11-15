@@ -30,6 +30,7 @@ function img = micsoreazaLatime(img,numarPixeliLatime,metodaSelectareDrum,plotea
         if strcmp(elimina_obiect,'da')
             % Cazul in care dorim sa eliminam un obiect
             
+            % BUG HERE!!!!
             cost_drum_vertical = min(E(end,:));
             cost_drum_orizontal = min(E(:,end));
             
