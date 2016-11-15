@@ -3,7 +3,7 @@
 My implementation of algorithm "Seam Carving for Content-Aware Image Resizing".
 
 ---
-Make image small of vertical or horizontal
+##Make image small of vertical or horizontal
 
 Original image
 
