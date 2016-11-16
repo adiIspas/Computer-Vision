@@ -58,3 +58,7 @@ Resize with my implementation
 ![screenshot](https://github.com/adiIspas/Computer-Vision/blob/master/Laboratory%203/images/img4_dynamic_programming.jpg)
 
 ### Or remove objects from image
+
+![screenshot](https://github.com/adiIspas/Computer-Vision/blob/master/Laboratory%203/images/img5_dynamic_programming.jpg)
+
+![screenshot](https://github.com/adiIspas/Computer-Vision/blob/master/Laboratory%203/images/img6_dynamic_programming.jpg)
