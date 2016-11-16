@@ -59,6 +59,18 @@ Resize with my implementation
 
 ### Or remove objects from image
 
+Original image 
+
+![screenshot](https://github.com/adiIspas/Computer-Vision/blob/master/Laboratory%203/data/lac.jpg)
+
+Image with object removed
+
 ![screenshot](https://github.com/adiIspas/Computer-Vision/blob/master/Laboratory%203/images/img5_dynamic_programming.jpg)
 
-![screenshot](https://github.com/adiIspas/Computer-Vision/blob/master/Laboratory%203/images/img6_dynamic_programming.jpg)
+Original image
+
+![screenshot](https://github.com/adiIspas/Computer-Vision/blob/master/Laboratory%203/data/lac.jpg)
+
+Image with object removed
+
+![screenshot](https://github.com/adiIspas/Computer-Vision/blob/master/Laboratory%203/data/cuplu.jpg)
