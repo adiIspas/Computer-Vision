@@ -69,7 +69,7 @@ Image with object removed
 
 Original image
 
-![screenshot](https://github.com/adiIspas/Computer-Vision/blob/master/Laboratory%203/data/lac.jpg)
+![screenshot](https://github.com/adiIspas/Computer-Vision/blob/master/Laboratory%203/data/cuplu.jpg)
 
 Image with object removed
 
