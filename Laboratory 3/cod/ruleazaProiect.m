@@ -12,13 +12,13 @@ clear;
 clc;
 
 % Citeste o imagine
-nume_imagine = 'masini_rosii';
+nume_imagine = 'lac';
 img = imread(['../data/' nume_imagine '.jpg']);
 
 parametri.optiuneRedimensionare = 'eliminaObiect';
 parametri.ploteazaDrum = 0;
 parametri.culoareDrum = [255 0 0]'; % culoarea rosie
-parametri.metodaSelectareDrum = 'greedy'; % optiuni posibile: 'aleator','greedy','programareDinamica'
+parametri.metodaSelectareDrum = 'programareDinamica'; % optiuni posibile: 'aleator','greedy','programareDinamica'
 
 % Reducem imaginea in latime
 % Seteaza parametri
