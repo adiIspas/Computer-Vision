@@ -1,6 +1,8 @@
 function drumuri_sortate = sortare(drumuri_initiale, metoda)
-    % Functia sorteaza o matrice de drumuri primite in functie de coloana
+    % Functia sorteaza o matrice de drumuri primite in functie de
+    % coloana/linia (date prin parametrul metoda 1 - linia, 2 - coloana) 
     % de start a fiecarui drum.
+    
     drumuri_sortate = zeros(size(drumuri_initiale));
     
     [~, index] = sort(drumuri_initiale(1,metoda,:));

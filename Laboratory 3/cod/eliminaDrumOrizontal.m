@@ -14,18 +14,17 @@ function img1 = eliminaDrumOrizontal(img,drum)
             img1(1:linia-1,i,:) = img(1:linia-1,i,:);
             
             % Eliminam eventualul efect de edge ce poate aparea
-            if linia + 1 < size(img,1)
+            if linia + 1 <= size(img,1)
                 img1(linia-1,i,:) = mean([img1(linia-1,i,:), img(linia+1,i,:)]);
+                
+                % Copiem partea de jos
+                img1(linia:end,i,:) = img(linia+1:end,i,:);
             else
-                img1(linia-1,i,:) = mean([img1(linia-1,i,:), img(linia,i,:)]);
+                img1(linia-1,i,:) = img(linia,i,:);
             end
-            
         else
-            img1(1:linia,i,:) = img(1:linia,i,:);
+            img1(linia:end,i,:) = img(linia+1:end,i,:);
         end
-        
-        % Copiem partea de jos
-        img1(linia:end,i,:) = img(linia+1:end,i,:);
     end
 end
 

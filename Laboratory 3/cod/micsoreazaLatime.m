@@ -22,7 +22,6 @@ function img = micsoreazaLatime(img,numarPixeliLatime,metodaSelectareDrum,plotea
     drumuri_orizontale_eliminate = eliminare.inaltime;
     elimina_obiect = eliminare.elimina_obiect;
 
-
     for i = 1:numarPixeliLatime
         clc
 
@@ -43,27 +42,24 @@ function img = micsoreazaLatime(img,numarPixeliLatime,metodaSelectareDrum,plotea
                 %cost_drum_vertical = intmin('int16');
 
                 if cost_drum_vertical < cost_drum_orizontal
-
                     disp(['Eliminam drumul vertical numarul ' num2str(i) ...
                             ' dintr-un posibil total de ' num2str(numarPixeliLatime)]);
 
                     drumuri_verticale_eliminate = drumuri_verticale_eliminate - 1;
-                    %drum = selecteazaDrumVertical(E,metodaSelectareDrum);
                     img = eliminaDrumVertical(img,drum_vertical);
                     ultimul_drum = 1;
-
+                    
                     % Afiseaza drum
                     if ploteazaDrum
                         ploteazaDrumVertical(img,E,cost_drum_vertical,culoareDrum);
                         pause(0.3);
                         close(gcf);
                     end
-                else
+                else                 
                     disp(['Eliminam drumul orizontal numarul ' num2str(i) ...
                             ' dintr-un posibil total de ' num2str(numarPixeliLatime)]);
 
                     drumuri_orizontale_eliminate = drumuri_orizontale_eliminate - 1;
-                    %drum = selecteazaDrumOrizontal(E,metodaSelectareDrum);
                     img = eliminaDrumOrizontal(img,drum_orizontal);
 
                     ultimul_drum = 2;
@@ -91,13 +87,9 @@ function img = micsoreazaLatime(img,numarPixeliLatime,metodaSelectareDrum,plotea
                 pause(1);
                 close(gcf);
             end
-
+            
             % Elimina drumul din imagine
             img = eliminaDrumVertical(img,drum);
-
-            % drumuri minime
-%             cost_drum_vertical = min(E(end,:))
-%             cost_drum_orizontal = min(E(:,end))
         end
     end
 end

@@ -37,7 +37,7 @@ function E = calculeazaEnergie(img,rect,idx,ultimul_drum)
             if rect(2) + rect(4) <= size(img,1) && rect(1) + rect(3) <= size(img,2)
                 magnitudine_gradient(rect(2):rect(2)+rect(4),rect(1):rect(1)+rect(3)-idx,:) = intmin('int64');
 
-            % Daca dimensiunile selectiei ies din imagine prin partea de jos insa
+            % Daca dimensiunile selectiei ies din imagine prin partea de stanga insa
             % se incadreaza in partea din drepta, alegem partea din drepta din care
             % scadeam de cate ori am eliminat un rand, iar partea de jos este
             % limita imaginii.
@@ -58,38 +58,23 @@ function E = calculeazaEnergie(img,rect,idx,ultimul_drum)
                 magnitudine_gradient(rect(2):size(img,1),rect(1):size(img,2)-idx,:) = intmin('int64');
             end
         else
-            
-            % Daca dimensiunile selectiei se incadreaza in imagine, selectam
-            % portiunea din care scadem de cate ori am eliminat un rand.
+            % Analog, doar ca de data aceasta lucram pe linii cu valoarea
+            % parametrului idx.
             if rect(2) + rect(4) <= size(img,1) && rect(1) + rect(3) <= size(img,2)
+                
                 magnitudine_gradient(rect(2):rect(2)+rect(4)-idx,rect(1):rect(1)+rect(3),:) = intmin('int16');
-
-            % Daca dimensiunile selectiei ies din imagine prin partea de jos insa
-            % se incadreaza in partea din drepta, alegem partea din drepta din care
-            % scadeam de cate ori am eliminat un rand, iar partea de jos este
-            % limita imaginii.
             elseif rect(2) + rect(4) > size(img,1) && rect(1) + rect(3) <= size(img,2)
+                
                 magnitudine_gradient(rect(2):size(img,1)-idx,rect(1):rect(1)+rect(3),:) = intmin('int16');
-
-            % Daca dimensiunile selectiei ies din imagine in partea din dreapta
-            % insa se incadreaza in partea de jos, atunci pastram partea de jos,
-            % iar din partea alegem marginea imaginii din care scadeam de cate ori
-            % am eliminat un rand
             elseif rect(2) + rect(4) <= size(img,1) && rect(1) + rect(3) > size(img,2)
+                
                 magnitudine_gradient(rect(2):rect(2)+rect(4)-idx,rect(1):size(img,2),:) = intmin('int16');
             else
-
-            % Similar ca in celelalte cazuri, numai ca in aceasta situatie alegem
-            % atat marginea de jos cat si marginea din dreapta ca limita a
-            % selectiei
+                
                 magnitudine_gradient(rect(2):size(img,1)-idx,rect(1):size(img,2),:) = intmin('int16');
             end
         end
     end
 
     E = magnitudine_gradient;
-    
-    % drumuri minime
-%     cost_drum_vertical = min(E(end,:))
-%     cost_drum_orizontal = min(E(:,end))
 end

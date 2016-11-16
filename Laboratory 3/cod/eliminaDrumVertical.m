@@ -14,17 +14,17 @@ function img1 = eliminaDrumVertical(img,drum)
             img1(i,1:coloana-1,:) = img(i,1:coloana-1,:);
             
             % Eliminam eventualul efect de edge ce poate aparea
-            if coloana + 1 < size(img,2)
+            if coloana + 1 <= size(img,2)
                 img1(i,coloana-1,:) = mean([img1(i,coloana-1,:), img(i,coloana+1,:)]);
+                
+                % Copiem partea din dreapta
+                img1(i,coloana:end,:) = img(i,coloana+1:end,:);
             else
-                img1(i,coloana-1,:) = mean([img1(i,coloana-1,:), img(i,coloana,:)]);
+                img1(i,coloana-1,:) = img(i,coloana,:);
             end
             
         else
-            img1(i,1:coloana,:) = img(i,1:coloana,:);
+            img1(i,coloana:end,:) = img(i,coloana+1:end,:);
         end
-        
-        % Copiem partea din dreapta
-        img1(i,coloana:end,:) = img(i,coloana+1:end,:);
     end
 end
