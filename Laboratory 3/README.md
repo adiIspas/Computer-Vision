@@ -73,4 +73,4 @@ Original image
 
 Image with object removed
 
-![screenshot](https://github.com/adiIspas/Computer-Vision/blob/master/Laboratory%203/data/cuplu.jpg)
+![screenshot](https://github.com/adiIspas/Computer-Vision/blob/master/Laboratory%203/images/img6_dynamic_programming.jpg)
