@@ -3,7 +3,9 @@ clear
 clc
 
 % Citeste imaginea
-img = imread('../data/radishes.jpg');
+name_image = 'img5';
+format_image = '.png';
+img = imread(['../data/' name_image format_image]);
 
 % Seteaza parametri
 parametri.texturaInitiala = img;
