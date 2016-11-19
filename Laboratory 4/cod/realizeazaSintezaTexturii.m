@@ -33,108 +33,37 @@ function imgSintetizata = realizeazaSintezaTexturii(parametri)
     nrBlocuriY            = ceil(size(imgSintetizata,1)/dimBloc);
     nrBlocuriX            = ceil(size(imgSintetizata,2)/dimBloc);
     imgSintetizataMaiMare = uint8(zeros(nrBlocuriY * dimBloc,nrBlocuriX * dimBloc,size(parametri.texturaInitiala,3)));
-
+    
+    % Setam parametrii de lucru
+    params.nrBlocuriY            = nrBlocuriY;
+    params.nrBlocuriX            = nrBlocuriX;
+    params.nrBlocuri             = nrBlocuri;
+    params.blocuri               = blocuri;
+    params.dimBloc               = dimBloc;
+    params.imgSintetizataMaiMare = imgSintetizataMaiMare;
+    params.imgSintetizata        = imgSintetizata;
+    params.eroareTolerata        = parametri.eroareTolerata;
+    params.pixeli                = pixeli;
+    params.progresImagine        = parametri.progresImagine;
+    
     switch parametri.metodaSinteza
-
         case 'blocuriAleatoare'
             %%
-            % Setam parametrii de lucru
-            params.nrBlocuriY            = nrBlocuriY;
-            params.nrBlocuriX            = nrBlocuriX;
-            params.nrBlocuri             = nrBlocuri;
-            params.blocuri               = blocuri;
-            params.dimBloc               = dimBloc;
-            params.imgSintetizataMaiMare = imgSintetizataMaiMare;
-            params.imgSintetizata        = imgSintetizata;
-            
             % Completeaza imaginea de obtinut cu blocuri aleatoare
             imgSintetizata = blocuriAleatoare(params);
-
+            
+            close all;
             figure, imshow(parametri.texturaInitiala)
             figure, imshow(imgSintetizata);
             title('Rezultat obtinut pentru blocuri selectatate aleator');
             return
         case 'eroareSuprapunere'
             %%
-            % Completeaza imaginea de obtinut cu blocuri ales in functie de eroare de suprapunere  
-            erori = zeros(1,nrBlocuri);
+            % Completeaza imaginea de obtinut cu blocuri ales in functie 
+            % de eroare de suprapunere  
+            imgSintetizata = eroareSuprapunere(params);
             
-            % Punem primul bloc in imagine
-            imgSintetizataMaiMare(1:dimBloc,1:dimBloc,:) = blocuri(:,:,:,1);
-            
-            % Punem prima linie in imagine
-            for x = 1:nrBlocuriX-1
-                bloc_stanga = imgSintetizataMaiMare(1:dimBloc,(x-1)*dimBloc+1:x*dimBloc,:);
-                
-                for i = 1:nrBlocuri
-                    bloc_curent = blocuri(:,:,:,i);
-
-                    stanga = double(bloc_stanga(:,end-pixeli+1:end,:));
-                    dreapta = double(bloc_curent(:,1:pixeli,:));
-
-                    value = sum(sum(sum(stanga - dreapta).^2));
-
-                    erori(i) = value;
-                end
-                
-                [~, indice] = min(erori);
-                imgSintetizataMaiMare(1:dimBloc,x*dimBloc+1:(x+1)*dimBloc,:)=blocuri(:,:,:,indice);
-            end
-            
-            % Punem prima coloana in imagine
-            for y = 1:nrBlocuriY-1
-                bloc_sus = imgSintetizataMaiMare((y-1)*dimBloc+1:y*dimBloc,1:dimBloc,:);
-                
-                for i = 1:nrBlocuri
-                    bloc_curent = blocuri(:,:,:,i);
-
-                    stanga = double(bloc_sus(end-pixeli+1:end,:,:));
-                    dreapta = double(bloc_curent(1:pixeli,:,:));
-
-                    value = sum(sum(sum(stanga - dreapta).^2));
-
-                    erori(i) = value;
-                end
-                
-                [~, indice] = min(erori);
-                imgSintetizataMaiMare(y*dimBloc+1:(y+1)*dimBloc,1:dimBloc,:)=blocuri(:,:,:,indice);
-            end
-            
-            % Completam restul imaginii
-            for y=2:nrBlocuriY
-                for x=2:nrBlocuriX
-                    
-                    bloc_stanga = imgSintetizataMaiMare((y-1)*dimBloc+1:y*dimBloc,(x-2)*dimBloc+1:(x-1)*dimBloc,:);
-                    bloc_sus = imgSintetizataMaiMare((y-2)*dimBloc+1:(y-1)*dimBloc,(x-1)*dimBloc+1:x*dimBloc,:);
-                    
-                    value = zeros(1,2);
-                    for i = 1:nrBlocuri
-                        bloc_curent = blocuri(:,:,:,i);
-                        
-                        stanga = double(bloc_stanga(:,end-pixeli+1:end,:));
-                        dreapta = double(bloc_curent(:,1:pixeli,:));
-
-                        value(1) = sum(sum(sum(stanga - dreapta).^2));
-                        
-                        stanga = double(bloc_sus(end-pixeli+1:end,:,:));
-                        dreapta = double(bloc_curent(1:pixeli,:,:));
-
-                        value(2) = sum(sum(sum(stanga - dreapta).^2));
-                        
-                        
-                        erori(i) = (value(1)+value(2))/2;
-                    end
-                    
-                    [~, indice] = min(erori);
-                    imgSintetizataMaiMare((y-1)*dimBloc+1:y*dimBloc,(x-1)*dimBloc+1:x*dimBloc,:)=blocuri(:,:,:,indice);
-%                     close all;
-%                     figure, imshow(imgSintetizataMaiMare);
-%                     pause(0.3);
-                end
-            end
-
-            imgSintetizata = imgSintetizataMaiMare(1:size(imgSintetizata,1),1:size(imgSintetizata,2),:);
-
+            close all;
             figure, imshow(parametri.texturaInitiala)
             figure, imshow(imgSintetizata);
             title('Rezultat obtinut pentru blocuri selectate pe baza erorii de suprapunere');
@@ -142,8 +71,16 @@ function imgSintetizata = realizeazaSintezaTexturii(parametri)
             
         case 'frontieraCostMinim'
             %%
-            % Completeaza imaginea de obtinut cu blocuri ales in functie de eroare de suprapunere + forntiera de cost minim
-
+            % Completeaza imaginea de obtinut cu blocuri ales in functie 
+            % de eroare de suprapunere + forntiera de cost minim
+            
+            imgSintetizata = frontieraCostMinim(params);
+            
+            close all;
+            figure, imshow(parametri.texturaInitiala)
+            figure, imshow(imgSintetizata);
+            title('Rezultat obtinut pentru blocuri selectate pe baza erorii de suprapunere si a frontierei de cost minim');
+            return
 
     end 
 end

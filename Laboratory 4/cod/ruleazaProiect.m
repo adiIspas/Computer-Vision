@@ -17,8 +17,10 @@ parametri.nrBlocuri           = 2000;
 parametri.eroareTolerata      = 0.1;
 parametri.portiuneSuprapunere = 1/6;
 
-parametri.metodaSinteza = 'blocuriAleatoare';
-%parametri.metodaSinteza = 'eroareSuprapunere';
+%parametri.metodaSinteza = 'blocuriAleatoare';
+parametri.metodaSinteza = 'eroareSuprapunere';
 %parametri.metodaSinteza = 'frontieraMinima';
+
+parametri.progresImagine = 0;
 
 imgSintetizata = realizeazaSintezaTexturii(parametri);
