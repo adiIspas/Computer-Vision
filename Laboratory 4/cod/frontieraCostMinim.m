@@ -26,9 +26,46 @@ function [ imgSintetizata ] = frontieraCostMinim( params )
     for x = 1:nrBlocuriX
         bloc_stanga = rgb2gray(imgSintetizataMaiMare(1:dimBloc,(x-1)*dimBloc+1:x*dimBloc-jumatate,:));
         
-        indice = cautaEroareMinima(bloc_stanga,0,blocuri,pixeli,nrBlocuri, eroareTolerata);
+        [indice, bloc, ~] = cautaEroareMinima(bloc_stanga,0,blocuri,pixeli,nrBlocuri, eroareTolerata);
         
-        imgSintetizataMaiMare(1:dimBloc,x*dimBloc+1-jumatate:(x+1)*dimBloc-jumatate,:) = blocuri(:,:,:,indice);
+        drum = cautaDrumMinimStanga(bloc);
+        x = imgSintetizataMaiMare(1:dimBloc,(x-1)*dimBloc+1:x*dimBloc-jumatate,:);
+        y = blocuri(:,:,:,indice);
+        z = zeros(36,72,3);
+        for i = 1:size(drum,1)
+            coloana = drum(i,2)
+            %coloana = 0;
+%               size(imgSintetizataMaiMare(i,x*dimBloc+1+coloana-pixeli:(x+1)*dimBloc-pixeli,:))
+%               size(blocuri(i,coloana+1:end,:,indice))
+              
+              
+              y(i,1:coloana,:) = 0;
+              x(i,end+coloana+1-pixeli:end,:) = 0;
+%               e = 36;
+%               
+%               %z = x;
+%                size(z(i,e+coloana+1-pixeli:72,:))
+%                size(y(i,coloana+1:36,:))
+%                z(i,e+coloana+1-pixeli:72,:) = y(i,coloana+1:36,:);
+              
+%             size(imgSintetizataMaiMare(i,x*dimBloc+1-coloana:(x+1)*dimBloc-coloana,:))
+%             size(blocuri(i,coloana+1:end,:,indice))
+%             
+%             imgSintetizataMaiMare(i,x*dimBloc+1-coloana:(x+1)*dimBloc-coloana,:) = ...
+%                 blocuri(i,coloana+1:end,:,indice);
+%             
+%             close all;
+%             figure, imshow(imgSintetizataMaiMare);
+%             pause(0.1);
+            %imgSintetizataMaiMare(i,x*dimBloc+1+coloana-pixeli:(x+1)*dimBloc-pixeli,:) = blocuri(i,coloana+1:end,:,indice);
+            %imgSintetizataMaiMare(1:dimBloc,x*dimBloc+1-jumatate:(x+1)*dimBloc-jumatate,:) = blocuri(:,:,:,indice);
+        end
+        
+        figure
+        imshow(x);
+        figure
+        imshow(y);
+        pause(10);
     end
     
     % Punem prima coloana in imagine

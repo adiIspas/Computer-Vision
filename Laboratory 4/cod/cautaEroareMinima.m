@@ -1,4 +1,4 @@
-function [indice, bloc] = cautaEroareMinima(bloc_stanga, bloc_sus, blocuri, pixeli, nrBlocuri, eroareTolerata)
+function [indice, bloc_stanga, bloc_sus] = cautaEroareMinima(bloc_stanga, bloc_sus, blocuri, pixeli, nrBlocuri, eroareTolerata)
     % Functia ne returneaza indicele blocului a carui eroare este minima la
     % suprapunere si blocul pe baza caruia sa determinat eroarea, ulterior
     % blocul acesta va fi folosit pentru calcularea frontierei minime
@@ -25,7 +25,8 @@ function [indice, bloc] = cautaEroareMinima(bloc_stanga, bloc_sus, blocuri, pixe
         end
 
         [~, indice] = min(erori);
-        bloc = eroare_suprapunere;
+        bloc_stanga = stanga - dreapta;
+        bloc_sus = sus - jos;
     
     % Doar blocul din stanga are imagine
     elseif stanga ~= 0
@@ -43,7 +44,8 @@ function [indice, bloc] = cautaEroareMinima(bloc_stanga, bloc_sus, blocuri, pixe
         end
         
         [~, indice] = min(erori);
-        bloc = eroare_suprapunere;
+        bloc_stanga = stanga - dreapta;
+        bloc_sus = 0;
         
     % Doar blocul de sus are imagine
     elseif sus ~= 0
@@ -61,7 +63,8 @@ function [indice, bloc] = cautaEroareMinima(bloc_stanga, bloc_sus, blocuri, pixe
         end
 
         [~, indice] = min(erori);
-        bloc = eroare_suprapunere;
+        bloc_stanga = 0;
+        bloc_sus = sus - jos;
     end
 end
 
