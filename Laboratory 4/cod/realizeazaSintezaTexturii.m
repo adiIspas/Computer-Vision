@@ -33,7 +33,7 @@ function imgSintetizata = realizeazaSintezaTexturii(parametri)
     nrBlocuriY            = ceil(size(imgSintetizata,1)/dimBloc);
     nrBlocuriX            = ceil(size(imgSintetizata,2)/dimBloc);
     imgSintetizataMaiMare = uint8(zeros(nrBlocuriY * dimBloc,nrBlocuriX * dimBloc,size(parametri.texturaInitiala,3)));
-    
+        
     % Setam parametrii de lucru
     params.nrBlocuriY            = nrBlocuriY;
     params.nrBlocuriX            = nrBlocuriX;

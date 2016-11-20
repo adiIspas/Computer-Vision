@@ -19,7 +19,7 @@ function [ imgSintetizata ] = eroareSuprapunere( params )
     jumatate = round(pixeli/2);
     
     clc
-    fprintf('Initializam procesul de sintetizare a imaginii pe baza erorii de suprapunere ...\n');
+    fprintf('Initializam procesul de sintetizare a imaginii \n pe baza erorii de suprapunere ...\n');
     
     % Punem prima linie in imagine
     for x = 1:nrBlocuriX

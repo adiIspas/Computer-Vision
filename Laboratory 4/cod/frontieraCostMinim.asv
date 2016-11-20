@@ -25,7 +25,7 @@ function [ imgSintetizata ] = frontieraCostMinim( params )
     fprintf('Initializam procesul de sintetizare a imaginii \npe baza frontierei de cost minim ...\n');
     
     % Punem prima linie in imagine
-    for x = 1:nrBlocuriX
+    for x = 1:nrBlocuriX+2
         bloc_stanga = rgb2gray(imgSintetizataMaiMare(1:dimBloc,(x-1)*(dimBloc-pixeli)+1:x*(dimBloc-pixeli)+pixeli,:));
 
         [indice, bloc, ~] = cautaEroareMinima(bloc_stanga,0,blocuri,pixeli,nrBlocuri,eroareTolerata);
@@ -45,12 +45,12 @@ function [ imgSintetizata ] = frontieraCostMinim( params )
         [indice, bloc, ~] = cautaEroareMinima(0,bloc_sus,blocuri,pixeli,nrBlocuri,eroareTolerata);
         drum = cautaDrumMinimSus(bloc);
         
-        imshow(imgSintetizataMaiMare((y-1)*(dimBloc-pixeli)+1:y*(dimBloc-pixeli)+pixeli,1:dimBloc,:))
-     
-        for i = 1:size(drum,1)
-            linia = drum(i,1);
-            imgSintetizataMaiMare(y*(dimBloc-pixeli)+linia:(y+1)*(dimBloc-pixeli)+pixeli,i,:) = blocuri(linia:end,i,:,indice);
+         for i = 1:size(drum,1)
+             coloana = drum(i,2);
+             imgSintetizataMaiMare(y*(dimBloc-pixeli)+coloana:(y+1)*(dimBloc-pixeli)+pixeli,i,:) = blocuri(coloana:end,,:,indice);
         end
+        
+        %imgSintetizataMaiMare(y*dimBloc+1-jumatate:(y+1)*dimBloc-jumatate,1:dimBloc,:) = blocuri(:,:,:,indice);
     end
     
     % Completam restul imaginii

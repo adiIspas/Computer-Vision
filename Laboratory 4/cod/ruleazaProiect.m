@@ -3,7 +3,7 @@ clear;
 clc;
 
 % Citeste imaginea
-name_image   = 'img3';
+name_image   = 'img5';
 format_image = '.png';
 img          = imread(['../data/' name_image format_image]);
 
