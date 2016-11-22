@@ -41,111 +41,52 @@ function [ imgSintetizata ] = frontieraCostMinim( params )
             imgSintetizataMaiMare(i,x*(dimBloc-pixeli)+1-pixeli+coloana:(x+1)*(dimBloc-pixeli),:) = blocuri(i,coloana+1:end,:,indice);
         end
     end
-    
-%     figure
-%     imshow(imgSintetizataMaiMare)
-    %pause(1000);
 
-    
-    % Punem prima linie in imagine
-%     for x = 1:nrBlocuriX
-%         
-% %         if x == 1
-%             bloc_stanga = rgb2gray(imgSintetizataMaiMare(1:dimBloc,(x-1)*(dimBloc-pixeli)+1:x*(dimBloc-pixeli)+pixeli,:));
-%             %bloc_stanga = rgb2gray(imgSintetizataMaiMare(1:dimBloc,(x-1)*dimBloc+1:x*dimBloc-pixeli,:));
-% %         else
-% %             bloc_stanga = rgb2gray(imgSintetizataMaiMare(1:dimBloc,(x-1)*dimBloc+1-pixeli:x*dimBloc-pixeli,:));
-% %         end
-% %             imshow(bloc_stanga)
-% %             pause(1)
-%         [indice, bloc, ~] = cautaEroareMinima(bloc_stanga,0,blocuri,pixeli,nrBlocuri,eroareTolerata);
-%         drum = cautaDrumMinimStanga(bloc);
-%         
-% %          imshow(imgSintetizataMaiMare(1:dimBloc,(x-1)*dimBloc+1:x*dimBloc-pixeli,:))
-% %         pause(1);
-%         img_1 = imgSintetizataMaiMare(1:dimBloc,(x-1)*(dimBloc-pixeli)+1:x*(dimBloc-pixeli)+pixeli,:);
-%         img_2 = blocuri(:,:,:,indice);
-%         for i = 1:size(drum,1)
-%              coloana = drum(i,2);
-% %               imgSintetizataMaiMare(i,x*(dimBloc-pixeli)+coloana:(x+1)*(dimBloc-pixeli)+pixeli,:) = blocuri(i,coloana:end,:,indice);
-% %              coloana
-% %              img_1(i,end-pixeli+1+coloana:end,:) = img_2(i,coloana+1:pixeli,:);
-%                 img_1(i,end-pixeli+1+coloana:end,:) = img_2(i,coloana+1:pixeli,:); % punem 0
-%                 img_2(i,1:coloana,:) = 0;
-% %              
-% %              coloana
-% %              size(imgSintetizataMaiMare(i,x*dimBloc+1-jumatate-pixeli+coloana:x*dimBloc-jumatate,:))
-% %              size(blocuri(i,coloana+1:pixeli,:,indice))
-%              
-% %           imgSintetizataMaiMare(i,x*dimBloc+1-pixeli+coloana:x*dimBloc,:) = blocuri(i,coloana+1:pixeli,:,indice);
-% %           imgSintetizataMaiMare(i,x*dimBloc+1:(x+1)*dimBloc-pixeli,:) = blocuri(i,pixeli+1:end,:,indice);
-%           imshow(imgSintetizataMaiMare)
-%               
-%              %pause(100);
-%              %imgSintetizataMaiMare(i,x*dimBloc+1-jumatate:(x+1)*dimBloc-jumatate,:) = blocuri(i,:,:,indice);
-%         end
-% %         figure
-% %         imshow(img_1)
-% %         figure
-% %         imshow(img_2)
-% %         pause(1000);
-%         imgSintetizataMaiMare(1:dimBloc,(x-1)*dimBloc+1:x*dimBloc-pixeli,:) = img_1;
-% %         size(imgSintetizataMaiMare(1:dimBloc,x*dimBloc+1-jumatate:(x+1)*dimBloc-jumatate,:))
-% %         size(img_2(1:dimBloc,pixeli+1:end,:))
-%         imgSintetizataMaiMare(1:dimBloc,x*dimBloc+1-pixeli:(x+1)*dimBloc-pixeli-pixeli,:) = img_2(1:dimBloc,pixeli+1:end,:);
-% %         imgSintetizataMaiMare(1:dimBloc,x*(dimBloc-pixeli)+1:(x+1)*(dimBloc-pixeli),:) = img_2(1:dimBloc,pixeli+1:end,:);
-% %         imgSintetizataMaiMare(1:dimBloc,(x-1)*(dimBloc-pixeli)+1:x*(dimBloc-pixeli)+pixeli,:) = img_1;
-% %         imgSintetizataMaiMare(1:dimBloc,x*(dimBloc-pixeli)+pixeli+1:(x+1)*(dimBloc-pixeli)+pixeli,:) = img_2(1:dimBloc,pixeli+1:end,:);
-%     end
-%     
-%     imshow(imgSintetizataMaiMare)
-%     pause(1000);
-    
-    
-%     clc
-%     fprintf('Initializam procesul de sintetizare a imaginii \npe baza frontierei de cost minim ...\n');
-%     
-%     % Punem prima linie in imagine
-%     for x = 1:nrBlocuriX
-%         bloc_stanga = rgb2gray(imgSintetizataMaiMare(1:dimBloc,(x-1)*(dimBloc-pixeli)+1:x*(dimBloc-pixeli)+pixeli,:));
-% 
-%         [indice, bloc, ~] = cautaEroareMinima(bloc_stanga,0,blocuri,pixeli,nrBlocuri,eroareTolerata);
-%         drum = cautaDrumMinimStanga(bloc);
-% 
-%         for i = 1:size(drum,1)
-%              coloana = drum(i,2);
-%              imgSintetizataMaiMare(i,x*(dimBloc-pixeli)+coloana:(x+1)*(dimBloc-pixeli)+pixeli,:) = blocuri(i,coloana:end,:,indice);
-%         end
-%     end
-    
-   
     % Punem prima coloana in imagine
     for y = 1:nrBlocuriX
         if y == 1
-            bloc_stanga = rgb2gray(imgSintetizataMaiMare((y-1)*(dimBloc-pixeli)+1:y*(dimBloc-pixeli)+pixeli,1:dimBloc,:));
+            bloc_sus = rgb2gray(imgSintetizataMaiMare((y-1)*(dimBloc-pixeli)+1:y*(dimBloc-pixeli)+pixeli,1:dimBloc,:));
         else
-            bloc_stanga = rgb2gray(imgSintetizataMaiMare((y-1)*(dimBloc-pixeli)+1-pixeli:y*(dimBloc-pixeli),1:dimBloc,:)); 
+            bloc_sus = rgb2gray(imgSintetizataMaiMare((y-1)*(dimBloc-pixeli)+1-pixeli:y*(dimBloc-pixeli),1:dimBloc,:)); 
         end
         
-        [indice, bloc, ~] = cautaEroareMinima(bloc_stanga,0,blocuri,pixeli,nrBlocuri,eroareTolerata);
-        drum = cautaDrumMinimStanga(bloc);
+        [indice, ~, bloc] = cautaEroareMinima(0,bloc_sus,blocuri,pixeli,nrBlocuri,eroareTolerata);
+        drum = cautaDrumMinimSus(bloc);
         for i = 1:size(drum,1)
-            linia = drum(i,2); 
+            linia = drum(i,1); 
             imgSintetizataMaiMare(y*(dimBloc-pixeli)+1-pixeli+linia:(y+1)*(dimBloc-pixeli),i,:) = blocuri(linia+1:end,i,:,indice);
         end
     end
     
+    imshow(imgSintetizataMaiMare)
+    
     % Completam restul imaginii
     total_adaugat = 0;
     total = nrBlocuriX * nrBlocuriY;
-    for y=1:nrBlocuriY
-        for x=1:nrBlocuriX
-             bloc_stanga = rgb2gray(imgSintetizataMaiMare(1:dimBloc,(x-1)*dimBloc+1:x*dimBloc-pixeli,:));
-             bloc_sus = rgb2gray(imgSintetizataMaiMare((y-1)*dimBloc+1:y*dimBloc-pixeli,1:dimBloc,:));
+    for y=2:nrBlocuriY
+        for x=2:nrBlocuriX
+
+            bloc_stanga = rgb2gray(imgSintetizataMaiMare((y-1)*(dimBloc)+1:(y)*(dimBloc),(x-2)*(dimBloc-pixeli)+1:(x-1)*(dimBloc-pixeli),:));    
+            bloc_sus = rgb2gray(imgSintetizataMaiMare((y-2)*(dimBloc-pixeli)+1:(y-1)*(dimBloc-pixeli),(x-1)*(dimBloc)+1:(x)*(dimBloc),:));
+            
+%             size(bloc_stanga)
+%             size(bloc_sus)
+            
+            [indice, bloc_st, bloc_su] = cautaEroareMinima(bloc_stanga,bloc_sus,blocuri,pixeli,nrBlocuri,eroareTolerata);
+            drum_stanga = cautaDrumMinimStanga(bloc_st); 
+            drum_sus = cautaDrumMinimSus(bloc_su); 
+            
+            for i = 1:size(drum_stanga,1)
+                coloana = drum_stanga(i,2); 
+                imgSintetizataMaiMare(i,x*(dimBloc-pixeli)+1-pixeli+coloana:(x+1)*(dimBloc-pixeli),:) = blocuri(i,coloana+1:end,:,indice);
+            end
+            
+            for i = 1:size(drum_sus,1)
+                linia = drum_sus(i,1); 
+                imgSintetizataMaiMare(y*(dimBloc-pixeli)+1-pixeli+linia:(y+1)*(dimBloc-pixeli),i,:) = blocuri(linia+1:end,i,:,indice);
+            end
              
-             indice = cautaEroareMinima(bloc_stanga,bloc_sus,blocuri,pixeli,nrBlocuri, eroareTolerata);
-             
-             imgSintetizataMaiMare(y*dimBloc+1-pixeli:(y+1)*dimBloc-pixeli,x*dimBloc+1-pixeli:(x+1)*dimBloc-pixeli,:) = blocuri(:,:,:,indice);
+             %imgSintetizataMaiMare(y*dimBloc+1-pixeli:(y+1)*dimBloc-pixeli,x*dimBloc+1-pixeli:(x+1)*dimBloc-pixeli,:) = blocuri(:,:,:,indice);
              
              % Afisam progresul procentual
              total_adaugat = total_adaugat + 1;

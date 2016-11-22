@@ -11,7 +11,7 @@ params.imgReferinta = imread('../data/imaginiTest/dani.jpg');
 params.type = size(params.imgReferinta,3);
 
 % 1 daca utilizam o baza de date de imagini, 0 altfel.
-params.database = 0;
+params.database = 1;
 %{0 - 'airplane'; 1 - 'automobile'; 2 - 'bird'; 3 - 'cat'; 4 - 'deer';
 % 5 - 'dog'; 6 - 'frog'; 7 - 'horse'; 8 - 'ship'; 9 - 'truck'}
 params.category = 5;
@@ -23,7 +23,7 @@ params.tipImagine = 'png';
 
 %seteaza numarul de piese ale mozaicului pe orizontala
 %puteti inlocui aceasta valoare
-params.numarPieseMozaicOrizontala = 200;
+params.numarPieseMozaicOrizontala = 400;
 %numarul de piese ale mozaciului pe verticala va fi dedus automat
 
 %seteaza optiunea de afisare a pieselor mozaicului dupa citirea lor din

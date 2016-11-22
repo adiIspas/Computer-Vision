@@ -23,8 +23,23 @@ function [indice, bloc_stanga, bloc_sus] = cautaEroareMinima(bloc_stanga, bloc_s
            eroare_suprapunere = sum(sum(stanga - dreapta).^2) + sum(sum(sus - jos).^2);
            erori(i) = eroare_suprapunere + eroareTolerata * eroare_suprapunere;
         end
+        
+        eroare_minima = min(erori);
+        blocuri_selectate = zeros(size(blocuri));
+        blocuri_adaugate = 1;
+        indexi_originali = zeros(1,nrBlocuri);
+        for i = 1:nrBlocuri
+            if sqrt(erori(i)) - sqrt(eroare_minima) < eroareTolerata
+                blocuri_selectate(:,:,:,blocuri_adaugate) = blocuri(:,:,:,i);
+                indexi_originali(1,blocuri_adaugate) = i;
+                blocuri_adaugate = blocuri_adaugate + 1;
+            end
+        end
+        
+        index_generat = randi(blocuri_adaugate-1);
+        indice = indexi_originali(1,index_generat);
 
-        [~, indice] = min(erori);
+        %[~, indice] = min(erori);
         bloc_stanga = stanga - dreapta;
         bloc_sus = sus - jos;
     
@@ -43,7 +58,22 @@ function [indice, bloc_stanga, bloc_sus] = cautaEroareMinima(bloc_stanga, bloc_s
             erori(i) = eroare_suprapunere + eroareTolerata * eroare_suprapunere;
         end
         
-        [~, indice] = min(erori);
+        eroare_minima = min(erori);
+        blocuri_selectate = zeros(size(blocuri));
+        blocuri_adaugate = 1;
+        indexi_originali = zeros(1,nrBlocuri);
+        for i = 1:nrBlocuri
+            if sqrt(erori(i)) - sqrt(eroare_minima) < eroareTolerata
+                blocuri_selectate(:,:,:,blocuri_adaugate) = blocuri(:,:,:,i);
+                indexi_originali(1,blocuri_adaugate) = i;
+                blocuri_adaugate = blocuri_adaugate + 1;
+            end
+        end
+        
+        index_generat = randi(blocuri_adaugate-1);
+        indice = indexi_originali(1,index_generat);
+        
+        %[~, indice] = min(erori);
         bloc_stanga = stanga - dreapta;
         bloc_sus = 0;
         
@@ -61,8 +91,23 @@ function [indice, bloc_stanga, bloc_sus] = cautaEroareMinima(bloc_stanga, bloc_s
             eroare_suprapunere = sum(sum(sus - jos).^2);
             erori(i) = eroare_suprapunere + eroareTolerata * eroare_suprapunere;
         end
-
-        [~, indice] = min(erori);
+        
+        eroare_minima = min(erori);
+        blocuri_selectate = zeros(size(blocuri));
+        blocuri_adaugate = 1;
+        indexi_originali = zeros(1,nrBlocuri);
+        for i = 1:nrBlocuri
+            if sqrt(erori(i)) - sqrt(eroare_minima) < eroareTolerata
+                blocuri_selectate(:,:,:,blocuri_adaugate) = blocuri(:,:,:,i);
+                indexi_originali(1,blocuri_adaugate) = i;
+                blocuri_adaugate = blocuri_adaugate + 1;
+            end
+        end
+        
+        index_generat = randi(blocuri_adaugate-1);
+        indice = indexi_originali(1,index_generat);
+        
+        %[~, indice] = min(erori);
         bloc_stanga = 0;
         bloc_sus = sus - jos;
     end
