@@ -1,6 +1,6 @@
 # Seam Carving for Content-Aware Image Resizing
 
-My implementation of algorithm "Seam Carving for Content-Aware Image Resizing".
+My MATLAB implementation of algorithm "Seam Carving for Content-Aware Image Resizing".
 
 
 ### Make image small of vertical or horizontal
