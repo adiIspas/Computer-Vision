@@ -1,3 +1,5 @@
+% ADRIAN ISPAS, Facultatea de Matematica si Informatica - Universitatea din Bucuresti
+
 % Curatam spatiul de lucru
 clear;
 clc;
