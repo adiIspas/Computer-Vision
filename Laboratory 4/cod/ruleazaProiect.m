@@ -23,6 +23,6 @@ parametri.portiuneSuprapunere = 1/6;
 %parametri.metodaSinteza = 'eroareSuprapunere';
 parametri.metodaSinteza = 'frontieraCostMinim';
 
-parametri.progresImagine = 1;
+parametri.progresImagine = 0;
 
 imgSintetizata = realizeazaSintezaTexturii(parametri);
