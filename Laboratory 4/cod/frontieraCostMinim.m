@@ -76,9 +76,9 @@ function [ imgSintetizata ] = frontieraCostMinim( params )
     total = nrBlocuriX * nrBlocuriY;
     
     pixeli_adaugati_orizontal = dimBloc;
-    for y=1:nrBlocuriY
+    for y=2:nrBlocuriY
         pixeli_adaugati_vertical = dimBloc;
-        for x=1:nrBlocuriX
+        for x=2:nrBlocuriX
 %             close all
 %             figure 
 %             imshow(imgSintetizataMaiMare)
@@ -109,6 +109,9 @@ function [ imgSintetizata ] = frontieraCostMinim( params )
             imgSintetizataMaiMare(pixeli_adaugati_orizontal + 1 - suprapunere:pixeli_adaugati_orizontal + dimBloc - suprapunere,pixeli_adaugati_vertical + 1 - suprapunere:pixeli_adaugati_vertical,:) = overlap_stanga(:,:,:);
            
             bloc_sus_imagine = imgSintetizataMaiMare(pixeli_adaugati_orizontal - dimBloc + 1:pixeli_adaugati_orizontal,pixeli_adaugati_vertical + 1 - suprapunere:pixeli_adaugati_vertical + dimBloc - suprapunere,:);
+            
+           
+            
             bloc_jos_imagine = blocuri(:,:,:,indice);
             
 %             figure

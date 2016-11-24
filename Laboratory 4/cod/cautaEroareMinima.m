@@ -21,7 +21,7 @@ function [indice, bloc_stanga, bloc_sus] = cautaEroareMinima(bloc_stanga, bloc_s
            stanga = double(bloc_stanga(:,end-pixeli+1:end,:));
            dreapta = double(bloc_curent(:,1:pixeli,:));
            
-           erori(i) = sum(sqrt(sum(stanga - dreapta).^2)) + sum(sqrt(sum(sus - jos).^2));
+           erori(i) = sum(sqrt(sum((stanga - dreapta).^2))) + sum(sqrt(sum((sus - jos).^2)));
         end
         
         eroare_minima = min(erori);
@@ -53,7 +53,7 @@ function [indice, bloc_stanga, bloc_sus] = cautaEroareMinima(bloc_stanga, bloc_s
             stanga = double(bloc_stanga(:,end-pixeli+1:end,:));
             dreapta = double(bloc_curent(:,1:pixeli,:));
 
-            erori(i) = sum(sqrt(sum(stanga - dreapta).^2));
+            erori(i) = sum(sqrt(sum((stanga - dreapta).^2)));
         end
         
         eroare_minima = min(erori);
@@ -85,7 +85,7 @@ function [indice, bloc_stanga, bloc_sus] = cautaEroareMinima(bloc_stanga, bloc_s
             sus = double(bloc_sus(end-pixeli+1:end,:,:));
             jos = double(bloc_curent(1:pixeli,:,:));
 
-            erori(i) = sum(sqrt(sum(sus - jos).^2)); 
+            erori(i) = sum(sqrt(sum((sus - jos).^2))); 
         end
         
         eroare_minima = min(erori);
