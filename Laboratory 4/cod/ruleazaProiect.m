@@ -20,8 +20,8 @@ parametri.eroareTolerata      = 0.1;
 parametri.portiuneSuprapunere = 1/6;
 
 %parametri.metodaSinteza = 'blocuriAleatoare';
-parametri.metodaSinteza = 'eroareSuprapunere';
-%parametri.metodaSinteza = 'frontieraCostMinim';
+%parametri.metodaSinteza = 'eroareSuprapunere';
+parametri.metodaSinteza = 'frontieraCostMinim';
 
 parametri.progresImagine = 0;
 

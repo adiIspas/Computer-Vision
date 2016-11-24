@@ -35,7 +35,7 @@ function [ imgSintetizata ] = frontieraCostMinim( params )
 
         overlap_stanga = bloc_stanga_imagine(:,end-suprapunere+1:end,:);
         overlap_dreapta = bloc_dreapta_imagine(:,1:suprapunere,:);
-
+        
         for i = 1:size(drum,1)
             coloana = drum(i,2); 
             overlap_stanga(i,coloana+1:end,:) = overlap_dreapta(i,coloana+1:end,:);
@@ -51,7 +51,7 @@ function [ imgSintetizata ] = frontieraCostMinim( params )
     for y = 1:nrBlocuriY
         bloc_sus = rgb2gray(imgSintetizataMaiMare(pixeli_adaugati - dimBloc + 1:pixeli_adaugati,1:dimBloc,:));
        
-        [indice, bloc, ~] = cautaEroareMinima(0,bloc_sus,blocuri,suprapunere,nrBlocuri,eroareTolerata);
+        [indice, ~, bloc] = cautaEroareMinima(0,bloc_sus,blocuri,suprapunere,nrBlocuri,eroareTolerata);
         drum = cautaDrumMinimSus(bloc);
        
         bloc_sus_imagine = imgSintetizataMaiMare(pixeli_adaugati - dimBloc + 1:pixeli_adaugati,1:dimBloc,:);
@@ -59,28 +59,26 @@ function [ imgSintetizata ] = frontieraCostMinim( params )
 
         overlap_sus = bloc_sus_imagine(end-suprapunere+1:end,:,:);
         overlap_jos = bloc_jos_imagine(1:suprapunere,:,:);
-
+        
         for i = 1:size(drum,1)
             linia = drum(i,1); 
             overlap_sus(linia+1:end,i,:) = overlap_jos(linia+1:end,i,:);
         end
-
+        
         imgSintetizataMaiMare(pixeli_adaugati + 1 - suprapunere:pixeli_adaugati,1:dimBloc,:) = overlap_sus(:,:,:);
         imgSintetizataMaiMare(pixeli_adaugati + 1:pixeli_adaugati + dimBloc - suprapunere,1:dimBloc,:) = blocuri(suprapunere+1:end,:,:,indice);
         
         pixeli_adaugati = pixeli_adaugati + (dimBloc - suprapunere);        
     end
     
-    figure
-    imshow(imgSintetizataMaiMare)
-    
     % Completam restul imaginii
-    total_adaugat = nrBlocuriX + nrBlocuriY - 1;
+    total_adaugat = 0;
     total = nrBlocuriX * nrBlocuriY;
-    pixeli_adaugati_vertical = dimBloc;
+    
     pixeli_adaugati_orizontal = dimBloc;
-    for y=2:nrBlocuriY
-        for x=2:nrBlocuriX
+    for y=1:nrBlocuriY
+        pixeli_adaugati_vertical = dimBloc;
+        for x=1:nrBlocuriX
 
             bloc_stanga = rgb2gray(imgSintetizataMaiMare(pixeli_adaugati_orizontal - dimBloc + 1:pixeli_adaugati_orizontal,pixeli_adaugati_vertical - dimBloc + 1:pixeli_adaugati_vertical,:));    
             bloc_sus = rgb2gray(imgSintetizataMaiMare(pixeli_adaugati_orizontal - dimBloc + 1:pixeli_adaugati_orizontal,pixeli_adaugati_vertical - dimBloc + 1:pixeli_adaugati_vertical,:));
@@ -100,20 +98,19 @@ function [ imgSintetizata ] = frontieraCostMinim( params )
                 overlap_stanga(i,coloana+1:end,:) = overlap_dreapta(i,coloana+1:end,:);
             end
             
-            imgSintetizataMaiMare(pixeli_adaugati_orizontal - dimBloc + 1:pixeli_adaugati_orizontal,pixeli_adaugati_vertical + 1 - suprapunere:pixeli_adaugati_vertical,:) = overlap_stanga(:,:,:);
-            imgSintetizataMaiMare(pixeli_adaugati_orizontal - dimBloc + 1:pixeli_adaugati_orizontal,pixeli_adaugati_vertical + 1:pixeli_adaugati_vertical + dimBloc - suprapunere,:) = blocuri(:,suprapunere+1:end,:,indice);
-            
-%             overlap_sus = bloc_sus_imagine(end-suprapunere+1:end,:,:);
-%             overlap_jos = bloc_jos_imagine(1:suprapunere,:,:);
-% 
-%             for i = 1:size(drum_sus,1)
-%                 linia = drum_sus(i,1); 
-%                 overlap_sus(linia+1:end,i,:) = overlap_jos(linia+1:end,i,:);
-%             end
-%              
-%             imgSintetizataMaiMare(pixeli_adaugati_orizontal + 1 - suprapunere:pixeli_adaugati_orizontal,pixeli_adaugati_vertical - dimBloc + 1:pixeli_adaugati_vertical,:) = overlap_sus(:,:,:);
-%             imgSintetizataMaiMare(pixeli_adaugati_orizontal + 1:pixeli_adaugati_orizontal + dimBloc - suprapunere,pixeli_adaugati_vertical - dimBloc + 1:pixeli_adaugati_vertical,:) = blocuri(suprapunere+1:end,:,:,indice);
+            imgSintetizataMaiMare(pixeli_adaugati_orizontal + 1 - dimBloc:pixeli_adaugati_orizontal,pixeli_adaugati_vertical + 1 - suprapunere:pixeli_adaugati_vertical,:) = overlap_stanga(:,:,:);
+           
+            overlap_sus = bloc_sus_imagine(end-suprapunere+1:end,:,:);
+            overlap_jos = bloc_jos_imagine(1:suprapunere,:,:);
 
+            for i = 1:size(drum_sus,1)
+                linia = drum_sus(i,1); 
+                overlap_sus(linia+1:end,i,:) = overlap_jos(linia+1:end,i,:);
+            end
+             
+            imgSintetizataMaiMare(pixeli_adaugati_orizontal + 1 - suprapunere:pixeli_adaugati_orizontal,pixeli_adaugati_vertical + 1 - dimBloc:pixeli_adaugati_vertical,:) = overlap_sus(:,:,:);
+           
+            imgSintetizataMaiMare(pixeli_adaugati_orizontal + 1:pixeli_adaugati_orizontal + dimBloc - suprapunere,pixeli_adaugati_vertical+ 1:pixeli_adaugati_vertical + dimBloc - suprapunere,:) = blocuri(suprapunere+1:end,suprapunere+1:end,:,indice);         
             pixeli_adaugati_vertical = pixeli_adaugati_vertical + (dimBloc - suprapunere);
              
              % Afisam progresul procentual
