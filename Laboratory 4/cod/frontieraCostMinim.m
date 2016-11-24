@@ -78,11 +78,7 @@ function [ imgSintetizata ] = frontieraCostMinim( params )
     pixeli_adaugati_orizontal = dimBloc;
     for y=2:nrBlocuriY
         pixeli_adaugati_vertical = dimBloc;
-        for x=2:nrBlocuriX
-%             close all
-%             figure 
-%             imshow(imgSintetizataMaiMare)
-%             
+        for x=2:nrBlocuriX         
             bloc_stanga = rgb2gray(imgSintetizataMaiMare(pixeli_adaugati_orizontal + 1:pixeli_adaugati_orizontal + dimBloc,pixeli_adaugati_vertical - dimBloc + 1:pixeli_adaugati_vertical,:));    
             bloc_sus = rgb2gray(imgSintetizataMaiMare(pixeli_adaugati_orizontal - dimBloc + 1:pixeli_adaugati_orizontal,pixeli_adaugati_vertical + 1:pixeli_adaugati_vertical + dimBloc,:));
 
@@ -92,10 +88,6 @@ function [ imgSintetizata ] = frontieraCostMinim( params )
             
             bloc_stanga_imagine = imgSintetizataMaiMare(pixeli_adaugati_orizontal + 1 - suprapunere:pixeli_adaugati_orizontal + dimBloc - suprapunere,pixeli_adaugati_vertical - dimBloc + 1:pixeli_adaugati_vertical,:);
             bloc_dreapta_imagine = blocuri(:,:,:,indice);
-%             
-%             size(bloc_stanga_imagine)
-%             
-%             pause(100)
             
             overlap_stanga = bloc_stanga_imagine(:,end-suprapunere+1:end,:);
             overlap_dreapta = bloc_dreapta_imagine(:,1:suprapunere,:);
@@ -109,19 +101,8 @@ function [ imgSintetizata ] = frontieraCostMinim( params )
             imgSintetizataMaiMare(pixeli_adaugati_orizontal + 1 - suprapunere:pixeli_adaugati_orizontal + dimBloc - suprapunere,pixeli_adaugati_vertical + 1 - suprapunere:pixeli_adaugati_vertical,:) = overlap_stanga(:,:,:);
            
             bloc_sus_imagine = imgSintetizataMaiMare(pixeli_adaugati_orizontal - dimBloc + 1:pixeli_adaugati_orizontal,pixeli_adaugati_vertical + 1 - suprapunere:pixeli_adaugati_vertical + dimBloc - suprapunere,:);
-            
-           
-            
             bloc_jos_imagine = blocuri(:,:,:,indice);
-            
-%             figure
-%             imshow(bloc_stanga_imagine)
-%             
-%             figure
-%             imshow(bloc_sus_imagine)
-%             
-%             pause(7)
-            
+
             overlap_sus = bloc_sus_imagine(end-suprapunere+1:end,:,:);
             overlap_jos = bloc_jos_imagine(1:suprapunere,:,:);
 
