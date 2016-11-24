@@ -3,8 +3,8 @@ clear;
 clc;
 
 % Citeste imaginea
-name_image   = 'radishes';
-format_image = '.jpg';
+name_image   = 'img5';
+format_image = '.png';
 img          = imread(['../data/' name_image format_image]);
 
 % Seteaza parametri
@@ -18,9 +18,9 @@ parametri.eroareTolerata      = 0.1;
 parametri.portiuneSuprapunere = 1/6;
 
 %parametri.metodaSinteza = 'blocuriAleatoare';
-%parametri.metodaSinteza = 'eroareSuprapunere';
-parametri.metodaSinteza = 'frontieraCostMinim';
+parametri.metodaSinteza = 'eroareSuprapunere';
+%parametri.metodaSinteza = 'frontieraCostMinim';
 
-parametri.progresImagine = 1;
+parametri.progresImagine = 0;
 
 imgSintetizata = realizeazaSintezaTexturii(parametri);
