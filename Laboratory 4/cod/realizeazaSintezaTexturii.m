@@ -30,10 +30,14 @@ function imgSintetizata = realizeazaSintezaTexturii(parametri)
     end
 
     imgSintetizata        = uint8(zeros(H2,W2,c));
+    %nrBlocuriY = ceil((size(imgSintetizata,1) - overlap) / (dimBloc - overlap));
     nrBlocuriY            = ceil(size(imgSintetizata,1)/dimBloc);
+    %nrBlocuriX = ceil((size(imgSintetizata,2) - overlap) / (dimBloc - overlap));
     nrBlocuriX            = ceil(size(imgSintetizata,2)/dimBloc);
         
-    imgSintetizataMaiMare = uint8(zeros(nrBlocuriY * dimBloc,nrBlocuriX * dimBloc,size(parametri.texturaInitiala,3)));
+    size_1 = round((nrBlocuriY - 1) * (dimBloc - overlap) + dimBloc);
+    size_2 = round((nrBlocuriX - 1) * (dimBloc - overlap) + dimBloc);
+    imgSintetizataMaiMare = uint8(zeros(size_1,size_2,size(parametri.texturaInitiala,3)));
         
     % Setam parametrii de lucru
     params.nrBlocuriY            = nrBlocuriY;

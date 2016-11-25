@@ -21,7 +21,7 @@ function [ imgSintetizata ] = frontieraCostMinim( params )
     imgSintetizataMaiMare(1:dimBloc,1:dimBloc,:) = blocuri(:,:,:,indice);
     
     clc
-    fprintf('Initializam procesul de sintetizare a imaginii \npe baza erorii de suprapunere ...\n');
+    fprintf('Initializam procesul de sintetizare a imaginii \npe baza erorii de suprapunere si a frontierei \nde cost minim ...\n');
     
     pixeli_adaugati = dimBloc;
     for x = 1:nrBlocuriX
@@ -43,6 +43,12 @@ function [ imgSintetizata ] = frontieraCostMinim( params )
 
         imgSintetizataMaiMare(1:dimBloc,pixeli_adaugati + 1 - suprapunere:pixeli_adaugati,:) = overlap_stanga(:,:,:);
         imgSintetizataMaiMare(1:dimBloc,pixeli_adaugati + 1:pixeli_adaugati + dimBloc - suprapunere,:) = blocuri(:,suprapunere+1:end,:,indice);
+
+        
+        % Afisam progresul imaginii
+         if progres == 1
+             imshow(imgSintetizataMaiMare);
+         end
         
         pixeli_adaugati = pixeli_adaugati + (dimBloc - suprapunere);        
     end
@@ -68,11 +74,16 @@ function [ imgSintetizata ] = frontieraCostMinim( params )
         imgSintetizataMaiMare(pixeli_adaugati + 1 - suprapunere:pixeli_adaugati,1:dimBloc,:) = overlap_sus(:,:,:);
         imgSintetizataMaiMare(pixeli_adaugati + 1:pixeli_adaugati + dimBloc - suprapunere,1:dimBloc,:) = blocuri(suprapunere+1:end,:,:,indice);
         
-        pixeli_adaugati = pixeli_adaugati + (dimBloc - suprapunere);        
-    end
+        % Afisam progresul imaginii
+         if progres == 1
+             imshow(imgSintetizataMaiMare);
+         end
+         
+         pixeli_adaugati = pixeli_adaugati + (dimBloc - suprapunere);
+    end 
     
     % Completam restul imaginii
-    total_adaugat = 0;
+    total_adaugat = nrBlocuriX + nrBlocuriY - 1;
     total = nrBlocuriX * nrBlocuriY;
     
     pixeli_adaugati_orizontal = dimBloc;
@@ -88,7 +99,7 @@ function [ imgSintetizata ] = frontieraCostMinim( params )
             
             bloc_stanga_imagine = imgSintetizataMaiMare(pixeli_adaugati_orizontal + 1 - suprapunere:pixeli_adaugati_orizontal + dimBloc - suprapunere,pixeli_adaugati_vertical - dimBloc + 1:pixeli_adaugati_vertical,:);
             bloc_dreapta_imagine = blocuri(:,:,:,indice);
-            
+
             overlap_stanga = bloc_stanga_imagine(:,end-suprapunere+1:end,:);
             overlap_dreapta = bloc_dreapta_imagine(:,1:suprapunere,:);
             
@@ -124,12 +135,10 @@ function [ imgSintetizata ] = frontieraCostMinim( params )
              total_adaugat = total_adaugat + 1;
              clc
              fprintf('Sintetizam imaginea ... %2.2f%% \n',100*total_adaugat/total);
-             
+
              % Afisam progresul imaginii
              if progres == 1
-                 close all;
-                 figure, imshow(imgSintetizataMaiMare);
-                 pause(0.1);
+                 imshow(imgSintetizataMaiMare);
              end
         end
         pixeli_adaugati_orizontal = pixeli_adaugati_orizontal + (dimBloc - suprapunere);

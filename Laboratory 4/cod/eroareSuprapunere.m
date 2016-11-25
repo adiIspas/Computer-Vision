@@ -32,6 +32,10 @@ function [ imgSintetizata ] = eroareSuprapunere( params )
         
         indice = cautaEroareMinima(bloc_stanga,0,blocuri,pixeli,nrBlocuri,eroareTolerata);
         imgSintetizataMaiMare(1:dimBloc,x*dimBloc+1-suprapunere:(x+1)*dimBloc-suprapunere,:) = blocuri(:,:,:,indice);
+        % Afisam progresul imaginii
+         if progres == 1
+             imshow(imgSintetizataMaiMare);
+         end
     end
     
     % Punem prima coloana in imagine
@@ -44,6 +48,11 @@ function [ imgSintetizata ] = eroareSuprapunere( params )
         
         indice = cautaEroareMinima(0,bloc_sus,blocuri,pixeli,nrBlocuri, eroareTolerata);
         imgSintetizataMaiMare(y*dimBloc+1-suprapunere:(y+1)*dimBloc-suprapunere,1:dimBloc,:) = blocuri(:,:,:,indice);
+        
+        % Afisam progresul imaginii
+         if progres == 1
+             imshow(imgSintetizataMaiMare);
+         end
     end
     
     % Completam restul imaginii
@@ -75,9 +84,7 @@ function [ imgSintetizata ] = eroareSuprapunere( params )
              
              % Afisam progresul imaginii
              if progres == 1
-                 close all;
-                 figure, imshow(imgSintetizataMaiMare);
-                 pause(0.1);
+                 imshow(imgSintetizataMaiMare);
              end
         end
     end

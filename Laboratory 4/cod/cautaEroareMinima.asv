@@ -27,10 +27,10 @@ function [indice, bloc_stanga, bloc_sus] = cautaEroareMinima(bloc_stanga, bloc_s
            %absolute_value = abs(norm(err_1(:)) - norm(err_2(:)));
            %erori(i) = absolute_value;
            %erori(i) = norm([norm(err_1(:)), norm(err_2(:))]);
-           erori(i) = sum(sqrt(sum((stanga - dreapta).^2)))^2 + sum(sqrt(sum((sus - jos).^2)))^2;
-%            M_1 = stanga - dreapta; 
-%            M_2 = sus - jos; 
-%            erori(i) = max(eig(M_1*M_1')) + max(eig(M_2*M_2'));
+           %erori(i) = sum(sqrt(sum((stanga - dreapta).^2)))^2 + sum(sqrt(sum((sus - jos).^2)))^2;
+           M_1 = stanga - dreapta; 
+           M_2 = sus - jos; 
+           erori(i) = max(eig(M_1*M_'));
         end
         
         eroare_minima = min(erori);
