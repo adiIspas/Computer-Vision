@@ -1,8 +1,17 @@
-function [indice, bloc_stanga, bloc_sus] = cautaEroareMinima(bloc_stanga, bloc_sus, blocuri, pixeli, nrBlocuri, eroareTolerata)
+function [indice, bloc_stanga, bloc_sus] = cautaEroareMinima(bloc_stanga, bloc_sus, blocuri, pixeli, nrBlocuri, eroareTolerata, transfer)
     % Functia ne returneaza indicele blocului a carui eroare este minima la
     % suprapunere si blocul pe baza caruia sa determinat eroarea, ulterior
     % blocul acesta va fi folosit pentru calcularea frontierei minime
     
+    % Se folosesc pentru transferul texturii
+    iteratii = transfer.iteratii;
+    iteratiaCurenta = transfer.iteratiaCurenta;
+    
+    alpha = 0;
+    if iteratii ~= 0
+        alpha = 0.8 * ((iteratiaCurenta - 1)/(iteratii - 1)) + 0.1;
+    end
+
     stanga = sum(sum(bloc_stanga ~= 0));
     sus = sum(sum(bloc_sus ~= 0));    
     threshold = 1 + eroareTolerata;
@@ -21,16 +30,7 @@ function [indice, bloc_stanga, bloc_sus] = cautaEroareMinima(bloc_stanga, bloc_s
            stanga = double(bloc_stanga(:,end-pixeli+1:end,:));
            dreapta = double(bloc_curent(:,1:pixeli,:));
             
-           err_1 = stanga - dreapta;
-           err_2 = sus - jos;
-           erori(i) = sum(diag(err_1) + diag(err_2));
-           %absolute_value = abs(norm(err_1(:)) - norm(err_2(:)));
-           %erori(i) = absolute_value;
-           %erori(i) = norm([norm(err_1(:)), norm(err_2(:))]);
            erori(i) = sum(sqrt(sum((stanga - dreapta).^2)))^2 + sum(sqrt(sum((sus - jos).^2)))^2;
-%            M_1 = stanga - dreapta; 
-%            M_2 = sus - jos; 
-%            erori(i) = max(eig(M_1*M_1')) + max(eig(M_2*M_2'));
         end
         
         eroare_minima = min(erori);

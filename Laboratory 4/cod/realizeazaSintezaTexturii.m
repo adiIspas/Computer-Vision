@@ -50,6 +50,8 @@ function imgSintetizata = realizeazaSintezaTexturii(parametri)
     params.eroareTolerata        = parametri.eroareTolerata;
     params.pixeli                = pixeli;
     params.progresImagine        = parametri.progresImagine;
+    params.iteratii              = 0;
+    params.iteratiaCurenta       = 0;
     
     switch parametri.metodaSinteza
         case 'blocuriAleatoare'
@@ -86,6 +88,17 @@ function imgSintetizata = realizeazaSintezaTexturii(parametri)
             figure, imshow(imgSintetizata);
             title('Rezultat obtinut pentru blocuri selectate pe baza erorii de suprapunere si a frontierei de cost minim');
             return
-
+        case 'transferTextura'
+            %%
+            % Transfera textura de pe o imagine de start pe o alta imagine
+            
+            params.iteratii = parametri.iteratiiTransfer;
+            
+            imgTransferTextura = frontieraCostMinim(params);
+            close all;
+            figure, imshow(parametri.texturaInitiala)
+            figure, imshow(imgTransferTextura);
+            title('Rezultat obtinut pentru transferul texturii');
+            return
     end 
 end

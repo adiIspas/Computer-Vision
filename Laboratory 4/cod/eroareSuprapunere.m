@@ -13,11 +13,14 @@ function [ imgSintetizata ] = eroareSuprapunere( params )
     pixeli                = params.pixeli;
     progres               = params.progresImagine;
     
+    % Parametrii folositi in cazul transferului de textura
+    transfer.iteratii        = params.iteratii;
+    transfer.iteratiaCurenta = params.iteratiaCurenta;
+    
     % Punem primul bloc in imagine
     indice = randi(nrBlocuri);
     imgSintetizataMaiMare(1:dimBloc,1:dimBloc,:) = blocuri(:,:,:,indice);
-    % suprapunere = round(pixeli/2); % alterantiva de suprapunere, in cazul acesta de la jumatate
-    suprapunere = pixeli; % alternativa de suprapunere, in cazul acesta intru-totul
+    suprapunere = pixeli; 
     
     clc
     fprintf('Initializam procesul de sintetizare a imaginii \npe baza erorii de suprapunere ...\n');
@@ -30,7 +33,7 @@ function [ imgSintetizata ] = eroareSuprapunere( params )
             bloc_stanga = rgb2gray(imgSintetizataMaiMare(1:dimBloc,(x-1)*dimBloc+1-suprapunere:x*dimBloc-suprapunere,:));
         end
         
-        indice = cautaEroareMinima(bloc_stanga,0,blocuri,pixeli,nrBlocuri,eroareTolerata);
+        indice = cautaEroareMinima(bloc_stanga,0,blocuri,pixeli,nrBlocuri,eroareTolerata, transfer);
         imgSintetizataMaiMare(1:dimBloc,x*dimBloc+1-suprapunere:(x+1)*dimBloc-suprapunere,:) = blocuri(:,:,:,indice);
         % Afisam progresul imaginii
          if progres == 1
@@ -46,7 +49,7 @@ function [ imgSintetizata ] = eroareSuprapunere( params )
             bloc_sus = rgb2gray(imgSintetizataMaiMare((y-1)*dimBloc+1-suprapunere:y*dimBloc-suprapunere,1:dimBloc,:));
         end
         
-        indice = cautaEroareMinima(0,bloc_sus,blocuri,pixeli,nrBlocuri, eroareTolerata);
+        indice = cautaEroareMinima(0,bloc_sus,blocuri,pixeli,nrBlocuri, eroareTolerata, transfer);
         imgSintetizataMaiMare(y*dimBloc+1-suprapunere:(y+1)*dimBloc-suprapunere,1:dimBloc,:) = blocuri(:,:,:,indice);
         
         % Afisam progresul imaginii
@@ -74,7 +77,7 @@ function [ imgSintetizata ] = eroareSuprapunere( params )
                 bloc_sus = rgb2gray(imgSintetizataMaiMare((y-1)*dimBloc+1-suprapunere:y*dimBloc-suprapunere,(x-1)*dimBloc+1-suprapunere:x*dimBloc-suprapunere,:));
              end
         
-             indice = cautaEroareMinima(bloc_stanga,bloc_sus,blocuri,pixeli,nrBlocuri, eroareTolerata);
+             indice = cautaEroareMinima(bloc_stanga,bloc_sus,blocuri,pixeli,nrBlocuri, eroareTolerata, transfer);
              imgSintetizataMaiMare(y*dimBloc+1-suprapunere:(y+1)*dimBloc-suprapunere,x*dimBloc+1-suprapunere:(x+1)*dimBloc-suprapunere,:) = blocuri(:,:,:,indice);
              
              % Afisam progresul procentual

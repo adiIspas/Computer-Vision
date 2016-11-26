@@ -16,6 +16,10 @@ function [ imgSintetizata ] = frontieraCostMinim( params )
     suprapunere           = params.pixeli;
     progres               = params.progresImagine;
     
+    % Parametrii folositi in cazul transferului de textura
+    transfer.iteratii        = params.iteratii;
+    transfer.iteratiaCurenta = params.iteratiaCurenta;
+    
     % Punem primul bloc in imagine
     indice = randi(nrBlocuri);
     imgSintetizataMaiMare(1:dimBloc,1:dimBloc,:) = blocuri(:,:,:,indice);
@@ -27,7 +31,7 @@ function [ imgSintetizata ] = frontieraCostMinim( params )
     for x = 1:nrBlocuriX
         bloc_stanga = rgb2gray(imgSintetizataMaiMare(1:dimBloc,pixeli_adaugati - dimBloc + 1:pixeli_adaugati,:));
         
-        [indice, bloc, ~] = cautaEroareMinima(bloc_stanga,0,blocuri,suprapunere,nrBlocuri,eroareTolerata);
+        [indice, bloc, ~] = cautaEroareMinima(bloc_stanga,0,blocuri,suprapunere,nrBlocuri,eroareTolerata, transfer);
         drum = cautaDrumMinimStanga(bloc);
        
         bloc_stanga_imagine = imgSintetizataMaiMare(1:dimBloc,pixeli_adaugati - dimBloc + 1:pixeli_adaugati,:);
@@ -57,7 +61,7 @@ function [ imgSintetizata ] = frontieraCostMinim( params )
     for y = 1:nrBlocuriY
         bloc_sus = rgb2gray(imgSintetizataMaiMare(pixeli_adaugati - dimBloc + 1:pixeli_adaugati,1:dimBloc,:));
        
-        [indice, ~, bloc] = cautaEroareMinima(0,bloc_sus,blocuri,suprapunere,nrBlocuri,eroareTolerata);
+        [indice, ~, bloc] = cautaEroareMinima(0,bloc_sus,blocuri,suprapunere,nrBlocuri,eroareTolerata, transfer);
         drum = cautaDrumMinimSus(bloc);
        
         bloc_sus_imagine = imgSintetizataMaiMare(pixeli_adaugati - dimBloc + 1:pixeli_adaugati,1:dimBloc,:);
@@ -93,7 +97,7 @@ function [ imgSintetizata ] = frontieraCostMinim( params )
             bloc_stanga = rgb2gray(imgSintetizataMaiMare(pixeli_adaugati_orizontal + 1:pixeli_adaugati_orizontal + dimBloc,pixeli_adaugati_vertical - dimBloc + 1:pixeli_adaugati_vertical,:));    
             bloc_sus = rgb2gray(imgSintetizataMaiMare(pixeli_adaugati_orizontal - dimBloc + 1:pixeli_adaugati_orizontal,pixeli_adaugati_vertical + 1:pixeli_adaugati_vertical + dimBloc,:));
 
-            [indice, bloc_st, bloc_su] = cautaEroareMinima(bloc_stanga,bloc_sus,blocuri,suprapunere,nrBlocuri,eroareTolerata);
+            [indice, bloc_st, bloc_su] = cautaEroareMinima(bloc_stanga,bloc_sus,blocuri,suprapunere,nrBlocuri,eroareTolerata, transfer);
             drum_stanga = cautaDrumMinimStanga(bloc_st); 
             drum_sus = cautaDrumMinimSus(bloc_su); 
             

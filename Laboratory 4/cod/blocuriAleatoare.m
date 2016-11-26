@@ -27,9 +27,7 @@ function [imgSintetizata] = blocuriAleatoare(params)
             
             % Afisam progresul imaginii
              if progres == 1
-                 close all;
-                 figure, imshow(imgSintetizataMaiMare);
-                 pause(0.1);
+                 imshow(imgSintetizataMaiMare);
              end
         end
     end
