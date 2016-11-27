@@ -6,10 +6,16 @@ function [indice, bloc_stanga, bloc_sus] = cautaEroareMinima(bloc_stanga, bloc_s
     % Se folosesc pentru transferul texturii
     iteratii = transfer.iteratii;
     iteratiaCurenta = transfer.iteratiaCurenta;
-    
+  
     alpha = 0;
+    bloc_imagine_transfer = rgb2gray(uint8(zeros(size(blocuri(:,:,:,1)))));
     if iteratii ~= 0
-        alpha = 0.8 * ((iteratiaCurenta - 1)/(iteratii - 1)) + 0.1;
+        %alpha = abs(0.8 * ((iteratiaCurenta - 1)/(iteratii - 1)) + 0.1);
+        if size(transfer.bloc_imagine_transfer,3) ~= 1
+            bloc_imagine_transfer = rgb2gray(transfer.bloc_imagine_transfer);
+        else
+            bloc_imagine_transfer = transfer.bloc_imagine_transfer;
+        end
     end
 
     stanga = sum(sum(bloc_stanga ~= 0));
@@ -30,7 +36,8 @@ function [indice, bloc_stanga, bloc_sus] = cautaEroareMinima(bloc_stanga, bloc_s
            stanga = double(bloc_stanga(:,end-pixeli+1:end,:));
            dreapta = double(bloc_curent(:,1:pixeli,:));
             
-           erori(i) = sum(sqrt(sum((stanga - dreapta).^2)))^2 + sum(sqrt(sum((sus - jos).^2)))^2;
+           erori(i) = sum(sqrt(sum((stanga - dreapta).^2)))^2 + sum(sqrt(sum((sus - jos).^2)))^2 ...
+               + sum(sum((bloc_imagine_transfer - bloc_curent))) * alpha;
         end
         
         eroare_minima = min(erori);
@@ -57,12 +64,13 @@ function [indice, bloc_stanga, bloc_sus] = cautaEroareMinima(bloc_stanga, bloc_s
         erori(1,:) = intmax('int64');
 
         for i = 1:nrBlocuri
-            bloc_curent =rgb2gray(blocuri(:,:,:,i));
+            bloc_curent = rgb2gray(blocuri(:,:,:,i));
 
             stanga = double(bloc_stanga(:,end-pixeli+1:end,:));
             dreapta = double(bloc_curent(:,1:pixeli,:));
 
-            erori(i) = sum(sqrt(sum((stanga - dreapta).^2)));
+            erori(i) = sum(sqrt(sum((stanga - dreapta).^2))) ...
+                + sum(sum((bloc_imagine_transfer - bloc_curent))) * alpha;
         end
         
         eroare_minima = min(erori);
@@ -94,7 +102,8 @@ function [indice, bloc_stanga, bloc_sus] = cautaEroareMinima(bloc_stanga, bloc_s
             sus = double(bloc_sus(end-pixeli+1:end,:,:));
             jos = double(bloc_curent(1:pixeli,:,:));
 
-            erori(i) = sum(sqrt(sum((sus - jos).^2))); 
+            erori(i) = sum(sqrt(sum((sus - jos).^2))) ...
+                + sum(sum((bloc_imagine_transfer - bloc_curent))) * alpha; 
         end
         
         eroare_minima = min(erori);
