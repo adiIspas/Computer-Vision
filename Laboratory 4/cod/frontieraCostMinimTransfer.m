@@ -56,23 +56,13 @@ function [ imgSintetizata ] = frontieraCostMinimTransfer( params )
          if progres == 1
              imshow(imgSintetizataMaiMare);
          end
-        
-         x
-         pixeli_adaugati
          
         pixeli_adaugati = pixeli_adaugati + (dimBloc - suprapunere);        
     end
-    
-    '....'
-    pixeli_adaugati
-    '---'
-    nrBlocuriX * dimBloc
-    
    
     pixeli_adaugati = dimBloc;
     for y = 1:nrBlocuriY-2
-        bloc_sus = rgb2gray(imgSintetizataMaiMare(pixeli_adaugati - dimBloc + 1:pixeli_adaugati,1:dimBloc,:));
-        
+        bloc_sus = rgb2gray(imgSintetizataMaiMare(pixeli_adaugati - dimBloc + 1:pixeli_adaugati,1:dimBloc,:));  
         bloc_imagine_transfer = imagineTransfer(pixeli_adaugati+1:pixeli_adaugati + dimBloc, 1:dimBloc,:);
         
         [indice, ~, bloc] = cautaEroareMinimaTransfer(0,bloc_sus,blocuri,suprapunere,nrBlocuri,eroareTolerata,bloc_imagine_transfer);
@@ -164,12 +154,6 @@ function [ imgSintetizata ] = frontieraCostMinimTransfer( params )
         end
         pixeli_adaugati_orizontal = pixeli_adaugati_orizontal + (dimBloc - suprapunere);
     end
-    
-    imshow(imgSintetizataMaiMare)
-    
-    size(imgSintetizataMaiMare)
-    '---'
-    size(imgSintetizata)
-    
+    imshow(imgSintetizataMaiMare);
     imgSintetizata = imgSintetizataMaiMare(1:size(imgSintetizata,1),1:size(imgSintetizata,2),:);
 end

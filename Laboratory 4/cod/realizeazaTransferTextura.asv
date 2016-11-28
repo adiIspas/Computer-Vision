@@ -48,17 +48,18 @@ function [ imagineTexturaTransferata ] = realizeazaTransferTextura( parametri )
 %     nrBlocuriY = round(nrBlocuriY + (loseY/dimBloc) + 1)
 %     nrBlocuriX = round(nrBlocuriX + (loseX/dimBloc) + 1)
     
-    nrBlocuriY = round((size(imgSintetizata,1) - overlap)/(dimBloc - overlap))
-    nrBlocuriX = round((size(imgSintetizata,2) - overlap)/(dimBloc - overlap))
+    nrBlocurY = round( (size(imgSintetizata,1)) )
     
     size(parametri.imagineTransfer)
+    '---'
     
-    imgSintetizataMaiMare = uint8(zeros(nrBlocuriY * dimBloc,nrBlocuriX * dimBloc,size(parametri.texturaInitiala,3)));
+    
+    imgSintetizataMaiMare = uint8(zeros(nrBlocuriY * (dimBloc - overlap),nrBlocuriX * (dimBloc-overlap),size(parametri.texturaInitiala,3)));
     
     size(imgSintetizataMaiMare)
-
-   
+    pause
     
+    dimBloc = aux;
     params.dimBloc = dimBloc;
     params.imgSintetizataMaiMare = imgSintetizataMaiMare;
     params.imgSintetizata        = imgSintetizata;
