@@ -15,7 +15,7 @@ function [ imgSintetizata ] = frontieraCostMinimTransfer( params )
     eroareTolerata        = params.eroareTolerata;
     suprapunere           = params.pixeli;
     imagineTransfer = params.imagineTransfer;
-    progres = 0;
+    progres = 1;
     
     if size(imagineTransfer,3) ~= 1
         imagineTransfer = rgb2gray(imagineTransfer);
@@ -29,7 +29,8 @@ function [ imgSintetizata ] = frontieraCostMinimTransfer( params )
     fprintf('Initializam procesul de sintetizare a imaginii \npe baza erorii de suprapunere si a frontierei \nde cost minim ...\n');
     
     pixeli_adaugati = dimBloc;
-    for x = 1:nrBlocuriX-2
+    for x = 1:nrBlocuriX
+        if pixeli_adaugati + dimBloc < size(imagineTransfer,2)
         bloc_stanga = rgb2gray(imgSintetizataMaiMare(1:dimBloc,pixeli_adaugati - dimBloc + 1:pixeli_adaugati,:));
         
         
@@ -58,10 +59,12 @@ function [ imgSintetizata ] = frontieraCostMinimTransfer( params )
          end
          
         pixeli_adaugati = pixeli_adaugati + (dimBloc - suprapunere);        
+        end
     end
    
     pixeli_adaugati = dimBloc;
-    for y = 1:nrBlocuriY-2
+    for y = 1:nrBlocuriY
+        if pixeli_adaugati + dimBloc < size(imagineTransfer,1)
         bloc_sus = rgb2gray(imgSintetizataMaiMare(pixeli_adaugati - dimBloc + 1:pixeli_adaugati,1:dimBloc,:));  
         bloc_imagine_transfer = imagineTransfer(pixeli_adaugati+1:pixeli_adaugati + dimBloc, 1:dimBloc,:);
         
@@ -88,16 +91,19 @@ function [ imgSintetizata ] = frontieraCostMinimTransfer( params )
          end
         
         pixeli_adaugati = pixeli_adaugati + (dimBloc - suprapunere);
-    end 
+        end 
+    end
     
     % Completam restul imaginii
     total_adaugat = nrBlocuriX + nrBlocuriY - 1;
     total = nrBlocuriX * nrBlocuriY;
     
     pixeli_adaugati_orizontal = dimBloc;
-    for y=2:nrBlocuriY-2
+    for y=2:nrBlocuriY
+        if pixeli_adaugati_orizontal + dimBloc < size(imagineTransfer,1)
         pixeli_adaugati_vertical = dimBloc;
-        for x=2:nrBlocuriX-2    
+        for x=2:nrBlocuriX
+            if pixeli_adaugati_vertical + dimBloc < size(imagineTransfer,2)
             bloc_stanga = rgb2gray(imgSintetizataMaiMare(pixeli_adaugati_orizontal + 1:pixeli_adaugati_orizontal + dimBloc,pixeli_adaugati_vertical - dimBloc + 1:pixeli_adaugati_vertical,:));    
             bloc_sus = rgb2gray(imgSintetizataMaiMare(pixeli_adaugati_orizontal - dimBloc + 1:pixeli_adaugati_orizontal,pixeli_adaugati_vertical + 1:pixeli_adaugati_vertical + dimBloc,:));
             
@@ -151,8 +157,10 @@ function [ imgSintetizata ] = frontieraCostMinimTransfer( params )
              imshow(imgSintetizataMaiMare);
          end
          
+            end
         end
         pixeli_adaugati_orizontal = pixeli_adaugati_orizontal + (dimBloc - suprapunere);
+        end
     end
     imshow(imgSintetizataMaiMare);
     imgSintetizata = imgSintetizataMaiMare(1:size(imgSintetizata,1),1:size(imgSintetizata,2),:);

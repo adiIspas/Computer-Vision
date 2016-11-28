@@ -10,7 +10,7 @@ format_image = '.jpg';
 img          = imread(['../data/' name_image format_image]);
 
 % Citeste imaginea pe care vom aplica textura
-name_image_transfer   = 'abraham_lincoln';
+name_image_transfer   = 'eminescu';
 format_image_transfer = '.jpg';
 img_transfer           = imread(['../data/' name_image_transfer format_image_transfer]);
 
