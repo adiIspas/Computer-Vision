@@ -11,7 +11,7 @@ function imgSintetizata = realizeazaSintezaTexturii(parametri)
     W2 = parametri.dimensiuneTexturaSintetizata(2);
     
     overlap = parametri.portiuneSuprapunere;
-    pixeli  = dimBloc * overlap;
+    pixeli  = round(dimBloc * overlap);
     
     % O imagine este o matrice cu 3 dimensiuni: inaltime x latime x nrCanale
     % Variabila blocuri - matrice cu 4 dimensiuni: punem fiecare bloc (portiune din textura initiala) 

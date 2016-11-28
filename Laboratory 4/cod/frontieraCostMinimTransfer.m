@@ -1,4 +1,4 @@
-function [ imgSintetizata ] = frontieraCostMinim( params )
+function [ imgSintetizata ] = frontieraCostMinimTransfer( params )
     % Imaginea texturii se completeaza cu blocuri bazare pe eroare de suprapunere
     % si a frontiere de cost minim.
 
@@ -14,8 +14,13 @@ function [ imgSintetizata ] = frontieraCostMinim( params )
     blocuri               = params.blocuri;
     eroareTolerata        = params.eroareTolerata;
     suprapunere           = params.pixeli;
-    progres               = params.progresImagine;
-   
+    imagineTransfer = params.imagineTransfer;
+    progres = 0;
+    
+    if size(imagineTransfer,3) ~= 1
+        imagineTransfer = rgb2gray(imagineTransfer);
+    end
+    
     % Punem primul bloc in imagine
     indice = randi(nrBlocuri);
     imgSintetizataMaiMare(1:dimBloc,1:dimBloc,:) = blocuri(:,:,:,indice);
@@ -24,10 +29,13 @@ function [ imgSintetizata ] = frontieraCostMinim( params )
     fprintf('Initializam procesul de sintetizare a imaginii \npe baza erorii de suprapunere si a frontierei \nde cost minim ...\n');
     
     pixeli_adaugati = dimBloc;
-    for x = 1:nrBlocuriX-1
+    for x = 1:nrBlocuriX-2
         bloc_stanga = rgb2gray(imgSintetizataMaiMare(1:dimBloc,pixeli_adaugati - dimBloc + 1:pixeli_adaugati,:));
         
-        [indice, bloc, ~] = cautaEroareMinima(bloc_stanga,0,blocuri,suprapunere,nrBlocuri,eroareTolerata);
+        
+        bloc_imagine_transfer = imagineTransfer(1:dimBloc, pixeli_adaugati+1:pixeli_adaugati + dimBloc,:);
+        
+        [indice, bloc, ~] = cautaEroareMinimaTransfer(bloc_stanga,0,blocuri,suprapunere,nrBlocuri,eroareTolerata,bloc_imagine_transfer);
         drum = cautaDrumMinimStanga(bloc);
        
         bloc_stanga_imagine = imgSintetizataMaiMare(1:dimBloc,pixeli_adaugati - dimBloc + 1:pixeli_adaugati,:);
@@ -43,21 +51,31 @@ function [ imgSintetizata ] = frontieraCostMinim( params )
 
         imgSintetizataMaiMare(1:dimBloc,pixeli_adaugati + 1 - suprapunere:pixeli_adaugati,:) = overlap_stanga(:,:,:);
         imgSintetizataMaiMare(1:dimBloc,pixeli_adaugati + 1:pixeli_adaugati + dimBloc - suprapunere,:) = blocuri(:,suprapunere+1:end,:,indice);
-
         
         % Afisam progresul imaginii
          if progres == 1
              imshow(imgSintetizataMaiMare);
          end
         
+         x
+         pixeli_adaugati
+         
         pixeli_adaugati = pixeli_adaugati + (dimBloc - suprapunere);        
     end
+    
+    '....'
+    pixeli_adaugati
+    '---'
+    nrBlocuriX * dimBloc
+    
    
     pixeli_adaugati = dimBloc;
-    for y = 1:nrBlocuriY
+    for y = 1:nrBlocuriY-2
         bloc_sus = rgb2gray(imgSintetizataMaiMare(pixeli_adaugati - dimBloc + 1:pixeli_adaugati,1:dimBloc,:));
-
-        [indice, ~, bloc] = cautaEroareMinima(0,bloc_sus,blocuri,suprapunere,nrBlocuri,eroareTolerata);
+        
+        bloc_imagine_transfer = imagineTransfer(pixeli_adaugati+1:pixeli_adaugati + dimBloc, 1:dimBloc,:);
+        
+        [indice, ~, bloc] = cautaEroareMinimaTransfer(0,bloc_sus,blocuri,suprapunere,nrBlocuri,eroareTolerata,bloc_imagine_transfer);
         drum = cautaDrumMinimSus(bloc);
        
         bloc_sus_imagine = imgSintetizataMaiMare(pixeli_adaugati - dimBloc + 1:pixeli_adaugati,1:dimBloc,:);
@@ -73,13 +91,13 @@ function [ imgSintetizata ] = frontieraCostMinim( params )
         
         imgSintetizataMaiMare(pixeli_adaugati + 1 - suprapunere:pixeli_adaugati,1:dimBloc,:) = overlap_sus(:,:,:);
         imgSintetizataMaiMare(pixeli_adaugati + 1:pixeli_adaugati + dimBloc - suprapunere,1:dimBloc,:) = blocuri(suprapunere+1:end,:,:,indice);
-        
+         
         % Afisam progresul imaginii
          if progres == 1
              imshow(imgSintetizataMaiMare);
          end
-         
-         pixeli_adaugati = pixeli_adaugati + (dimBloc - suprapunere);
+        
+        pixeli_adaugati = pixeli_adaugati + (dimBloc - suprapunere);
     end 
     
     % Completam restul imaginii
@@ -87,13 +105,15 @@ function [ imgSintetizata ] = frontieraCostMinim( params )
     total = nrBlocuriX * nrBlocuriY;
     
     pixeli_adaugati_orizontal = dimBloc;
-    for y=2:nrBlocuriY
+    for y=2:nrBlocuriY-2
         pixeli_adaugati_vertical = dimBloc;
-        for x=2:nrBlocuriX    
+        for x=2:nrBlocuriX-2    
             bloc_stanga = rgb2gray(imgSintetizataMaiMare(pixeli_adaugati_orizontal + 1:pixeli_adaugati_orizontal + dimBloc,pixeli_adaugati_vertical - dimBloc + 1:pixeli_adaugati_vertical,:));    
             bloc_sus = rgb2gray(imgSintetizataMaiMare(pixeli_adaugati_orizontal - dimBloc + 1:pixeli_adaugati_orizontal,pixeli_adaugati_vertical + 1:pixeli_adaugati_vertical + dimBloc,:));
-
-            [indice, bloc_st, bloc_su] = cautaEroareMinima(bloc_stanga,bloc_sus,blocuri,suprapunere,nrBlocuri,eroareTolerata);
+            
+            bloc_imagine_transfer = imagineTransfer(pixeli_adaugati_orizontal+1:pixeli_adaugati_orizontal + dimBloc, pixeli_adaugati_vertical+1:pixeli_adaugati_vertical+dimBloc,:);
+            
+            [indice, bloc_st, bloc_su] = cautaEroareMinimaTransfer(bloc_stanga,bloc_sus,blocuri,suprapunere,nrBlocuri,eroareTolerata,bloc_imagine_transfer);
             drum_stanga = cautaDrumMinimStanga(bloc_st); 
             drum_sus = cautaDrumMinimSus(bloc_su); 
             
@@ -135,14 +155,21 @@ function [ imgSintetizata ] = frontieraCostMinim( params )
              total_adaugat = total_adaugat + 1;
              clc
              fprintf('Sintetizam imaginea ... %2.2f%% \n',100*total_adaugat/total);
-
+             
              % Afisam progresul imaginii
-             if progres == 1
-                 imshow(imgSintetizataMaiMare);
-             end
+         if progres == 1
+             imshow(imgSintetizataMaiMare);
+         end
+         
         end
         pixeli_adaugati_orizontal = pixeli_adaugati_orizontal + (dimBloc - suprapunere);
     end
-
+    
+    imshow(imgSintetizataMaiMare)
+    
+    size(imgSintetizataMaiMare)
+    '---'
+    size(imgSintetizata)
+    
     imgSintetizata = imgSintetizataMaiMare(1:size(imgSintetizata,1),1:size(imgSintetizata,2),:);
 end

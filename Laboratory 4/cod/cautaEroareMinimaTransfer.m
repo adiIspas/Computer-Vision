@@ -1,8 +1,10 @@
-function [indice, bloc_stanga, bloc_sus] = cautaEroareMinima(bloc_stanga, bloc_sus, blocuri, pixeli, nrBlocuri, eroareTolerata)
+function [indice, bloc_stanga, bloc_sus] = cautaEroareMinimaTransfer(bloc_stanga, bloc_sus, blocuri, pixeli, nrBlocuri, eroareTolerata, bloc_imagine_transfer)
     % Functia ne returneaza indicele blocului a carui eroare este minima la
     % suprapunere si blocul pe baza caruia sa determinat eroarea, ulterior
     % blocul acesta va fi folosit pentru calcularea frontierei minime
-
+    
+    imagine_transfer = bloc_imagine_transfer;
+    
     stanga = sum(sum(bloc_stanga ~= 0));
     sus = sum(sum(bloc_sus ~= 0));    
     threshold = 1 + eroareTolerata;
@@ -21,7 +23,8 @@ function [indice, bloc_stanga, bloc_sus] = cautaEroareMinima(bloc_stanga, bloc_s
            stanga = double(bloc_stanga(:,end-pixeli+1:end,:));
            dreapta = double(bloc_curent(:,1:pixeli,:));
             
-           erori(i) = sum(sqrt(sum((stanga - dreapta).^2)))^2 + sum(sqrt(sum((sus - jos).^2)))^2;
+           erori(i) = sum(sqrt(sum((stanga - dreapta).^2)))^2 + sum(sqrt(sum((sus - jos).^2)))^2 ...
+               + sum(sum(imagine_transfer - bloc_curent)).^2;
         end
         
         eroare_minima = min(erori);
@@ -53,7 +56,7 @@ function [indice, bloc_stanga, bloc_sus] = cautaEroareMinima(bloc_stanga, bloc_s
             stanga = double(bloc_stanga(:,end-pixeli+1:end,:));
             dreapta = double(bloc_curent(:,1:pixeli,:));
             
-            erori(i) = sum(sqrt(sum((stanga - dreapta).^2)));
+            erori(i) = sum(sqrt(sum((stanga - dreapta).^2))) + sum(sum(imagine_transfer - bloc_curent)).^2;
         end
         
         eroare_minima = min(erori);
@@ -85,7 +88,7 @@ function [indice, bloc_stanga, bloc_sus] = cautaEroareMinima(bloc_stanga, bloc_s
             sus = double(bloc_sus(end-pixeli+1:end,:,:));
             jos = double(bloc_curent(1:pixeli,:,:));
 
-            erori(i) = sum(sqrt(sum((sus - jos).^2))); 
+            erori(i) = sum(sqrt(sum((sus - jos).^2))) + sum(sum(imagine_transfer - bloc_curent)).^2; 
         end
         
         eroare_minima = min(erori);
