@@ -1,4 +1,4 @@
-function [indice, bloc_stanga, bloc_sus] = cautaEroareMinimaTransfer(bloc_stanga, bloc_sus, blocuri, pixeli, nrBlocuri, eroareTolerata, transfer)
+function [indice, bloc_stanga, bloc_sus] = cautaEroareMinimaTransfer(bloc_stanga, bloc_sus, blocuri, pixeli, nrBlocuri, eroareTolerata, bloc_imagine_transfer)
     % Functia ne returneaza indicele blocului a carui eroare este minima la
     % suprapunere si blocul pe baza caruia sa determinat eroarea, ulterior
     % blocul acesta va fi folosit pentru calcularea frontierei minime
@@ -28,7 +28,7 @@ function [indice, bloc_stanga, bloc_sus] = cautaEroareMinimaTransfer(bloc_stanga
            dreapta = double(bloc_curent(:,1:pixeli,:));
             
            erori(i) = alpha * (sum(sqrt(sum((stanga - dreapta).^2)))^2 + sum(sqrt(sum((sus - jos).^2)))^2) ...
-               + (1-alpha) * (sum(sum(imagine_transfer - bloc_curent)).^2);
+               + (1-aplha) * (sum(sum(imagine_transfer - bloc_curent)).^2);
         end
         
         eroare_minima = min(erori);
@@ -92,7 +92,7 @@ function [indice, bloc_stanga, bloc_sus] = cautaEroareMinimaTransfer(bloc_stanga
             sus = double(bloc_sus(end-pixeli+1:end,:,:));
             jos = double(bloc_curent(1:pixeli,:,:));
 
-            erori(i) = alpha * sum(sqrt(sum((sus - jos).^2))) + (1-alpha)*(sum(sum(imagine_transfer - bloc_curent)).^2); 
+            erori(i) = sum(sqrt(sum((sus - jos).^2))) + (1-(sum(sum(imagine_transfer - bloc_curent)).^2); 
         end
         
         eroare_minima = min(erori);

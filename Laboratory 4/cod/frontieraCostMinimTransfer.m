@@ -17,6 +17,9 @@ function [ imgSintetizata ] = frontieraCostMinimTransfer( params )
     imagineTransfer = params.imagineTransfer;
     progres               = params.progresImagine;
     
+    transfer.iteratieCurenta = params.iteratieCurenta;
+    transfer.totalIteratii = params.totalIteratii;
+    
     if size(imagineTransfer,3) ~= 1
         imagineTransfer = rgb2gray(imagineTransfer);
     end
@@ -33,10 +36,9 @@ function [ imgSintetizata ] = frontieraCostMinimTransfer( params )
         if pixeli_adaugati + dimBloc <= size(imagineTransfer,2)
             bloc_stanga = rgb2gray(imgSintetizataMaiMare(1:dimBloc,pixeli_adaugati - dimBloc + 1:pixeli_adaugati,:));
 
+            transfer.bloc_imagine_transfer = imagineTransfer(1:dimBloc, pixeli_adaugati+1:pixeli_adaugati + dimBloc,:);
 
-            bloc_imagine_transfer = imagineTransfer(1:dimBloc, pixeli_adaugati+1:pixeli_adaugati + dimBloc,:);
-
-            [indice, bloc, ~] = cautaEroareMinimaTransfer(bloc_stanga,0,blocuri,suprapunere,nrBlocuri,eroareTolerata,bloc_imagine_transfer);
+            [indice, bloc, ~] = cautaEroareMinimaTransfer(bloc_stanga,0,blocuri,suprapunere,nrBlocuri,eroareTolerata,transfer);
             drum = cautaDrumMinimStanga(bloc);
 
             bloc_stanga_imagine = imgSintetizataMaiMare(1:dimBloc,pixeli_adaugati - dimBloc + 1:pixeli_adaugati,:);
@@ -66,9 +68,10 @@ function [ imgSintetizata ] = frontieraCostMinimTransfer( params )
     for y = 1:nrBlocuriY
         if pixeli_adaugati + dimBloc <= size(imagineTransfer,1)
             bloc_sus = rgb2gray(imgSintetizataMaiMare(pixeli_adaugati - dimBloc + 1:pixeli_adaugati,1:dimBloc,:));  
-            bloc_imagine_transfer = imagineTransfer(pixeli_adaugati+1:pixeli_adaugati + dimBloc, 1:dimBloc,:);
+            
+            transfer.bloc_imagine_transfer = imagineTransfer(pixeli_adaugati+1:pixeli_adaugati + dimBloc, 1:dimBloc,:);
 
-            [indice, ~, bloc] = cautaEroareMinimaTransfer(0,bloc_sus,blocuri,suprapunere,nrBlocuri,eroareTolerata,bloc_imagine_transfer);
+            [indice, ~, bloc] = cautaEroareMinimaTransfer(0,bloc_sus,blocuri,suprapunere,nrBlocuri,eroareTolerata,transfer);
             drum = cautaDrumMinimSus(bloc);
 
             bloc_sus_imagine = imgSintetizataMaiMare(pixeli_adaugati - dimBloc + 1:pixeli_adaugati,1:dimBloc,:);
@@ -107,9 +110,9 @@ function [ imgSintetizata ] = frontieraCostMinimTransfer( params )
                     bloc_stanga = rgb2gray(imgSintetizataMaiMare(pixeli_adaugati_orizontal + 1:pixeli_adaugati_orizontal + dimBloc,pixeli_adaugati_vertical - dimBloc + 1:pixeli_adaugati_vertical,:));    
                     bloc_sus = rgb2gray(imgSintetizataMaiMare(pixeli_adaugati_orizontal - dimBloc + 1:pixeli_adaugati_orizontal,pixeli_adaugati_vertical + 1:pixeli_adaugati_vertical + dimBloc,:));
 
-                    bloc_imagine_transfer = imagineTransfer(pixeli_adaugati_orizontal+1:pixeli_adaugati_orizontal + dimBloc, pixeli_adaugati_vertical+1:pixeli_adaugati_vertical+dimBloc,:);
+                    transfer.bloc_imagine_transfer = imagineTransfer(pixeli_adaugati_orizontal+1:pixeli_adaugati_orizontal + dimBloc, pixeli_adaugati_vertical+1:pixeli_adaugati_vertical+dimBloc,:);
 
-                    [indice, bloc_st, bloc_su] = cautaEroareMinimaTransfer(bloc_stanga,bloc_sus,blocuri,suprapunere,nrBlocuri,eroareTolerata,bloc_imagine_transfer);
+                    [indice, bloc_st, bloc_su] = cautaEroareMinimaTransfer(bloc_stanga,bloc_sus,blocuri,suprapunere,nrBlocuri,eroareTolerata,transfer);
                     drum_stanga = cautaDrumMinimStanga(bloc_st); 
                     drum_sus = cautaDrumMinimSus(bloc_su); 
 

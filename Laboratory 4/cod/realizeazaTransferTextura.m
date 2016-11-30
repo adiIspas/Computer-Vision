@@ -1,6 +1,8 @@
 function [ imagineTexturaTransferata ] = realizeazaTransferTextura( parametri )
     
-    nrIteratii = 5;
+% noua_eroare = alpha * eroare_clasica + (1 - alpha) * eroare_intensitate;
+
+    nrIteratii = 4;
     parametri.dimBloc = 40;
     %dimBloc   = parametri.dimBloc;
     %overlap   = round(dimBloc * 1/6);
@@ -53,7 +55,10 @@ function [ imagineTexturaTransferata ] = realizeazaTransferTextura( parametri )
         params.eroareTolerata = parametri.eroareTolerata;
         params.pixeli = overlap;
         params.progresImagine        = parametri.progresImagine;
-
+        
+        params.iteratieCurenta = iteratie;
+        params.totalIteratii = nrIteratii;
+        
         imagineTexturaTransferata = frontieraCostMinimTransfer(params);
 
         parametri.texturaInitiala = imagineTexturaTransferata;
