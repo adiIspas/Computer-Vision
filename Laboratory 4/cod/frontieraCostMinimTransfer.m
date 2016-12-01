@@ -13,7 +13,7 @@ function [ imgSintetizata ] = frontieraCostMinimTransfer( params )
     blocuri               = params.blocuri;
     eroareTolerata        = params.eroareTolerata;
     suprapunere           = params.pixeli;
-    imagineTransfer = params.imagineTransfer;
+    imagineTransfer       = params.imagineTransfer;
     progres               = params.progresImagine;
     
     transfer.iteratieCurenta = params.iteratieCurenta;
@@ -48,7 +48,7 @@ function [ imgSintetizata ] = frontieraCostMinimTransfer( params )
     imgSintetizataMaiMare(1:dimBloc,1:dimBloc,:) = blocuri(:,:,:,indice);
     
     clc
-    fprintf('Initializam procesul de sintetizare a imaginii \npe baza erorii de suprapunere si a frontierei \nde cost minim ...\n');
+    fprintf('Initializam procesul de transfer a texturii \npe baza erorii de suprapunere si a frontierei \nde cost minim ...\n');
     
     pixeli_adaugati = dimBloc;
     for x = 1:nrBlocuriX + 1
@@ -172,7 +172,7 @@ function [ imgSintetizata ] = frontieraCostMinimTransfer( params )
                      % Afisam progresul procentual
                      total_adaugat = total_adaugat + 1;
                      clc
-                     fprintf('Sintetizam imaginea ... %2.2f%% \n',100*total_adaugat/total);
+                     fprintf('Transferam textura pe imagine ... %2.2f%% \n',100*total_adaugat/total);
 
                      % Afisam progresul imaginii
                      if progres == 1
@@ -185,8 +185,10 @@ function [ imgSintetizata ] = frontieraCostMinimTransfer( params )
         end
     end
     
-    imshow(imgSintetizataMaiMare);
+    clc
+    fprintf('Transferam textura pe imagine ... %2.2f%% \n',100);
     
+    % Determinam portiunile pana la care s-au scris pixeli
     for i = 1:size(imgSintetizataMaiMare,1)
         if imgSintetizataMaiMare(i,1,:) == 0
             y_min = i;
@@ -203,6 +205,5 @@ function [ imgSintetizata ] = frontieraCostMinimTransfer( params )
     end
     x_min = x_min - 1;
     
-    %imgSintetizata = imgSintetizataMaiMare(1:size(imgSintetizata,1),1:size(imgSintetizata,2),:);
     imgSintetizata = imgSintetizataMaiMare(1:y_min,1:x_min,:);
 end

@@ -1,12 +1,13 @@
 function [ imagineTexturaTransferata ] = realizeazaTransferTextura( parametri )
-    
     nrIteratii = parametri.numarIteratii;
     parametri.dimBloc = parametri.dimensiuneBlocTransfer;
+    suprapunere = parametri.portiuneSuprapunere;
+    nume = parametri.numeImagine;
     
     tic
     for iteratie = 1:nrIteratii
         dimBloc = parametri.dimBloc;
-        overlap = round(dimBloc * 1/6);
+        overlap = round(dimBloc * suprapunere);
         if overlap == 1
             overlap = 2;
         end
@@ -56,9 +57,8 @@ function [ imagineTexturaTransferata ] = realizeazaTransferTextura( parametri )
         parametri.texturaInitiala = imagineTexturaTransferata;
         parametri.dimBloc = round(dimBloc / 2);
         imshow(imagineTexturaTransferata);
-        imwrite(imagineTexturaTransferata,['transfer-textura-iteratie-' num2str(iteratie) '.jpg']);
-    end
-    
+        imwrite(imagineTexturaTransferata,[nume '-transfer-textura-iteratie-' num2str(iteratie) '.jpg']);
+    end  
     toc
 end
 
