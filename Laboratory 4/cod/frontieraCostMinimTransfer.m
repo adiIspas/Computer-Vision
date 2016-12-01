@@ -10,7 +10,6 @@ function [ imgSintetizata ] = frontieraCostMinimTransfer( params )
     nrBlocuri             = params.nrBlocuri;
     dimBloc               = params.dimBloc;
     imgSintetizataMaiMare = params.imgSintetizataMaiMare;
-    imgSintetizata        = params.imgSintetizata;
     blocuri               = params.blocuri;
     eroareTolerata        = params.eroareTolerata;
     suprapunere           = params.pixeli;
@@ -25,7 +24,27 @@ function [ imgSintetizata ] = frontieraCostMinimTransfer( params )
     end
     
     % Punem primul bloc in imagine
-    indice = randi(nrBlocuri);
+    bloc_imagine = imagineTransfer(1:dimBloc, 1:dimBloc,:);
+    erori = zeros(1,nrBlocuri);
+    for i = 1:nrBlocuri
+        bloc_curent = rgb2gray(blocuri(:,:,:,i));
+        erori(i) = (sum(sum(bloc_imagine - bloc_curent)).^2);
+    end
+    
+    threshold = 1 + eroareTolerata;
+    eroare_minima = min(erori);
+    blocuri_selectate = zeros(size(blocuri));
+    blocuri_adaugate = 1;
+    indexi_originali = zeros(1,nrBlocuri);
+    for i = 1:nrBlocuri
+        if erori(i) <= eroare_minima * threshold
+            blocuri_selectate(:,:,:,blocuri_adaugate) = blocuri(:,:,:,i);
+            indexi_originali(1,blocuri_adaugate) = i;
+            blocuri_adaugate = blocuri_adaugate + 1;
+        end
+    end
+    index_generat = randi(blocuri_adaugate-1);
+    indice = indexi_originali(1,index_generat);
     imgSintetizataMaiMare(1:dimBloc,1:dimBloc,:) = blocuri(:,:,:,indice);
     
     clc

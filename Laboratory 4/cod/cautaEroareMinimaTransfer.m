@@ -8,7 +8,7 @@ function [indice, bloc_stanga, bloc_sus] = cautaEroareMinimaTransfer(bloc_stanga
     totalIteratii = transfer.totalIteratii;
     
     alpha = 0.8*((iteratieCurenta-1)/(totalIteratii - 1)) + 0.1;
-    
+ 
     stanga = sum(sum(bloc_stanga ~= 0));
     sus = sum(sum(bloc_sus ~= 0));    
     threshold = 1 + eroareTolerata;
@@ -26,8 +26,8 @@ function [indice, bloc_stanga, bloc_sus] = cautaEroareMinimaTransfer(bloc_stanga
 
            stanga = double(bloc_stanga(:,end-pixeli+1:end,:));
            dreapta = double(bloc_curent(:,1:pixeli,:));
-            
-           erori(i) = alpha * (sum(sqrt(sum((stanga - dreapta).^2)))^2 + sum(sqrt(sum((sus - jos).^2)))^2) ...
+                       
+           erori(i) = alpha * (sum(sqrt(sum((stanga - dreapta).^2))) + sum(sqrt(sum((sus - jos).^2)))) ...
                + (1-alpha) * (sum(sum(imagine_transfer - bloc_curent)).^2);
         end
         
@@ -48,6 +48,7 @@ function [indice, bloc_stanga, bloc_sus] = cautaEroareMinimaTransfer(bloc_stanga
 
         bloc_stanga = stanga - dreapta;
         bloc_sus = sus - jos;
+        
     % Doar blocul din stanga are imagine
     elseif stanga ~= 0
 
@@ -81,6 +82,7 @@ function [indice, bloc_stanga, bloc_sus] = cautaEroareMinimaTransfer(bloc_stanga
 
         bloc_stanga = stanga - dreapta;
         bloc_sus = 0;
+        
     % Doar blocul de sus are imagine
     elseif sus ~= 0
         erori = zeros(1,nrBlocuri);

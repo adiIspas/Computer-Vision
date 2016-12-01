@@ -1,11 +1,8 @@
 function [ imagineTexturaTransferata ] = realizeazaTransferTextura( parametri )
     
-% noua_eroare = alpha * eroare_clasica + (1 - alpha) * eroare_intensitate;
-
-    nrIteratii = 4;
-    parametri.dimBloc = 40;
-    %dimBloc   = parametri.dimBloc;
-    %overlap   = round(dimBloc * 1/6);
+    nrIteratii = parametri.numarIteratii;
+    parametri.dimBloc = parametri.dimensiuneBlocTransfer;
+    
     tic
     for iteratie = 1:nrIteratii
         dimBloc = parametri.dimBloc;
@@ -13,11 +10,6 @@ function [ imagineTexturaTransferata ] = realizeazaTransferTextura( parametri )
         if overlap == 1
             overlap = 2;
         end
-        iteratie
-        dimBloc
-        overlap
-        size(parametri.texturaInitiala)
-        pause(3)
         nrBlocuri = parametri.nrBlocuri;
 
         [inaltimeTexturaInitiala,latimeTexturaInitiala,nrCanale] = size(parametri.texturaInitiala);
@@ -66,6 +58,7 @@ function [ imagineTexturaTransferata ] = realizeazaTransferTextura( parametri )
         imshow(imagineTexturaTransferata);
         imwrite(imagineTexturaTransferata,['transfer-textura-iteratie-' num2str(iteratie) '.jpg']);
     end
+    
     toc
 end
 

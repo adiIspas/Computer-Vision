@@ -5,12 +5,12 @@ clear;
 clc;
 
 % Citeste imaginea de textura
-name_image   = 'rice';
+name_image   = 'texture_5';
 format_image = '.jpg';
 img          = imread(['../data/' name_image format_image]);
 
 % Citeste imaginea pe care vom aplica textura
-name_image_transfer   = 'bill';
+name_image_transfer   = 'abraham_lincoln';
 format_image_transfer = '.jpg';
 img_transfer           = imread(['../data/' name_image_transfer format_image_transfer]);
 
@@ -20,6 +20,10 @@ parametri.imagineTransfer              = img_transfer;
 marime                                 = 3;
 parametri.dimensiuneTexturaSintetizata = [marime * size(img,1) marime * size(img,2)];
 parametri.dimensiuneBloc               = 144;
+
+% Parametrii transfer textura
+parametri.dimensiuneBlocTransfer = 80;
+parametri.numarIteratii          = 5;
 
 parametri.nrBlocuri           = 2000;
 parametri.eroareTolerata      = 0.1;
