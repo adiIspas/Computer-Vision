@@ -19,7 +19,7 @@ parametri.texturaInitiala              = img;
 parametri.imagineTransfer              = img_transfer;
 marime                                 = 2;
 parametri.dimensiuneTexturaSintetizata = [marime * size(img,1) marime * size(img,2)];
-parametri.dimensiuneBloc               = 72;
+parametri.dimensiuneBloc               = 36;
 
 % Parametrii transfer textura
 parametri.dimensiuneBlocTransfer = 80;
