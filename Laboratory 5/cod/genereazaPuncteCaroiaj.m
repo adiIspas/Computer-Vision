@@ -1,6 +1,6 @@
 function puncteCaroiaj = genereazaPuncteCaroiaj(img,nrPuncteX,nrPuncteY,margine)
-    % genereaza puncte pe baza unui caroiaj
-    % un caroiaj este o retea de drepte orizontale si verticale de forma urmatoare:
+    % Genereaza puncte pe baza unui caroiaj
+    % Un caroiaj este o retea de drepte orizontale si verticale de forma urmatoare:
     %
     %        |   |   |   |
     %      --+---+---+---+--
@@ -52,16 +52,17 @@ function puncteCaroiaj = genereazaPuncteCaroiaj(img,nrPuncteX,nrPuncteY,margine)
     end
     
     % Pentru validarea datelor
-    idx = 1;
-    img = uint8(img);
-    for i = 1:nrPuncteX
-        for j = 1:nrPuncteY
-            if puncteCaroiaj(idx,1)
-                img(puncteCaroiaj(idx,1),puncteCaroiaj(idx,2)) = 255;
-                idx = idx + 1;
-            end
-        end
-    end
-    
-    imshow(img)
+%     idx = 1;
+%     img = uint8(img);
+%     for i = 1:nrPuncteX
+%         for j = 1:nrPuncteY
+%             if puncteCaroiaj(idx,1)
+%                 img(puncteCaroiaj(idx,1),puncteCaroiaj(idx,2)) = 255;
+%                 idx = idx + 1;
+%             end
+%         end
+%     end
+%     size(img)
+%     imshow(img)
+    %
 end
