@@ -36,17 +36,35 @@ function [descriptoriHOG, patchuri] = calculeazaHistogrameGradientiOrientati(img
     f = [-1 0 1];
     Ix = imfilter(img,f,'replicate');
     Iy = imfilter(img,f','replicate');
-    size(Iy)
+
     orientare = atand(Ix./(Iy+eps)); %unghiuri intre -90 si 90 grade
     orientare = orientare + 90; %unghiuri intre 0 si 180 grade
+    
     %completati codul
     %...
-    size(img)
-    size(orientare)
+
+    binranges = linspace(0,180,8);
     for i = 1:size(puncte)
-        patchCurent = img(1+puncte(i,1)-margine:puncte(i,1)+margine,1+puncte(i,2)-margine:puncte(i,2)+margine);
+        coordonataX = puncte(i,2);
+        coordonataY = puncte(i,1);
+        patchCurent = img(1+coordonataY-margine:coordonataY+margine,1+coordonataX-margine:coordonataX+margine);
+        orientareCurenta = orientare(1+coordonataY-margine:coordonataY+margine,1+coordonataX-margine:coordonataX+margine);
+        histogramaCurenta = [];
         
-        %aplicam  
+        for idx_y = 1:4
+            for idx_x = 1:4
+                celula = patchCurent(1 + ((idx_y - 1) * 4):idx_y * 4, 1+((idx_x - 1) * 4):idx_x * 4);
+                orientarePixeliCelula = orientareCurenta(1 + ((idx_y - 1) * 4):idx_y * 4, 1+((idx_x - 1) * 4):idx_x * 4);
+                %histc(orientarePixeliCelula(:),binranges);
+                histogramaCurenta = [histogramaCurenta histc(orientarePixeliCelula(:),binranges)]
+            end
+        end
+        size(histogramaCurenta)
+        %extragem celule din patchCurent si orientarile din orientare 
+        %dupa care
+        %aplicam histc(orientare_celula(:),linespace(0,180,9))
+        %salvam histogramele pentru cele 16 celule in descriptori si in
+        %patch-uri celule cu pixeli din imagine
     end
     
 end

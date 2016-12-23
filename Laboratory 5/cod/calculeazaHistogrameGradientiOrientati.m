@@ -25,8 +25,8 @@ function [descriptoriHOG, patchuri] = calculeazaHistogrameGradientiOrientati(img
 
     nBins = 8; %dimensiunea histogramelor fiecarei celule
     margine = 8;
-    descriptoriHOG = zeros(0,nBins*4*4); % fiecare linie reprezinta concatenarea celor 16 histograme corespunzatoare fiecarei celule
-    patchuri = zeros(0,4*dimensiuneCelula*4*dimensiuneCelula); % 
+    %descriptoriHOG = zeros(0,nBins*4*4); % fiecare linie reprezinta concatenarea celor 16 histograme corespunzatoare fiecarei celule
+    %patchuri = zeros(0,4*dimensiuneCelula*4*dimensiuneCelula); % 
 
     if size(img,3)==3
         img = rgb2gray(img);
@@ -36,15 +36,32 @@ function [descriptoriHOG, patchuri] = calculeazaHistogrameGradientiOrientati(img
     f = [-1 0 1];
     Ix = imfilter(img,f,'replicate');
     Iy = imfilter(img,f','replicate');
-    size(Iy)
+
     orientare = atand(Ix./(Iy+eps)); %unghiuri intre -90 si 90 grade
     orientare = orientare + 90; %unghiuri intre 0 si 180 grade
+    
     %completati codul
     %...
-    size(img)
-    size(orientare)
+    patchuri = [];
+    descriptoriHOG = [];
+    binranges = linspace(0,180,8);
     for i = 1:size(puncte)
-        patchCurent = img(1+puncte(i,1)-margine:puncte(i,1)+margine,1+puncte(i,2)-margine:puncte(i,2)+margine);
+        coordonataX = puncte(i,2);
+        coordonataY = puncte(i,1);
+        patchCurent = img(1+coordonataY-margine:coordonataY+margine,1+coordonataX-margine:coordonataX+margine);
+        orientareCurenta = orientare(1+coordonataY-margine:coordonataY+margine,1+coordonataX-margine:coordonataX+margine);
+        
+        histogrameCurente = [];
+        for idx_y = 1:4
+            for idx_x = 1:4
+                celula = patchCurent(1 + ((idx_y - 1) * 4):idx_y * 4, 1+((idx_x - 1) * 4):idx_x * 4);
+                orientarePixeliCelula = orientareCurenta(1 + ((idx_y - 1) * 4):idx_y * 4, 1+((idx_x - 1) * 4):idx_x * 4);
+                %histc(orientarePixeliCelula(:)',binranges)
+                histogrameCurente = [histogrameCurente histc(orientarePixeliCelula(:)',binranges)];
+            end
+        end
+        patchuri = [patchuri; patchCurent(:)'];
+        descriptoriHOG = [descriptoriHOG; histogrameCurente];
         
         %extragem celule din patchCurent si orientarile din orientare 
         %dupa care
@@ -52,5 +69,4 @@ function [descriptoriHOG, patchuri] = calculeazaHistogrameGradientiOrientati(img
         %salvam histogramele pentru cele 16 celule in descriptori si in
         %patch-uri celule cu pixeli din imagine
     end
-    
 end

@@ -9,7 +9,7 @@ clc
 disp('Etapa de antrenare');
 disp('Construim vocabularul de cuvinte vizuale');
 
-k = 5;% k = numarul de cuvinte vizuale ale vocabularului
+k = 6;% k = numarul de cuvinte vizuale ale vocabularului
 iterMax = 50;
 
 % cuvintele vizuale sunt centri clusterilor obtinuti prin k-means

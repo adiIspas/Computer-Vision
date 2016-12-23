@@ -19,7 +19,6 @@ for i = 1:size(cuvinteVizuale,1)
         
         [d,smallest] = min(dist(matching));
         closestIdx = matching(smallest);
-              
         p = reshape(patches(closestIdx,:),inaltimePatch,latimePatch,1);
         clusterPatches(:,:,:,end+1) = p;
         scores(end+1)=length(matching);
