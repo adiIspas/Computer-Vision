@@ -31,5 +31,4 @@ end
 clusterPatches=clusterPatches(:,:,:,scoreOrder);
 
 montage(clusterPatches, 'DisplayRange', []);
-
 end

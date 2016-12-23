@@ -11,5 +11,10 @@ function histogramaBOVW = calculeazaHistogramaBOVW(descriptoriHOG, cuvinteVizual
   
  % completati codul
  ...
+  % trebuie sa calculez pentru fiecare descriptor cel mai apropiat cuvant
+  % vizual si dupa numaram cati descriptori are fiecare cuvant vizual.
+  % astfel intoarcem in variabial histogramaBOVW un vector linie de lungime
+  % N (in cazul nostru k, deoarece avem k cuvinte vizuale) in care
+  % fiecare componenta spune cati descriptori are acel cuvant vizual
      
 end
