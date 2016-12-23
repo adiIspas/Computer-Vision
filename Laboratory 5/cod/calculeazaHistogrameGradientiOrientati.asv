@@ -46,11 +46,7 @@ function [descriptoriHOG, patchuri] = calculeazaHistogrameGradientiOrientati(img
     for i = 1:size(puncte)
         patchCurent = img(1+puncte(i,1)-margine:puncte(i,1)+margine,1+puncte(i,2)-margine:puncte(i,2)+margine);
         
-        %extragem celule din patchCurent si orientarile din orientare 
-        %dupa care
-        %aplicam histc(orientare_celula(:),linespace(0,180,9))
-        %salvam histogramele pentru cele 16 celule in descriptori si in
-        %patch-uri celule cu pixeli din imagine
+        %aplicam  
     end
     
 end
