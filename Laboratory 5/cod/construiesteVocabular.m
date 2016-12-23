@@ -53,4 +53,6 @@ function cuvinteVizuale = construiesteVocabular(numeDirector,k,iterMax)
       vizualizeazaVocabular(cuvinteVizuale,descriptoriHOG,patchuri,dimensiuneCelula);
       disp(' Apasati o tasta pentru a continua ...');
       pause;
+%       hist(calculeazaHistogramaBOVW(descriptoriHOG,cuvinteVizuale))
+%       pause;
 end
