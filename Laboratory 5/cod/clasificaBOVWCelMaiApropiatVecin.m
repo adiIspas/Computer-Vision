@@ -34,5 +34,4 @@ function eticheta = clasificaBOVWCelMaiApropiatVecin(histogramaBOVW_test,histogr
   else
       eticheta = 0;
   end
-
 end

@@ -9,7 +9,7 @@ clc
 disp('Etapa de antrenare');
 disp('Construim vocabularul de cuvinte vizuale');
 
-k = 5;% k = numarul de cuvinte vizuale ale vocabularului
+k = 50;% k = numarul de cuvinte vizuale ale vocabularului
 iterMax = 100;
 
 % cuvintele vizuale sunt centri clusterilor obtinuti prin k-means
@@ -42,3 +42,11 @@ disp('______________________________________')
 disp('Clasificator SVM linear')
 clasificaBOVW(histogrameBOVW_test, etichete_test, histogrameBOVW_exemplePozitive, histogrameBOVW_exempleNegative, @clasificaSVM);
 disp('______________________________________')
+
+
+% Pentru a plota raportul dintre k si performanta modificam functia
+% clasificaBOVW astfel incat sa intoarca ca rezultat scorul obtinut si il
+% salvam intr-un vector atat el cat si k de forma: 
+% scoruri = [scor_1, scor_2, ...] k_uri = [k_1, k_2, ...]
+% Apoi salvam aceste fisiere in memorie iar la fiecare rulare le deschidem
+% si scriem in continuarea lor, dupa care la final plotam rezultatul plot(scoruri,k_uri).
