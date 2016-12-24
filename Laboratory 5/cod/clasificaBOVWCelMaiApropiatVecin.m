@@ -12,5 +12,26 @@ function eticheta = clasificaBOVWCelMaiApropiatVecin(histogramaBOVW_test,histogr
   
 % completati codul
 %...
-  eticheta = randi([0 1]);
+  
+  valoareMinimaPozitive = intmax('int32');
+  for i = 1:size(histogrameBOVW_exemplePozitive,1)
+    valoareCurenta = sqrt(sum((histogramaBOVW_test(1,:) - histogrameBOVW_exemplePozitive(i,:)).^2));
+    if valoareCurenta < valoareMinimaPozitive
+        valoareMinimaPozitive = valoareCurenta;
+    end
+  end
+  
+  valoareMinimaNegative = intmax('int32');
+  for i = 1:size(histogrameBOVW_exempleNegative,1)
+    valoareCurenta = sqrt(sum((histogramaBOVW_test(1,:) - histogrameBOVW_exemplePozitive(i,:)).^2)); 
+    if valoareCurenta < valoareMinimaNegative
+        valoareMinimaNegative = valoareCurenta;
+    end
+  end
+  
+  if valoareMinimaPozitive < valoareMinimaNegative
+      eticheta = 1;
+  else
+      eticheta = 0;
+  end
 end
