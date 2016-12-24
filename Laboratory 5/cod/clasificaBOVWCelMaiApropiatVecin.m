@@ -11,6 +11,6 @@ function eticheta = clasificaBOVWCelMaiApropiatVecin(histogramaBOVW_test,histogr
 
   
 % completati codul
-...
-  
+%...
+  eticheta = randi([0 1]);
 end

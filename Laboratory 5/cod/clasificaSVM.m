@@ -7,3 +7,5 @@ function eticheta = clasificaSVM( histograme_test, histogrameBOVW_exemplePozitiv
 %       histogrameBOVW_exempleNegative - matrice #ImaginiExempleNegative x K, fiecare linie reprezinta histograma BOVW a unei imagini negative
 % Output: 
 %     eticheta - eticheta dedusa a imaginii test
+    eticheta = randi([0 1]);
+end
