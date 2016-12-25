@@ -9,7 +9,7 @@ clc
 disp('Etapa de antrenare');
 disp('Construim vocabularul de cuvinte vizuale');
 
-k = 5;% k = numarul de cuvinte vizuale ale vocabularului
+k = 75;% k = numarul de cuvinte vizuale ale vocabularului
 iterMax = 100;
 
 % cuvintele vizuale sunt centri clusterilor obtinuti prin k-means
@@ -37,12 +37,26 @@ etichete_test = [ones(nrExemplePozitive,1);zeros(nrExempleNegative,1)];
 
 disp('______________________________________')
 disp('Clasificator Cel Mai Apropiat Vecin')
-clasificaBOVW(histogrameBOVW_test, etichete_test, histogrameBOVW_exemplePozitive, histogrameBOVW_exempleNegative, @clasificaBOVWCelMaiApropiatVecin);
+scorCMAV = clasificaBOVW(histogrameBOVW_test, etichete_test, histogrameBOVW_exemplePozitive, histogrameBOVW_exempleNegative, @clasificaBOVWCelMaiApropiatVecin);
 disp('______________________________________')
 disp('Clasificator SVM linear')
-clasificaBOVW(histogrameBOVW_test, etichete_test, histogrameBOVW_exemplePozitive, histogrameBOVW_exempleNegative, @clasificaSVM);
+scorSVM = clasificaBOVW(histogrameBOVW_test, etichete_test, histogrameBOVW_exemplePozitive, histogrameBOVW_exempleNegative, @clasificaSVM);
 disp('______________________________________')
 
+% scoruriCMAV_citite = [];
+% scoruriSVM_citite = [];
+% k_citite = [];
+load('k_optim.mat');
+scoruriCMAV = [scoruriCMAV scorCMAV];
+scoruriSVM = [scoruriSVM scorSVM];
+k_uri = [k_uri k];
+
+save('k_optim.mat','scoruriCMAV','scoruriSVM','k_uri');
+
+plot(scoruriCMAV,k_uri,'or');
+hold on
+plot(scoruriSVM,k_uri,'+b');
+hold off
 
 % Pentru a plota raportul dintre k si performanta modificam functia
 % clasificaBOVW astfel incat sa intoarca ca rezultat scorul obtinut si il

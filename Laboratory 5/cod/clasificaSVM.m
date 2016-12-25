@@ -11,25 +11,17 @@ function eticheta = clasificaSVM( histograme_test, histogrameBOVW_exemplePozitiv
     histograme = [histogrameBOVW_exemplePozitive; histogrameBOVW_exempleNegative];
     etichete = double(ones(1,size(histogrameBOVW_exemplePozitive,1) + size(histogrameBOVW_exemplePozitive,1)));
     
-    etichete(1,1:size(histogrameBOVW_exemplePozitive)) = 1;
+    etichete(1,1:size(histogrameBOVW_exemplePozitive,1)) = 1;
     etichete(1,size(histogrameBOVW_exemplePozitive,1)+1:end) = -1;
+    
+    [w,b] = vl_svmtrain(histograme',etichete,0.01);
 
-%     size(histograme')
-%     size(etichete)
-    
-    
-    [w,b]  = vl_svmtrain(histograme',etichete,0.1);
-    
-   % [wTest] = vl_svmtrain(histograme_test',[1],0.1)
+    % scores = w'.*histograme_test + b
+    [~,~,~, scor] = vl_svmtrain(histograme_test', 1, 0.01, 'model', w, 'bias', b, 'solver', 'none');
 
-%     scores = w'.*histograme_test + b
-%     label_index = find(scores==max(scores))
-    [~,~,~, s] = vl_svmtrain(histograme_test', 1, 0, 'model', w, 'bias', b, 'solver', 'none');
-    
-    if s >= 0
+    if scor > 0
         eticheta = 1;
     else
         eticheta = 0;
     end
-%     eticheta = randi([0 1]);
 end

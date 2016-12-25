@@ -1,4 +1,4 @@
-function clasificaBOVW(histogrameBOVW_test,etichete_test,histogrameBOVW_exemplePozitive,histogrameBOVW_exempleNegative, functieClasificator)
+function scor = clasificaBOVW(histogrameBOVW_test,etichete_test,histogrameBOVW_exemplePozitive,histogrameBOVW_exempleNegative, functieClasificator)
 % clasifica histogramele test in functie de un clasificator, exemplele pozitive si cele negative
 % Input:
 %       histogrameBOVW_test - histogramele ce urmeaza a fi clasificate
@@ -23,6 +23,6 @@ for i = 1:numarExemple
 end
 
 disp(['Procentul de imagini clasificate corect:' num2str(pos/numarExemple)]);
-
+scor = pos/numarExemple;
 end
   
