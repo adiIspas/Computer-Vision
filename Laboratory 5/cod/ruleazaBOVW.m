@@ -1,3 +1,4 @@
+% ADRIAN ISPAS, Facultatea de Matematica si Informatica - Universitatea din Bucuresti
 %
 % Tema 4 - Clasificarea Imaginilor folosind modelul Bag-of-Visual-Words
 % 
@@ -9,7 +10,7 @@ clc
 disp('Etapa de antrenare');
 disp('Construim vocabularul de cuvinte vizuale');
 
-k = 75;% k = numarul de cuvinte vizuale ale vocabularului
+k = 50;% k = numarul de cuvinte vizuale ale vocabularului
 iterMax = 100;
 
 % cuvintele vizuale sunt centri clusterilor obtinuti prin k-means
@@ -53,10 +54,11 @@ k_uri = [k_uri k];
 
 save('k_optim.mat','scoruriCMAV','scoruriSVM','k_uri');
 
-plot(scoruriCMAV,k_uri,'or');
+plot(scoruriCMAV,k_uri,'or','DisplayName','Scoruri CMAV');
 hold on
-plot(scoruriSVM,k_uri,'+b');
+plot(scoruriSVM,k_uri,'+b','DisplayName','Scoruri SVM');
 hold off
+legend('show')
 
 % Pentru a plota raportul dintre k si performanta modificam functia
 % clasificaBOVW astfel incat sa intoarca ca rezultat scorul obtinut si il
