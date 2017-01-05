@@ -35,7 +35,7 @@ parametri.overlap = 0.3;                         %cat de mult trebuie sa se supr
 parametri.antrenareCuExemplePuternicNegative = 0;%(optional)antrenare cu exemple puternic negative
 parametri.numarExemplePozitive = 6713;           %numarul exemplelor pozitive
 parametri.numarExempleNegative = 10000;          %numarul exemplelor negative
-parametri.threshold = 0;                         %toate ferestrele cu scorul > threshold si maxime locale devin detectii
+parametri.threshold = 0.7;                         %toate ferestrele cu scorul > threshold si maxime locale devin detectii
 parametri.vizualizareTemplateHOG = 1;            %vizualizeaza template HOG
 
 %% 

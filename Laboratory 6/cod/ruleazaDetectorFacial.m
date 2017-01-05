@@ -20,6 +20,7 @@ function [detectii, scoruriDetectii, imageIdx] = ruleazaDetectorFacial(parametri
     % pentru detectarea fetelor de diverse marimi folosit un detector multiscale
 
     imgFiles = dir( fullfile( parametri.numeDirectorExempleTest, '*.jpg' ));
+    
     %initializare variabile de returnat
     detectii = zeros(0,4);
     scoruriDetectii = zeros(0,1);
@@ -34,58 +35,60 @@ function [detectii, scoruriDetectii, imageIdx] = ruleazaDetectorFacial(parametri
         
         %completati codul functiei in continuare
 
-%         img = imresize(img,[491 664]);
         imgOriginala = img;
         marimeInitiala = size(img);
-        for scale = 1.1:0.1:1.1
-        size(img);
-        img = imresize(img,scale);
-        descriptorHOGImagine = vl_hog(single(img),parametri.dimensiuneCelulaHOG);
-        step = round(parametri.dimensiuneFereastra/parametri.dimensiuneCelulaHOG);
-        dimCelula = parametri.dimensiuneCelulaHOG;
-        detectiiCurente = zeros(0,4);
-        scoruriDetectiiCurente = zeros(0,1);
-        imageIdxCurente = cell(0,1);
-        dim = parametri.dimensiuneFereastra;
-        for j = 1:size(descriptorHOGImagine,1)-step
-            for k = 1:size(descriptorHOGImagine,2)-step
-                descriptorHOGCurent = descriptorHOGImagine(j:j-1+step,k:k-1+step,:);
-                result = descriptorHOGCurent(:)'*parametri.w+parametri.b;
-                if result > parametri.threshold
-                    rezultat_clasificare = result;
-                    marimeActuala = size(img);
-                    raport_x = (marimeInitiala(2)/marimeActuala(2))
-                    raport_y = (marimeInitiala(1)/marimeActuala(1))
-                    j
-                    k
-                    detectiiCurente = [detectiiCurente; ceil(((k-1)*dimCelula+1)*raport_x) ceil(((j-1)*dimCelula+1)*raport_y) ceil(((k-1)*dimCelula+dim)*raport_x) ceil(((j-1)*dimCelula+dim)*raport_y)];
-                    scoruriDetectiiCurente = [scoruriDetectiiCurente rezultat_clasificare];
-                    imageIdxCurente = [imageIdxCurente imgFiles(i).name];
+        detectiiTemporare = zeros(0,4);
+        scoruriDetectiiTemporare = zeros(0,1);
+        imageIdxTemporare = cell(0,1);
+%         for scale = 1.1:0.1:1.1
+        for scale = 1:0.1:1.4
+            size(img);
+            img = imresize(img,scale);
+            descriptorHOGImagine = vl_hog(single(img),parametri.dimensiuneCelulaHOG);
+            step = round(parametri.dimensiuneFereastra/parametri.dimensiuneCelulaHOG);
+            dimCelula = parametri.dimensiuneCelulaHOG;
+            detectiiCurente = zeros(0,4);
+            scoruriDetectiiCurente = zeros(0,1);
+            imageIdxCurente = cell(0,1);
+            dim = parametri.dimensiuneFereastra;
+
+            for j = 1:size(descriptorHOGImagine,1)-step
+                for k = 1:size(descriptorHOGImagine,2)-step
+                    descriptorHOGCurent = descriptorHOGImagine(j:j-1+step,k:k-1+step,:);
+                    result = descriptorHOGCurent(:)'*parametri.w+parametri.b;
+                    if result > parametri.threshold
+                        rezultat_clasificare = result;
+                        marimeActuala = size(img);
+                        raport_x = (marimeInitiala(2)/marimeActuala(2));
+                        raport_y = (marimeInitiala(1)/marimeActuala(1));
+
+                        detectiiCurente = [detectiiCurente; ceil(((k-1)*dimCelula+1)*raport_x) ceil(((j-1)*dimCelula+1)*raport_y) ceil(((k-1)*dimCelula+dim)*raport_x) ceil(((j-1)*dimCelula+dim)*raport_y)];
+                        scoruriDetectiiCurente = [scoruriDetectiiCurente rezultat_clasificare];
+                        imageIdxCurente = [imageIdxCurente imgFiles(i).name];
+                    end
                 end
             end
+
+            rezultate = [];
+            if(size(detectiiCurente,1) > 0)
+                rezultate = eliminaNonMaximele(detectiiCurente,scoruriDetectiiCurente,size(imgOriginala));
+            end
+
+            detectiiTemporare = [detectiiTemporare; detectiiCurente(rezultate,:)];
+            scoruriDetectiiTemporare = [scoruriDetectiiTemporare scoruriDetectiiCurente(rezultate)];
+            imageIdxTemporare = [imageIdxTemporare imageIdxCurente(rezultate)];
+            detectiiCurente;
         end
+        
         rezultate = [];
-        if(size(detectiiCurente,1) > 0)
-            rezultate = eliminaNonMaximele(detectiiCurente,scoruriDetectiiCurente,size(imgOriginala));
+        if(size(detectiiTemporare,1) > 0)
+            rezultate = eliminaNonMaximele(detectiiTemporare,scoruriDetectiiTemporare,size(imgOriginala));
         end
-        
-%         for x = 1:size(rezultate,2)
-%             if rezultate(x) == 1
-%                 detectii = [detectii; detectiiCurente(x,:)];
-%                 scoruriDetectii = [scoruriDetectii; scoruriDetectiiCurente(x,:)];
-%                 imageIdx = [imageIdx; imgFiles(i).name];
-%             end
-%         end
-        detectii = [detectii; detectiiCurente(rezultate,:)];
-        scoruriDetectii = [scoruriDetectii scoruriDetectiiCurente(rezultate)];
-        imageIdx = [imageIdx imageIdxCurente(rezultate)];
+
+        detectii = [detectii; detectiiTemporare(rezultate,:)];
+        scoruriDetectii = [scoruriDetectii scoruriDetectiiTemporare(rezultate)];
+        imageIdx = [imageIdx imageIdxTemporare(rezultate)];
         detectiiCurente;
-        
-        end
     end
     
 end
-
-
-
-
