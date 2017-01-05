@@ -15,6 +15,8 @@
 
 %% Pasul 0 - initializam parametri
 %seteaza path-urile pentru seturile de date: antrenare, test
+clear
+clc
 numeDirectorSetDate = '../data/'; %
 parametri.numeDirectorExemplePozitive = fullfile(numeDirectorSetDate, 'exemplePozitive');                                   %exemple pozitive de antrenare: 36x36 fete cropate
 parametri.numeDirectorExempleNegative = fullfile(numeDirectorSetDate, 'exempleNegative');                                   %exemple negative de antrenare: imagini din care trebuie sa selectati ferestre 36x36

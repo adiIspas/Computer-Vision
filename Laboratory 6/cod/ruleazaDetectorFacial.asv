@@ -34,7 +34,7 @@ function [detectii, scoruriDetectii, imageIdx] = ruleazaDetectorFacial(parametri
         
         %completati codul functiei in continuare
 
-        img = imresize(img,[491 664]);
+        img = imresize(img,[3]);
         descriptorHOGImagine = vl_hog(single(img),parametri.dimensiuneFereastra);
         step = round(parametri.dimensiuneFereastra/parametri.dimensiuneCelulaHOG);
 
@@ -47,7 +47,11 @@ function [detectii, scoruriDetectii, imageIdx] = ruleazaDetectorFacial(parametri
   
                 end
             end
-        end   
+        end
+        
+        disp('--Done--')
+        pause
+        
     end
     
 end
