@@ -16,7 +16,7 @@ for i=1:num_test_images
    cur_scoruriDetectii = scoruriDetectii(cur_detections);
    
    figure(4)
-   imshow(cur_test_image);
+   imshow(cur_test_image),impixelinfo;
    hold on;
    
    num_detections = sum(cur_detections);

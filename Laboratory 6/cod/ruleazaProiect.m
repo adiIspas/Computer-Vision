@@ -21,14 +21,15 @@ numeDirectorSetDate = '../data/'; %
 parametri.numeDirectorExemplePozitive = fullfile(numeDirectorSetDate, 'exemplePozitive');                                   %exemple pozitive de antrenare: 36x36 fete cropate
 parametri.numeDirectorExempleNegative = fullfile(numeDirectorSetDate, 'exempleNegative');                                   %exemple negative de antrenare: imagini din care trebuie sa selectati ferestre 36x36
 parametri.numeDirectorExempleTest = fullfile(numeDirectorSetDate,'exempleTest/CMU+MIT');                                    %exemple test din dataset-ul CMU+MIT
-%parametri.numeDirectorExempleTest=fullfile(numeDirectorSetDate,'exempleTest/Curs+LaboratorIA');                            %exemple test realizate la laborator si curs
+parametri.numeDirectorExempleTest=fullfile(numeDirectorSetDate,'exempleTest/Curs+LaboratorIA');                            %exemple test realizate la laborator si curs
+parametri.numeDirectorExempleTest=fullfile(numeDirectorSetDate,'exempleTest/test');  
 parametri.numeDirectorAdnotariTest = fullfile(numeDirectorSetDate,'exempleTest/CMU+MIT_adnotari/ground_truth_bboxes.txt');  %fisierul cu adnotari pentru exemplele test din dataset-ul CMU+MIT
-parametri.existaAdnotari = 1;
+parametri.existaAdnotari = 0;
 parametri.numeDirectorSalveazaFisiere = fullfile(numeDirectorSetDate,'salveazaFisiere/');
 mkdir(parametri.numeDirectorSalveazaFisiere);
 %seteaza valori pentru diferiti parametri
 parametri.dimensiuneFereastra = 36;              %exemplele pozitive (fete de oameni cropate) au 36x36 pixeli
-parametri.dimensiuneCelulaHOG = 6;               %dimensiunea celulei
+parametri.dimensiuneCelulaHOG = 3;               %dimensiunea celulei
 parametri.dimensiuneDescriptorCelula = 31;       %dimensiunea descriptorului unei celule
 parametri.overlap = 0.3;                         %cat de mult trebuie sa se suprapuna doua detectii pentru a o elimina pe cea cu scorul mai mic
 parametri.antrenareCuExemplePuternicNegative = 0;%(optional)antrenare cu exemple puternic negative
@@ -96,7 +97,7 @@ end
 % Pentru imagini pentru care exista adnotari (cele din setul de date  CMU+MIT) folositi functia vizualizeazaDetectiiInImagineCuAdnotari.m,
 % pentru imagini fara adnotari (cele realizate la curs si laborator) folositi functia vizualizeazaDetectiiInImagineFaraAdnotari.m,
 
-if (parametri.existaAdnotari )
+if (parametri.existaAdnotari)
     [gt_ids, gt_detectii, gt_existaDetectie, tp, fp, detectii_duplicat] = evalueazaDetectii(detectii, scoruriDetectii, imageIdx, parametri.numeDirectorAdnotariTest);
     vizualizeazaDetectiiInImagineCuAdnotari(detectii, scoruriDetectii, imageIdx, tp, fp, parametri.numeDirectorExempleTest, parametri.numeDirectorAdnotariTest);
 else

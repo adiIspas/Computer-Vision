@@ -8,7 +8,7 @@ function descriptoriExempleNegative = obtineDescriptoriExempleNegative(parametri
     imgFiles = dir( fullfile( parametri.numeDirectorExempleNegative , '*.jpg' ));
     numarImagini = length(imgFiles);
 
-    numarExempleNegative_pe_imagine = round(parametri.numarExempleNegative/numarImagini);
+    numarExempleNegative_pe_imagine = round(parametri.numarExempleNegative/numarImagini)*2;
     descriptoriExempleNegative = zeros(parametri.numarExempleNegative,(parametri.dimensiuneFereastra/parametri.dimensiuneCelulaHOG)^2*parametri.dimensiuneDescriptorCelula);
     disp(['Exista un numar de imagini = ' num2str(numarImagini) ' ce contine numai exemple negative']);
     
