@@ -8,15 +8,15 @@ function descriptoriExempleNegative = obtineDescriptoriExempleNegative(parametri
     imgFiles = dir( fullfile( parametri.numeDirectorExempleNegative , '*.jpg' ));
     
     puternicNegative = parametri.antrenareCuExemplePuternicNegative;
-    imgFiles2 = [];
+    imgFilesPuternicNegative = [];
     if puternicNegative == 1
-        imgFiles2 = dir( fullfile( parametri.numeDirectorExempleNegative2 , '*.jpg' ));
+        imgFilesPuternicNegative = dir(fullfile(parametri.numeDirectorExemplePuternicNegative , '*.jpg' ));
     end
     
     numarImagini = length(imgFiles);
-    numarImaginiPuternicNegative = length(imgFiles2);
+    numarImaginiPuternicNegative = length(imgFilesPuternicNegative);
 
-    numarExempleNegative_pe_imagine = round((parametri.numarExempleNegative+numarImaginiPuternicNegative)/numarImagini);
+    numarExempleNegative_pe_imagine = round(parametri.numarExempleNegative/numarImagini);
     descriptoriExempleNegative = zeros(parametri.numarExempleNegative+numarImaginiPuternicNegative,(parametri.dimensiuneFereastra/parametri.dimensiuneCelulaHOG)^2*parametri.dimensiuneDescriptorCelula);
     disp(['Exista un numar de imagini = ' num2str(numarImagini+numarImaginiPuternicNegative) ' ce contine numai exemple negative']);
     
@@ -46,16 +46,8 @@ function descriptoriExempleNegative = obtineDescriptoriExempleNegative(parametri
         end
     end
     
-    for idx = 1:numarImaginiPuternicNegative
-        disp(['Procesam imaginea numarul ' num2str(idx)]);
-        img = imread([parametri.numeDirectorExempleNegative2 '/' imgFiles2(idx).name]);
-        if size(img,3) == 3
-            img = rgb2gray(img);
-        end 
-
-        descriptorHOG = vl_hog(single(img),parametri.dimensiuneCelulaHOG);
-        descriptorHOG = descriptorHOG(:)';
-        descriptoriExempleNegative(nrDescriptori,:) = descriptorHOG; 
-        nrDescriptori = nrDescriptori + 1;
+    if puternicNegative == 1
+        descriptoriExemplePuternicNegative = obtineDescriptoriExemplePuternicNegative(parametri);
+        descriptoriExempleNegative = [descriptoriExempleNegative; descriptoriExemplePuternicNegative];
     end
 end
