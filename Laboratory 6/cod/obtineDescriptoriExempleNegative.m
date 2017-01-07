@@ -6,11 +6,19 @@ function descriptoriExempleNegative = obtineDescriptoriExempleNegative(parametri
     %   in mod implicit D = (parametri.dimensiuneFereastra/parametri.dimensiuneCelula)^2*parametri.dimensiuneDescriptorCelula
 
     imgFiles = dir( fullfile( parametri.numeDirectorExempleNegative , '*.jpg' ));
+    
+    puternicNegative = parametri.antrenareCuExemplePuternicNegative;
+    imgFiles2 = [];
+    if puternicNegative == 1
+        imgFiles2 = dir( fullfile( parametri.numeDirectorExempleNegative2 , '*.jpg' ));
+    end
+    
     numarImagini = length(imgFiles);
+    numarImaginiPuternicNegative = length(imgFiles2);
 
-    numarExempleNegative_pe_imagine = round(parametri.numarExempleNegative/numarImagini)*2;
-    descriptoriExempleNegative = zeros(parametri.numarExempleNegative,(parametri.dimensiuneFereastra/parametri.dimensiuneCelulaHOG)^2*parametri.dimensiuneDescriptorCelula);
-    disp(['Exista un numar de imagini = ' num2str(numarImagini) ' ce contine numai exemple negative']);
+    numarExempleNegative_pe_imagine = round((parametri.numarExempleNegative+numarImaginiPuternicNegative)/numarImagini);
+    descriptoriExempleNegative = zeros(parametri.numarExempleNegative+numarImaginiPuternicNegative,(parametri.dimensiuneFereastra/parametri.dimensiuneCelulaHOG)^2*parametri.dimensiuneDescriptorCelula);
+    disp(['Exista un numar de imagini = ' num2str(numarImagini+numarImaginiPuternicNegative) ' ce contine numai exemple negative']);
     
     nrDescriptori = 1;
     for idx = 1:numarImagini
@@ -36,5 +44,18 @@ function descriptoriExempleNegative = obtineDescriptoriExempleNegative(parametri
             descriptoriExempleNegative(nrDescriptori,:) = descriptorHOG; 
             nrDescriptori = nrDescriptori + 1;
         end
+    end
+    
+    for idx = 1:numarImaginiPuternicNegative
+        disp(['Procesam imaginea numarul ' num2str(idx)]);
+        img = imread([parametri.numeDirectorExempleNegative2 '/' imgFiles2(idx).name]);
+        if size(img,3) == 3
+            img = rgb2gray(img);
+        end 
+
+        descriptorHOG = vl_hog(single(img),parametri.dimensiuneCelulaHOG);
+        descriptorHOG = descriptorHOG(:)';
+        descriptoriExempleNegative(nrDescriptori,:) = descriptorHOG; 
+        nrDescriptori = nrDescriptori + 1;
     end
 end

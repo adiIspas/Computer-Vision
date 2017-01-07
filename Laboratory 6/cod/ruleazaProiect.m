@@ -20,9 +20,11 @@ clc
 numeDirectorSetDate = '../data/'; %
 parametri.numeDirectorExemplePozitive = fullfile(numeDirectorSetDate, 'exemplePozitive');                                   %exemple pozitive de antrenare: 36x36 fete cropate
 parametri.numeDirectorExempleNegative = fullfile(numeDirectorSetDate, 'exempleNegative');                                   %exemple negative de antrenare: imagini din care trebuie sa selectati ferestre 36x36
-parametri.numeDirectorExempleTest = fullfile(numeDirectorSetDate,'exempleTest/CMU+MIT');                                    %exemple test din dataset-ul CMU+MIT
-parametri.numeDirectorExempleTest=fullfile(numeDirectorSetDate,'exempleTest/Curs+LaboratorIA');                            %exemple test realizate la laborator si curs
-%  parametri.numeDirectorExempleTest=fullfile(numeDirectorSetDate,'exempleTest/test');  
+parametri.numeDirectorExempleNegative2 = fullfile(numeDirectorSetDate, 'exemplePuternicNegative');  
+% parametri.numeDirectorExempleTest = fullfile(numeDirectorSetDate,'exempleTest/CMU+MIT');                                    %exemple test din dataset-ul CMU+MIT
+% parametri.numeDirectorExempleTest=fullfile(numeDirectorSetDate,'exempleTest/Curs+LaboratorIA');                            %exemple test realizate la laborator si curs
+ parametri.numeDirectorExempleTest=fullfile(numeDirectorSetDate,'exempleTest/test');  
+% parametri.numeDirectorExempleTest=fullfile(numeDirectorSetDate,'exempleNegative'); 
 parametri.numeDirectorAdnotariTest = fullfile(numeDirectorSetDate,'exempleTest/CMU+MIT_adnotari/ground_truth_bboxes.txt');  %fisierul cu adnotari pentru exemplele test din dataset-ul CMU+MIT
 parametri.existaAdnotari = 0;
 parametri.numeDirectorSalveazaFisiere = fullfile(numeDirectorSetDate,'salveazaFisiere/');
@@ -31,11 +33,12 @@ mkdir(parametri.numeDirectorSalveazaFisiere);
 parametri.dimensiuneFereastra = 36;              %exemplele pozitive (fete de oameni cropate) au 36x36 pixeli
 parametri.dimensiuneCelulaHOG = 3;               %dimensiunea celulei
 parametri.dimensiuneDescriptorCelula = 31;       %dimensiunea descriptorului unei celule
-parametri.overlap = 0.01;                         %cat de mult trebuie sa se suprapuna doua detectii pentru a o elimina pe cea cu scorul mai mic
+parametri.overlap = 0.3;                         %cat de mult trebuie sa se suprapuna doua detectii pentru a o elimina pe cea cu scorul mai mic
 parametri.antrenareCuExemplePuternicNegative = 0;%(optional)antrenare cu exemple puternic negative
+parametri.genereazaExemplePuternicNegative = 0;
 parametri.numarExemplePozitive = 6713;           %numarul exemplelor pozitive
 parametri.numarExempleNegative = 10000;          %numarul exemplelor negative
-parametri.threshold = 1;                         %toate ferestrele cu scorul > threshold si maxime locale devin detectii
+parametri.threshold = 1.3;                         %toate ferestrele cu scorul > threshold si maxime locale devin detectii
 parametri.vizualizareTemplateHOG = 1;            %vizualizeaza template HOG
 
 %% 
