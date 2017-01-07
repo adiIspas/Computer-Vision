@@ -56,7 +56,7 @@ function [detectii, scoruriDetectii, imageIdx] = ruleazaDetectorFacial(parametri
         imaginiTemporareMarire = cell(0,1);
         
         img = imgOriginala;
-        for scale = 1:0.15:1.6
+        for scale = 1:0.125:1.6
             img = imresize(img,scale);
             descriptorHOGImagine = vl_hog(single(img),parametri.dimensiuneCelulaHOG);
             step = round(parametri.dimensiuneFereastra/parametri.dimensiuneCelulaHOG);
@@ -119,7 +119,7 @@ function [detectii, scoruriDetectii, imageIdx] = ruleazaDetectorFacial(parametri
         
         img = imgOriginala; 
 %       sa plec cu micsorarea de la 1 si sa am pasul de -0.1
-        for scale = 1:-0.15:0.4
+        for scale = 1:-0.125:0.4
             img = imresize(img,scale);
             descriptorHOGImagine = vl_hog(single(img),parametri.dimensiuneCelulaHOG);
             step = round(parametri.dimensiuneFereastra/parametri.dimensiuneCelulaHOG);

@@ -22,10 +22,10 @@ numeDirectorSetDate = '../data/'; %
 parametri.numeDirectorExemplePozitive = fullfile(numeDirectorSetDate, 'exemplePozitive');                                   %exemple pozitive de antrenare: 36x36 fete cropate
 parametri.numeDirectorExempleNegative = fullfile(numeDirectorSetDate, 'exempleNegative');                                   %exemple negative de antrenare: imagini din care trebuie sa selectati ferestre 36x36
 parametri.numeDirectorExemplePuternicNegative = fullfile(numeDirectorSetDate, 'exemplePuternicNegative');  
-parametri.numeDirectorExempleTest = fullfile(numeDirectorSetDate,'exempleTest/CMU+MIT_10_exemple');                                    %exemple test din dataset-ul CMU+MIT
+parametri.numeDirectorExempleTest = fullfile(numeDirectorSetDate,'exempleTest/CMU+MIT');                                    %exemple test din dataset-ul CMU+MIT
 % parametri.numeDirectorExempleTest=fullfile(numeDirectorSetDate,'exempleTest/Curs+LaboratorIA');                            %exemple test realizate la laborator si curs 
 % parametri.numeDirectorExempleTest=fullfile(numeDirectorSetDate,'exempleTest/test');
-parametri.numeDirectorAdnotariTest = fullfile(numeDirectorSetDate,'exempleTest/CMU+MIT_10_exemple_adnotari/ground_truth_bboxes.txt');  %fisierul cu adnotari pentru exemplele test din dataset-ul CMU+MIT
+parametri.numeDirectorAdnotariTest = fullfile(numeDirectorSetDate,'exempleTest/CMU+MIT_adnotari/ground_truth_bboxes.txt');  %fisierul cu adnotari pentru exemplele test din dataset-ul CMU+MIT
 % parametri.numeDirectorAdnotariTest=fullfile(numeDirectorSetDate,'exempleTest/Curs+LaboratorIA_adnotari/ground_truth_bboxes.txt');
 % parametri.numeDirectorAdnotariTest=fullfile(numeDirectorSetDate,'exempleTest/test_adnotari/ground_truth_bboxes.txt');
 parametri.existaAdnotari = 1;
@@ -40,7 +40,7 @@ parametri.antrenareCuExemplePuternicNegative = 1;%(optional)antrenare cu exemple
 parametri.genereazaExemplePuternicNegative = 0;
 parametri.numarExemplePozitive = 6713;           %numarul exemplelor pozitive
 parametri.numarExempleNegative = 10000;          %numarul exemplelor negative
-parametri.threshold = 1.3;                         %toate ferestrele cu scorul > threshold si maxime locale devin detectii
+parametri.threshold = 1;                         %toate ferestrele cu scorul > threshold si maxime locale devin detectii
 parametri.vizualizareTemplateHOG = 1;            %vizualizeaza template HOG
 
 %% 
