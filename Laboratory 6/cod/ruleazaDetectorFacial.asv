@@ -56,8 +56,8 @@ function [detectii, scoruriDetectii, imageIdx] = ruleazaDetectorFacial(parametri
         imaginiTemporareMarire = cell(0,1);
         
         img = imgOriginala;
-        scale = 1.1;
-        for pas = 1:3
+        scale = 1.125;
+        for pas = 1:4
             img = imresize(img,scale);
             descriptorHOGImagine = vl_hog(single(img),parametri.dimensiuneCelulaHOG);
             step = round(parametri.dimensiuneFereastra/parametri.dimensiuneCelulaHOG);
@@ -116,8 +116,7 @@ function [detectii, scoruriDetectii, imageIdx] = ruleazaDetectorFacial(parametri
         imaginiTemporareMicsorare = cell(0,1);
         
         img = imgOriginala;
-        scale = 0.9;
-        while size(img,1) >= 45 && size(img,2) >= 45
+        while size(img,1) && size(img,2) > 45
             img = imresize(img,scale);
             descriptorHOGImagine = vl_hog(single(img),parametri.dimensiuneCelulaHOG);
             step = round(parametri.dimensiuneFereastra/parametri.dimensiuneCelulaHOG);
