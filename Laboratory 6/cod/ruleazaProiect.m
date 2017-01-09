@@ -34,7 +34,7 @@ parametri.numeDirectorSalveazaFisiere = fullfile(numeDirectorSetDate,'salveazaFi
 mkdir(parametri.numeDirectorSalveazaFisiere);
 %seteaza valori pentru diferiti parametri
 parametri.dimensiuneFereastra = 36;              %exemplele pozitive (fete de oameni cropate) au 36x36 pixeli
-parametri.dimensiuneCelulaHOG = 2;               %dimensiunea celulei
+parametri.dimensiuneCelulaHOG = 4;               %dimensiunea celulei
 parametri.dimensiuneDescriptorCelula = 31;       %dimensiunea descriptorului unei celule
 parametri.overlap = 0.3;                         %cat de mult trebuie sa se suprapuna doua detectii pentru a o elimina pe cea cu scorul mai mic
 parametri.antrenareCuExemplePuternicNegative = 1;%(optional)antrenare cu exemple puternic negative
