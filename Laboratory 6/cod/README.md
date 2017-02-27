@@ -6,8 +6,8 @@ My MATLAB implementation of facial detection with HOG.
 
 Precision
 
-![screenshot](https://github.com/adiIspas/Computer-Vision/blob/master/Laboratory%204/images/precision.PNG)
+![screenshot](https://github.com/adiIspas/Computer-Vision/blob/master/Laboratory%206/images/precision.PNG)
 
 Examples
 
-![screenshot](https://github.com/adiIspas/Computer-Vision/blob/master/Laboratory%204/images/examples.PNG)
+![screenshot](https://github.com/adiIspas/Computer-Vision/blob/master/Laboratory%206/images/examples.PNG)
