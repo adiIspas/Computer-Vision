@@ -25,23 +25,23 @@ parametri.numeDirectorExemplePuternicNegative = fullfile(numeDirectorSetDate, 'e
 parametri.numeDirectorExempleTest = fullfile(numeDirectorSetDate,'exempleTest/CMU+MIT');                                    %exemple test din dataset-ul CMU+MIT
 % parametri.numeDirectorExempleTest = fullfile(numeDirectorSetDate,'exempleNegative');
 % parametri.numeDirectorExempleTest=fullfile(numeDirectorSetDate,'exempleTest/Curs+LaboratorIA');                            %exemple test realizate la laborator si curs 
-% parametri.numeDirectorExempleTest=fullfile(numeDirectorSetDate,'exempleTest/test');
+parametri.numeDirectorExempleTest=fullfile(numeDirectorSetDate,'exempleTest/test');
 parametri.numeDirectorAdnotariTest = fullfile(numeDirectorSetDate,'exempleTest/CMU+MIT_adnotari/ground_truth_bboxes.txt');  %fisierul cu adnotari pentru exemplele test din dataset-ul CMU+MIT
 % parametri.numeDirectorAdnotariTest=fullfile(numeDirectorSetDate,'exempleTest/Curs+LaboratorIA_adnotari/ground_truth_bboxes.txt');
 % parametri.numeDirectorAdnotariTest=fullfile(numeDirectorSetDate,'exempleTest/test_adnotari/ground_truth_bboxes.txt');
-parametri.existaAdnotari = 1;
+parametri.existaAdnotari = 0;
 parametri.numeDirectorSalveazaFisiere = fullfile(numeDirectorSetDate,'salveazaFisiere/');
 mkdir(parametri.numeDirectorSalveazaFisiere);
 %seteaza valori pentru diferiti parametri
 parametri.dimensiuneFereastra = 36;              %exemplele pozitive (fete de oameni cropate) au 36x36 pixeli
-parametri.dimensiuneCelulaHOG = 4;               %dimensiunea celulei
+parametri.dimensiuneCelulaHOG = 3;               %dimensiunea celulei
 parametri.dimensiuneDescriptorCelula = 31;       %dimensiunea descriptorului unei celule
 parametri.overlap = 0.3;                         %cat de mult trebuie sa se suprapuna doua detectii pentru a o elimina pe cea cu scorul mai mic
 parametri.antrenareCuExemplePuternicNegative = 1;%(optional)antrenare cu exemple puternic negative
 parametri.genereazaExemplePuternicNegative = 0;
 parametri.numarExemplePozitive = 13426;           %numarul exemplelor pozitive
 parametri.numarExempleNegative = 10000;          %numarul exemplelor negative
-parametri.threshold = 0;                        %toate ferestrele cu scorul > threshold si maxime locale devin detectii
+parametri.threshold = 0.53;                        %toate ferestrele cu scorul > threshold si maxime locale devin detectii
 parametri.vizualizareTemplateHOG = 1;            %vizualizeaza template HOG
 
 %% 
@@ -73,9 +73,7 @@ catch
     save(numeFisierDescriptoriExempleNegative,'descriptoriExempleNegative','-v7.3');
      disp(['Am salvat descriptorii pentru exemplele negative in fisierul ' numeFisierDescriptoriExempleNegative]);
 end
-
 disp('Am obtinut exemplele de antrenare');
-
 %%
 %Pasul 2. Invatam clasificatorul liniar
  exempleAntrenare = [descriptoriExemplePozitive;descriptoriExempleNegative]';
