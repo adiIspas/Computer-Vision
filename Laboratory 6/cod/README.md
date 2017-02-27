@@ -1,4 +1,4 @@
-# Image Quilting for Texture Synthesis and Transfer
+# Facial Detection
 
 My MATLAB implementation of facial detection with HOG.
 
